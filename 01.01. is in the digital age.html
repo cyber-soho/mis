@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 01 · Information Systems (IS) in the Digital Age</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:#f1f5f9}
+  ::-webkit-scrollbar-thumb{background:#94a3b8;border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:#64748b}
+  .chart-container{position:relative;width:100%;max-width:560px;margin:0 auto;height:280px;max-height:360px}
+  @media (min-width:768px){.chart-container{height:320px}}
+  .tab-panel{display:none}
+  .tab-panel.block{display:block}
+  .flip-card{cursor:pointer}
+  details > summary{cursor:pointer}
+  details summary::-webkit-details-marker{display:none}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed selection:bg-indigo-100 selection:text-indigo-800">
+
+<nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🖥️</span>
+        <span class="font-bold text-lg tracking-wide">Cyber.SoHo <span class="text-indigo-400">IS Hub</span></span>
+      </div>
+      <div class="hidden lg:block">
+        <div class="flex items-baseline space-x-2">
+          <button onclick="switchTab('overview')" id="nav-overview" class="px-3 py-2 rounded-md text-sm font-medium bg-slate-800 text-white transition hover:bg-slate-700 border-b-2 border-indigo-500">Overview</button>
+          <button onclick="switchTab('l11')" id="nav-l11" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">1.1 Global Business</button>
+          <button onclick="switchTab('l12')" id="nav-l12" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">1.2 E-business</button>
+          <button onclick="switchTab('l13')" id="nav-l13" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">1.3 Strategy</button>
+          <button onclick="switchTab('l14')" id="nav-l14" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">1.4 Ethics</button>
+          <button onclick="switchTab('l15')" id="nav-l15" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">1.5 Assessment</button>
+        </div>
+      </div>
+    </div>
+    <div class="lg:hidden flex flex-wrap gap-1 pb-2">
+      <button onclick="switchTab('overview')" class="px-2 py-1 text-xs rounded bg-slate-800 text-white">Overview</button>
+      <button onclick="switchTab('l11')" class="px-2 py-1 text-xs rounded bg-slate-800 text-white">1.1</button>
+      <button onclick="switchTab('l12')" class="px-2 py-1 text-xs rounded bg-slate-800 text-white">1.2</button>
+      <button onclick="switchTab('l13')" class="px-2 py-1 text-xs rounded bg-slate-800 text-white">1.3</button>
+      <button onclick="switchTab('l14')" class="px-2 py-1 text-xs rounded bg-slate-800 text-white">1.4</button>
+      <button onclick="switchTab('l15')" class="px-2 py-1 text-xs rounded bg-slate-800 text-white">1.5</button>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+<!-- OVERVIEW -->
+<section id="overview-view" class="tab-panel block space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">Information Systems (IS) in the Digital Age</h1>
+    <p class="text-sm text-slate-500 mb-6">Week 01 · Management of Information Systems (IS) Assessment · Cyber.SoHo Educational Hub</p>
+    <p class="text-slate-600 mb-6 text-lg">This course is called <strong>Assessment</strong>, not <em>Introduction</em>, because it asks you to judge systems and defend the judgement — not merely describe them. Every claim you make must be <strong class="text-indigo-700">falsifiable</strong>: stated precisely enough that evidence could show it wrong.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="p-4 bg-rose-50 rounded-lg border-l-4 border-rose-400">
+        <strong class="text-rose-900 block text-sm uppercase tracking-wide mb-1">Student A — Opinion</strong>
+        <span class="text-rose-800 text-sm italic">"The booking system is quite good. It is easy to use and most students seem to like it."</span>
+      </div>
+      <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500 shadow-md">
+        <strong class="text-emerald-900 block text-sm uppercase tracking-wide mb-1">Student B — Assessment</strong>
+        <span class="text-emerald-800 text-sm italic">"Room occupancy rose from 41% to 68% over eight weeks. The claim that students prefer it has never been measured — that claim should be removed until it is."</span>
+      </div>
+    </div>
+
+    <h2 class="text-xl font-semibold text-slate-800 mb-3">Learning Outcomes</h2>
+    <ol class="list-decimal list-inside space-y-1 text-slate-600 text-sm mb-8">
+      <li>State what an IS is via its four activities and three dimensions — without using "computer" as the definition.</li>
+      <li>Distinguish data, information and knowledge with your own example.</li>
+      <li>Name the six strategic business objectives and match a real system to at least two.</li>
+      <li>Identify the four system types by management level (TPS/MIS/DSS/ESS).</li>
+      <li>Describe a business process crossing departments, and why crossings lose information.</li>
+      <li>Explain what an enterprise application is and what problem it solves.</li>
+      <li>Apply the five competitive forces to a small business.</li>
+      <li>List the five moral dimensions of IS and apply the five-step ethical analysis.</li>
+      <li>Conduct a six-lens assessment defended by named measurements.</li>
+      <li>Recognise the difference between an assessment and an opinion.</li>
+    </ol>
+
+    <h2 class="text-xl font-semibold text-slate-800 mb-3">The 120-Minute Running Order</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-slate-800 text-white">
+          <tr><th class="p-2 text-left">Minutes</th><th class="p-2 text-left">Section</th><th class="p-2 text-left">What happens</th></tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-2">0–8</td><td class="p-2 font-semibold">1.0</td><td class="p-2">Why this course is called "Assessment"</td></tr>
+          <tr class="bg-slate-50"><td class="p-2">8–38</td><td class="p-2 font-semibold">1.1</td><td class="p-2">Information Systems in Global Business Today</td></tr>
+          <tr class="bg-white"><td class="p-2">42–70</td><td class="p-2 font-semibold">1.2</td><td class="p-2">Global E-business and Collaboration</td></tr>
+          <tr class="bg-slate-50"><td class="p-2">70–96</td><td class="p-2 font-semibold">1.3</td><td class="p-2">Information Systems, Organizations, and Strategy</td></tr>
+          <tr class="bg-white"><td class="p-2">100–116</td><td class="p-2 font-semibold">1.4</td><td class="p-2">Ethical and Social Issues in Information Systems</td></tr>
+          <tr class="bg-slate-50"><td class="p-2">116–120</td><td class="p-2 font-semibold">1.5</td><td class="p-2">The six-lens assessment method</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 1.1 -->
+<section id="l11-view" class="tab-panel space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">1.1 — Information Systems in Global Business Today</h2>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Data, Information, Knowledge</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+        <strong class="text-blue-900 block">Data</strong>
+        <span class="text-blue-700 text-sm">Raw recorded facts, no interpretation. <code>2026-09-14, JOB-1003, 2.75, 64.00</code></span>
+      </div>
+      <div class="p-4 bg-slate-100 rounded-lg border-l-4 border-slate-500">
+        <strong class="text-slate-900 block">Information</strong>
+        <span class="text-slate-700 text-sm">Data organised to answer a question actually asked: "Brake overhauls averaged 2.75h vs a 2.0h estimate."</span>
+      </div>
+      <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500 shadow-md">
+        <strong class="text-purple-900 block">Knowledge</strong>
+        <span class="text-purple-700 text-sm">Understanding of <em>why</em>, usually living in a person, not a database: "...because most bikes now have disc brakes."</span>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">The Four Activities of an Information System</h3>
+    <div class="overflow-x-auto mb-8">
+      <table class="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-indigo-600 text-white"><tr><th class="p-2 text-left">Activity</th><th class="p-2 text-left">What happens</th><th class="p-2 text-left">Failure mode when weak</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-2 font-semibold">Input</td><td class="p-2">Raw facts captured from inside/outside the org.</td><td class="p-2 text-rose-700">Wrong/missing data poisons everything downstream.</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">Processing</td><td class="p-2">Facts sorted, calculated, validated, combined.</td><td class="p-2 text-rose-700">Out-of-date rule: arithmetic right, answer wrong.</td></tr>
+          <tr class="bg-white"><td class="p-2 font-semibold">Output</td><td class="p-2">Result reaches a person who can act on it.</td><td class="p-2 text-rose-700">Correct but too late, wrong format, wrong person.</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">Feedback</td><td class="p-2">Result examined, changes the input next time.</td><td class="p-2 text-rose-700">Same flawed report runs for years, unread.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-slate-600 text-sm mb-8 italic">Feedback is the activity most beginners leave out — it's what turns data-processing into a genuine information <em>system</em>.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+      <div>
+        <h3 class="text-lg font-semibold text-slate-800 mb-3">Six Strategic Business Objectives</h3>
+        <ul class="space-y-2 text-sm text-slate-700">
+          <li><strong>1. Operational excellence</strong> — less waste, time, errors.</li>
+          <li><strong>2. New products/business models</strong> — sell something new, or newly.</li>
+          <li><strong>3. Customer/supplier intimacy</strong> — know them individually.</li>
+          <li><strong>4. Improved decision making</strong> — measurement in time to act.</li>
+          <li><strong>5. Competitive advantage</strong> — hard for rivals to copy.</li>
+          <li><strong>6. Survival</strong> — law/regulator leaves no alternative.</li>
+        </ul>
+        <p class="text-xs text-slate-500 mt-3 italic">Claiming two objectives precisely scores higher than claiming six vaguely.</p>
+      </div>
+      <div class="flex flex-col items-center justify-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2">Illustrative Objective Mix</h4>
+        <div class="chart-container"><canvas id="objectivesChart"></canvas></div>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Complementary Assets</h3>
+    <p class="text-slate-600 text-sm mb-4">Two firms buy the same software; one's productivity rises, the other's doesn't. <strong>Complementary assets</strong> — organisational, managerial, social — explain the gap. The software is rarely the expensive part.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-sm">
+      <div class="p-3 bg-indigo-50 rounded border border-indigo-100"><strong class="text-indigo-900">Organisational</strong><p class="text-indigo-700 mt-1">Supportive culture, efficient process, decentralised authority.</p></div>
+      <div class="p-3 bg-indigo-50 rounded border border-indigo-100"><strong class="text-indigo-900">Managerial</strong><p class="text-indigo-700 mt-1">Senior backing, incentives, training, knowledge sharing.</p></div>
+      <div class="p-3 bg-indigo-50 rounded border border-indigo-100"><strong class="text-indigo-900">Social</strong><p class="text-indigo-700 mt-1">Infrastructure, skilled labour market, standards, enforceable law.</p></div>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Four System Types, Four Kinds of Question</h3>
+    <div class="overflow-x-auto mb-8">
+      <table class="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-slate-800 text-white"><tr><th class="p-2 text-left">Type</th><th class="p-2 text-left">Used by</th><th class="p-2 text-left">Question it answers</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-2 font-semibold">TPS</td><td class="p-2">Front-line staff/machines</td><td class="p-2">"Record this sale, shift, shipment."</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">MIS</td><td class="p-2">Middle managers</td><td class="p-2">"How did we do last month vs. plan?"</td></tr>
+          <tr class="bg-white"><td class="p-2 font-semibold">DSS</td><td class="p-2">Analysts / specialists</td><td class="p-2">"What happens if we change this?"</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">ESS</td><td class="p-2">Senior management</td><td class="p-2">"Where is this organisation going?"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-slate-600 text-sm mb-8 italic">Data flows upward: bad data in the TPS becomes confident, well-formatted, wrong answers everywhere above it.</p>
+
+    <div class="border border-slate-200 rounded-lg overflow-hidden">
+      <div class="bg-amber-50 p-4 border-b border-amber-100 flex justify-between items-center">
+        <h3 class="font-bold text-amber-900">▸ Real-Life Example 1 — Atwater Bike Repair</h3>
+        <span class="text-xs bg-amber-200 px-2 py-1 rounded text-amber-800">IPO + Feedback</span>
+      </div>
+      <div class="p-4">
+        <p class="text-slate-600 text-sm mb-3">A two-mechanic Montréal shop runs one day: five jobs captured as <strong>input</strong>, labour/parts/tax as <strong>processing</strong>, a job sheet as <strong>output</strong>, and a booking-rule change as <strong>feedback</strong> (JOB-1005 finishes at 18:30, past the 17:00 close).</p>
+        <button onclick="toggleCode('code-atwater')" class="text-indigo-600 text-sm font-semibold hover:underline">View pseudocode logic ▾</button>
+        <div id="code-atwater" class="hidden mt-3 bg-slate-900 text-slate-300 p-3 rounded text-xs font-mono overflow-x-auto">
+<pre>LABOUR_RATE = 62.00 ; TAX = 0.14975
+stage_1_input()      -> capture 5 RepairJob records (no calculation)
+stage_2_processing()  -> labour = hours*rate; total = (labour+parts)*(1+TAX)
+                         finished = accepted_at + hours; overran = finished.hour >= 17
+stage_3_output()      -> print job sheet, flag overruns with *
+stage_4_feedback()    -> if late_jobs: "stop accepting >3h jobs after 11:00"
+                         top_earner -> "feature this service on the window sign"</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 1.2 -->
+<section id="l12-view" class="tab-panel space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">1.2 — Global E-business and Collaboration</h2>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">A Business Is a Set of Business Processes</h3>
+    <p class="text-slate-600 text-sm mb-4">A customer buying coffee triggers <strong>order-to-cash</strong> across four functions. The crossings between departments are where information gets lost, delayed, duplicated or contradicted.</p>
+    <div class="flex flex-wrap gap-2 mb-8 text-sm">
+      <span class="px-3 py-2 bg-indigo-100 text-indigo-800 rounded-full">1. Sales — takes order</span>
+      <span class="px-3 py-2 bg-teal-100 text-teal-800 rounded-full">2. Operations — prepares item</span>
+      <span class="px-3 py-2 bg-rose-100 text-rose-800 rounded-full">3. Finance — collects, taxes, records</span>
+      <span class="px-3 py-2 bg-slate-200 text-slate-800 rounded-full">4. Supply — deducts stock, reorders</span>
+    </div>
+    <p class="text-slate-500 text-xs mb-8">Other cross-cutting processes: procure-to-pay, hire-to-retire, record-to-report.</p>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Four Enterprise Applications (the walls-crossers)</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div class="border border-slate-200 rounded-lg p-4"><strong class="text-slate-900">ERP</strong> <span class="text-xs bg-slate-200 px-2 py-0.5 rounded">Enterprise Resource Planning</span><p class="text-slate-600 text-sm mt-2">One database covering finance, HR, manufacturing, sales, distribution at once. Removes walls — and departmental independence.</p></div>
+      <div class="border border-slate-200 rounded-lg p-4"><strong class="text-slate-900">SCM</strong> <span class="text-xs bg-slate-200 px-2 py-0.5 rounded">Supply Chain Mgmt</span><p class="text-slate-600 text-sm mt-2">Coordinates suppliers/production/distribution beyond the firm's own walls.</p></div>
+      <div class="border border-slate-200 rounded-lg p-4"><strong class="text-slate-900">CRM</strong> <span class="text-xs bg-slate-200 px-2 py-0.5 rounded">Customer Relationship Mgmt</span><p class="text-slate-600 text-sm mt-2">Every customer interaction survives the salesperson who leaves.</p></div>
+      <div class="border border-slate-200 rounded-lg p-4"><strong class="text-slate-900">KMS</strong> <span class="text-xs bg-slate-200 px-2 py-0.5 rounded">Knowledge Mgmt System</span><p class="text-slate-600 text-sm mt-2">Hardest to succeed — depends on busy people writing down what they know.</p></div>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Collaboration: When and Where</h3>
+    <div class="overflow-x-auto mb-8">
+      <table class="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-slate-800 text-white"><tr><th class="p-2 text-left"></th><th class="p-2 text-left">Same place</th><th class="p-2 text-left">Different place</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-2 font-semibold">Same time</td><td class="p-2">Meeting room, whiteboard</td><td class="p-2">Video call, live shared doc</td></tr>
+          <tr class="bg-indigo-50"><td class="p-2 font-semibold">Different time</td><td class="p-2">Shared board, handover book</td><td class="p-2 font-bold text-indigo-800">Email, wiki, threaded chat ← hardest &amp; most valuable</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Who Runs the IS Function</h3>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8 text-center text-xs">
+      <div class="bg-slate-100 p-3 rounded-lg"><strong class="block text-slate-800">CIO</strong>Whole IS function</div>
+      <div class="bg-slate-100 p-3 rounded-lg"><strong class="block text-slate-800">CSO</strong>Security</div>
+      <div class="bg-slate-100 p-3 rounded-lg"><strong class="block text-slate-800">CPO</strong>Privacy</div>
+      <div class="bg-slate-100 p-3 rounded-lg"><strong class="block text-slate-800">CKO</strong>Knowledge</div>
+      <div class="bg-slate-100 p-3 rounded-lg"><strong class="block text-slate-800">CDO</strong>Data governance</div>
+    </div>
+
+    <div class="border border-slate-200 rounded-lg overflow-hidden">
+      <div class="bg-amber-50 p-4 border-b border-amber-100 flex justify-between items-center">
+        <h3 class="font-bold text-amber-900">▸ Real-Life Example 2 — Rue Sherbrooke Café</h3>
+        <span class="text-xs bg-amber-200 px-2 py-1 rounded text-amber-800">Shared Database Simulator</span>
+      </div>
+      <div class="p-4">
+        <p class="text-slate-600 text-sm mb-3">Place an order and watch it cross Sales → Operations → Finance → Supply. Break the shared database to see private copies of the numbers silently drift apart — the exact failure ERP was invented to fix.</p>
+        <div class="bg-white border border-slate-300 rounded p-3 mb-3">
+          <button onclick="cafeOrder('Latte x2 + Bagel', 12.50, {milk:0.5, beans:0.04, bagels:1})" class="px-3 py-1.5 bg-indigo-600 text-white rounded text-xs mr-2 mb-1 hover:bg-indigo-700">Latte x2 + Bagel</button>
+          <button onclick="cafeOrder('Filter coffee', 3.25, {milk:0.05, beans:0.02, bagels:0})" class="px-3 py-1.5 bg-indigo-600 text-white rounded text-xs mr-2 mb-1 hover:bg-indigo-700">Filter coffee</button>
+          <button onclick="cafeOrder('Catering tray (20)', 145.00, {milk:4.0, beans:0.60, bagels:20})" class="px-3 py-1.5 bg-indigo-600 text-white rounded text-xs mr-2 mb-1 hover:bg-indigo-700">Catering tray (20)</button>
+          <button onclick="cafeReset()" class="px-3 py-1.5 bg-slate-200 text-slate-700 rounded text-xs hover:bg-slate-300">Reset day</button>
+          <div class="mt-2 text-xs">
+            <label><input type="checkbox" id="cafeBroken" onchange="cafeToggle()"> <strong>Break the shared database</strong> — each department keeps a private copy.</label>
+          </div>
+        </div>
+        <div id="cafeLog" class="bg-slate-900 text-slate-300 font-mono text-xs p-3 rounded h-32 overflow-y-auto mb-3">System ready. No orders yet.</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+          <div class="bg-slate-100 p-2 rounded"><strong>Milk (L)</strong> <span id="cafeMilk">18.0</span></div>
+          <div class="bg-slate-100 p-2 rounded"><strong>Beans (kg)</strong> <span id="cafeBeans">6.00</span></div>
+          <div class="bg-slate-100 p-2 rounded"><strong>Bagels</strong> <span id="cafeBagels">40</span></div>
+          <div class="bg-slate-100 p-2 rounded"><strong>Finance total</strong> $<span id="cafeFin">0.00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 1.3 -->
+<section id="l13-view" class="tab-panel space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">1.3 — Information Systems, Organizations, and Strategy</h2>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Two Economic Explanations for Flatter Firms</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm">
+      <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100"><strong class="text-indigo-900">Transaction cost theory</strong><p class="text-indigo-800 mt-1">IS lowers the cost of buying from the market, so firms outsource more and stay smaller.</p></div>
+      <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100"><strong class="text-indigo-900">Agency theory</strong><p class="text-indigo-800 mt-1">IS lowers supervision (agency) costs, so one manager oversees more people — fewer middle layers.</p></div>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Porter's Five Competitive Forces — Boba Blvd vs. Pearl &amp; Co.</h3>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-4">
+      <div class="chart-container"><canvas id="forcesChart"></canvas></div>
+      <ul class="text-sm text-slate-700 space-y-2">
+        <li><strong>Rivalry</strong> → loyalty history that isn't price-comparable</li>
+        <li><strong>New entrants</strong> → switching costs (stored value, saved preferences)</li>
+        <li><strong>Substitutes</strong> → speed from demand-shift to launch</li>
+        <li><strong>Buyer power</strong> → CRM segmentation, personalised offers</li>
+        <li><strong>Supplier power</strong> → multi-source quoting portals</li>
+      </ul>
+    </div>
+    <p class="text-slate-500 text-xs mb-8 italic">Total pressure: Boba Blvd 21/25 vs Pearl &amp; Co. 12/25. Note the identical "substitute products" score — an honest assessment names what the app did <em>not</em> fix.</p>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Four Generic Strategies</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm">
+      <div class="p-3 bg-slate-100 rounded"><strong>Low-cost leadership</strong> — inventory/process automation</div>
+      <div class="p-3 bg-slate-100 rounded"><strong>Product differentiation</strong> — mass customisation</div>
+      <div class="p-3 bg-slate-100 rounded"><strong>Focus on a niche</strong> — fine-grained customer analysis</div>
+      <div class="p-3 bg-slate-100 rounded"><strong>Customer/supplier intimacy</strong> — CRM, extranets</div>
+    </div>
+    <p class="text-slate-600 text-sm mb-8">Buying a system is not a strategy — every competitor can buy the same one. Advantage comes from the harder-to-copy complementary assets (§1.1.5).</p>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Network Economics, Ecosystems, Disruption</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+      <div class="p-3 bg-purple-50 rounded border border-purple-100"><strong class="text-purple-900">Network economics</strong><p class="text-purple-700 mt-1">Each new participant makes the network more valuable to everyone already in it.</p></div>
+      <div class="p-3 bg-purple-50 rounded border border-purple-100"><strong class="text-purple-900">Business ecosystems</strong><p class="text-purple-700 mt-1">Niche firms build on a keystone firm's platform — a risk not on any balance sheet.</p></div>
+      <div class="p-3 bg-purple-50 rounded border border-purple-100"><strong class="text-purple-900">Disruptive technology</strong><p class="text-purple-700 mt-1">Arrives worse, improves, displaces — each ignoring decision was individually rational.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 1.4 -->
+<section id="l14-view" class="tab-panel space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">1.4 — Ethical and Social Issues in Information Systems</h2>
+    <p class="text-slate-600 mb-6">The <strong>StudySpot</strong> case: a campus room-booking app records student number, room, time slot, and the device's <strong>MAC address</strong> — data the booking function does not actually require.</p>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Five Moral Dimensions of Information Systems</h3>
+    <div class="space-y-3 mb-8">
+      <details class="border border-slate-200 rounded-lg p-3"><summary class="font-semibold text-slate-800">1. Information rights and obligations</summary><p class="text-slate-600 text-sm mt-2">What may be collected about a person, and what must be told to them.</p></details>
+      <details class="border border-slate-200 rounded-lg p-3"><summary class="font-semibold text-slate-800">2. Property rights and obligations</summary><p class="text-slate-600 text-sm mt-2">Who owns the data, the derived insights, and the software itself.</p></details>
+      <details class="border border-slate-200 rounded-lg p-3"><summary class="font-semibold text-slate-800">3. Accountability and control</summary><p class="text-slate-600 text-sm mt-2">Who can be named as responsible when the system causes harm.</p></details>
+      <details class="border border-slate-200 rounded-lg p-3"><summary class="font-semibold text-slate-800">4. System quality</summary><p class="text-slate-600 text-sm mt-2">What standard of data and software quality is acceptable, and who decides.</p></details>
+      <details class="border border-slate-200 rounded-lg p-3"><summary class="font-semibold text-slate-800">5. Quality of life</summary><p class="text-slate-600 text-sm mt-2">What values and institutions a system preserves or erodes.</p></details>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">Responsibility, Accountability, Liability</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-sm">
+      <div class="p-3 bg-rose-50 rounded border border-rose-100"><strong class="text-rose-900">Responsibility</strong><p class="text-rose-700 mt-1">Accepting the consequences of a choice.</p></div>
+      <div class="p-3 bg-rose-50 rounded border border-rose-100"><strong class="text-rose-900">Accountability</strong><p class="text-rose-700 mt-1">A mechanism (e.g. a log) that records who did what — a property of a system, not a feeling.</p></div>
+      <div class="p-3 bg-rose-50 rounded border border-rose-100"><strong class="text-rose-900">Liability</strong><p class="text-rose-700 mt-1">Law permitting an affected person to seek a remedy.</p></div>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm">
+      <strong class="text-amber-900">Kant's test vs. the Utilitarian test</strong>
+      <p class="text-amber-800 mt-2">Kant's test asks whether it would be acceptable if <em>every</em> college did this — most conclude it would not. The Utilitarian test can go either way, since better occupancy data benefits many while harming none visibly. Naming <em>both</em> tests — and where they disagree — is the assessable move.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 1.5 -->
+<section id="l15-view" class="tab-panel space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">1.5 — The Six-Lens Assessment Method</h2>
+    <p class="text-slate-600 mb-6">Every graded assessment in this course answers six questions, in this order, each defended with one piece of evidence. Score the <strong>weakest</strong> lens, not the average — a system with five excellent dimensions and one failing dimension is a failing system.</p>
+
+    <div class="overflow-x-auto mb-6">
+      <table class="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-indigo-600 text-white"><tr><th class="p-2 text-left">Lens</th><th class="p-2 text-left">The question</th><th class="p-2 text-left">Where it comes from</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-2 font-semibold">1. Purpose</td><td class="p-2">Which business objectives does it serve?</td><td class="p-2">Lesson 1.1.4</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">2. People</td><td class="p-2">Who inputs, decides, is affected?</td><td class="p-2">Lessons 1.1.3 / 1.2.7</td></tr>
+          <tr class="bg-white"><td class="p-2 font-semibold">3. Process</td><td class="p-2">Which steps does it change, remove, create?</td><td class="p-2">Lesson 1.2.1</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">4. Strategy</td><td class="p-2">Which competitive force does it weaken?</td><td class="p-2">Lesson 1.3.5</td></tr>
+          <tr class="bg-white"><td class="p-2 font-semibold">5. Ethics <span class="text-xs text-rose-600">(×2 weight)</span></td><td class="p-2">Whose data, whose risk, whose accountability?</td><td class="p-2">Lesson 1.4.2</td></tr>
+          <tr class="bg-slate-50"><td class="p-2 font-semibold">6. Evidence <span class="text-xs text-rose-600">(×2 weight)</span></td><td class="p-2">What measurement proves each claim?</td><td class="p-2">Lesson 1.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-slate-900 text-white rounded-lg p-5 mb-6">
+      <h4 class="font-bold text-indigo-400 mb-2">Three Marking Rules</h4>
+      <ol class="list-decimal list-inside text-sm space-y-1 text-slate-300">
+        <li>A lens you skip is a mark you lose — all six, every time.</li>
+        <li>Ethics and Evidence carry double weight.</li>
+        <li>A score with no written finding scores zero — a number without a sentence is not an assessment.</li>
+      </ol>
+    </div>
+
+    <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5">
+      <h4 class="font-bold text-emerald-900 mb-2">Assignment Brief — Due Before Week 02</h4>
+      <p class="text-emerald-800 text-sm">Choose one IS you personally use (college portal, food-delivery app, gym booking, bank app, transit card). Produce a six-lens assessment: two pages maximum, one section per lens, one piece of evidence per lens. Name a specific measurement for every claim, identify at least one weakness, and state one unanswered question.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="text-center text-xs text-slate-400 py-6">© 2026 Cyber.SoHo Educational Hub — Teaching artefact for Week 01, Lesson 1.</footer>
+
+<script>
+function switchTab(tabId){
+  ['overview','l11','l12','l13','l14','l15'].forEach(id=>{
+    document.getElementById(id+'-view').classList.add('hidden');
+    document.getElementById(id+'-view').classList.remove('block');
+  });
+  document.getElementById(tabId+'-view').classList.remove('hidden');
+  document.getElementById(tabId+'-view').classList.add('block');
+  ['overview','l11','l12','l13','l14','l15'].forEach(id=>{
+    const btn = document.getElementById('nav-'+id);
+    if(!btn) return;
+    if(id===tabId){ btn.classList.remove('text-slate-300','border-transparent'); btn.classList.add('bg-slate-800','text-white','border-indigo-500'); }
+    else { btn.classList.add('text-slate-300','border-transparent'); btn.classList.remove('bg-slate-800','text-white','border-indigo-500'); }
+  });
+  if(tabId==='l11' && !window.objectivesChart) initObjectivesChart();
+  if(tabId==='l13' && !window.forcesChart) initForcesChart();
+}
+
+function initObjectivesChart(){
+  const ctx = document.getElementById('objectivesChart').getContext('2d');
+  window.objectivesChart = new Chart(ctx, {
+    type:'doughnut',
+    data:{ labels:['Operational excellence','New products/models','Customer intimacy','Decision making','Competitive advantage','Survival'],
+      datasets:[{ data:[20,15,20,15,15,15], backgroundColor:['#4f46e5','#7c3aed','#0ea5e9','#10b981','#f59e0b','#64748b'], borderWidth:0, hoverOffset:8 }]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom', labels:{boxWidth:12,font:{size:10}}}} }
+  });
+}
+
+function initForcesChart(){
+  const ctx = document.getElementById('forcesChart').getContext('2d');
+  window.forcesChart = new Chart(ctx, {
+    type:'bar',
+    data:{ labels:['Rivalry','New entrants','Substitutes','Buyer power','Supplier power'],
+      datasets:[
+        { label:'Boba Blvd', data:[4,5,3,4,5], backgroundColor:'#f43f5e' },
+        { label:'Pearl & Co.', data:[3,2,3,2,2], backgroundColor:'#10b981' }
+      ]},
+    options:{ responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:true, max:5 } }, plugins:{legend:{position:'bottom'}} }
+  });
+}
+
+function toggleCode(id){ document.getElementById(id).classList.toggle('hidden'); }
+
+// Cafe order-to-cash simulator
+const TAX_RATE = 0.14975;
+const OPENING_STOCK = {milk:18.0, beans:6.00, bagels:40};
+let stock = Object.assign({}, OPENING_STOCK);
+let orderNo = 1000, financeTotal = 0, sharedBroken = false;
+
+function cafeLog(msg, warn){
+  const box = document.getElementById('cafeLog');
+  const line = document.createElement('div');
+  if(warn) line.className = 'text-rose-400 font-bold';
+  line.textContent = msg;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+function cafeOrder(desc, price, consumes){
+  orderNo++;
+  const tax = price*TAX_RATE, grand = price+tax;
+  financeTotal += grand;
+  cafeLog('Order #'+orderNo+' '+desc+' — charged $'+grand.toFixed(2));
+  if(!sharedBroken){
+    stock.milk -= consumes.milk; stock.beans -= consumes.beans; stock.bagels -= consumes.bagels;
+    cafeLog('Supply: stock updated for #'+orderNo);
+  } else {
+    cafeLog('LOST — Supply never heard about order #'+orderNo, true);
+  }
+  document.getElementById('cafeMilk').textContent = stock.milk.toFixed(1);
+  document.getElementById('cafeBeans').textContent = stock.beans.toFixed(2);
+  document.getElementById('cafeBagels').textContent = stock.bagels;
+  document.getElementById('cafeFin').textContent = financeTotal.toFixed(2);
+}
+function cafeToggle(){
+  sharedBroken = document.getElementById('cafeBroken').checked;
+  cafeLog(sharedBroken? 'SHARED DATABASE DISABLED' : 'Shared database restored', sharedBroken);
+}
+function cafeReset(){
+  stock = Object.assign({}, OPENING_STOCK); financeTotal = 0; orderNo = 1000;
+  document.getElementById('cafeLog').innerHTML = 'Day reset.';
+  document.getElementById('cafeMilk').textContent='18.0'; document.getElementById('cafeBeans').textContent='6.00';
+  document.getElementById('cafeBagels').textContent='40'; document.getElementById('cafeFin').textContent='0.00';
+}
+
+initObjectivesChart();
+</script>
+</body>
+</html>
