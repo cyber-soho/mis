@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Written Project — Cyber.SoHo Educational Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+  .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+  @media (min-width: 768px) { .chart-container { height: 350px; } }
+
+  .lens-bar { transition: width 1s ease-in-out; }
+  .step-card { transition: all 0.4s ease-in-out; }
+  .fade-in { animation: fadeIn 0.4s ease-in-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<!--
+  Chosen Palette: Slate backgrounds, Indigo primary UI, Amber for warnings/reflection, Emerald for
+  final/success milestones. Rationale: academic-assessment aesthetic, calm and legible, with Amber
+  reserved for "read this carefully" callouts and Emerald reserved for final-deadline / consolidation.
+
+  Application Structure Plan:
+  1. Navigation - fixed top bar splitting content into 5 modules: Overview, Timeline, The Three Parts,
+     Marking Scheme, Deadlines & Rules — mirroring the document's own progression from concept to
+     practical checklist.
+  2. Overview - explains the "one piece of work, not sixty" framing with a doughnut chart of the
+     30% breakdown, plus the capstone rule (one subject, three passes).
+  3. Timeline - interactive lecture-by-lecture stepper (Lecture 01 to 04) that reveals what task,
+     part and due date belongs to each step, similar in interaction spirit to a guided walkthrough.
+  4. The Three Parts - tabbed cards for Part A / Part B / Part C (Describe / Diagnose / Judge) plus
+     a card describing the final dossier's structure.
+  5. Marking Scheme - a bar chart of the six lenses and their weights (Ethics & Evidence doubled),
+     plus the four rules that never change.
+  6. Deadlines & Rules - countdown-style deadline cards computed live via JS, and the practical
+     checklist / rules of engagement as a checkbox list.
+  Why: moves the reader from "why this matters" (Overview) to "what happens when" (Timeline) to
+  "what do I actually produce" (Three Parts) to "how is it judged" (Marking) to "what do I do now"
+  (Deadlines), matching the source document's own narrative arc.
+
+  Visualization Choices:
+  1. Weight Breakdown Chart — Goal: Inform proportion. Viz: Doughnut. Justification: shows the three
+     10% tasks summing to one 30% grade component, correcting the "is it 60%?" confusion directly.
+  2. Six Lenses Chart — Goal: Compare weight. Viz: Horizontal bar. Justification: visually shows
+     Ethics and Evidence at double height/weight versus the other four lenses.
+  3. Lecture/Task Stepper — Goal: Change/Explain sequence. Viz: Interactive step cards + connecting
+     line. Justification: the source's own ASCII flow diagram (Lecture->Task->Part) is best understood
+     as a click-through sequence rather than a static image.
+  CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+-->
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed selection:bg-indigo-100 selection:text-indigo-800">
+
+<nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">📄</span>
+        <span class="font-bold text-lg tracking-wide">Written<span class="text-indigo-400">Project</span></span>
+      </div>
+      <div class="hidden md:block">
+        <div class="ml-6 flex items-baseline space-x-2">
+          <button onclick="switchTab('overview')" id="nav-overview" class="px-3 py-2 rounded-md text-sm font-medium bg-slate-800 text-white transition hover:bg-slate-700 border-b-2 border-indigo-500">Overview</button>
+          <button onclick="switchTab('timeline')" id="nav-timeline" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">Timeline</button>
+          <button onclick="switchTab('parts')" id="nav-parts" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">The Three Parts</button>
+          <button onclick="switchTab('marking')" id="nav-marking" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">Marking Scheme</button>
+          <button onclick="switchTab('deadlines')" id="nav-deadlines" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">Deadlines &amp; Rules</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="md:hidden flex overflow-x-auto px-2 pb-2 gap-2 bg-slate-900">
+    <button onclick="switchTab('overview')" class="mobile-nav px-3 py-1 rounded text-xs bg-slate-800 text-white whitespace-nowrap">Overview</button>
+    <button onclick="switchTab('timeline')" class="mobile-nav px-3 py-1 rounded text-xs bg-slate-800 text-white whitespace-nowrap">Timeline</button>
+    <button onclick="switchTab('parts')" class="mobile-nav px-3 py-1 rounded text-xs bg-slate-800 text-white whitespace-nowrap">Three Parts</button>
+    <button onclick="switchTab('marking')" class="mobile-nav px-3 py-1 rounded text-xs bg-slate-800 text-white whitespace-nowrap">Marking</button>
+    <button onclick="switchTab('deadlines')" class="mobile-nav px-3 py-1 rounded text-xs bg-slate-800 text-white whitespace-nowrap">Deadlines</button>
+  </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+<!-- ===================== SECTION 1: OVERVIEW ===================== -->
+<section id="overview-view" class="space-y-8 fade-in block">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">The Written Project</h1>
+    <p class="text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-4">Cyber.SoHo Educational Hub · Management of Information Systems (IS) Assessment</p>
+    <p class="text-slate-600 mb-6 text-lg">
+      Read this once, before you start Task 01. It takes five minutes and changes how you approach the next three weeks.
+    </p>
+
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-lg mb-8">
+      <p class="font-bold text-amber-900 mb-1">1. There is only one piece of work</p>
+      <p class="text-amber-800 text-sm">
+        The Course Evaluation Table shows two entries that both say 30%: <strong>"Continuous Course Assessments"</strong>
+        and <strong>"Written Project."</strong> They are the same 30% — not 60%. One body of work, marked in three
+        instalments as you build it. You get corrective feedback <strong>twice</strong> before the version that counts.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-800 mb-2">What the 30% is built from</h2>
+        <div class="p-3 bg-slate-100 rounded-lg border border-slate-200 flex justify-between">
+          <span class="font-medium text-slate-700">Document</span>
+          <span class="text-slate-600">The IS Assessment Dossier</span>
+        </div>
+        <div class="p-3 bg-slate-100 rounded-lg border border-slate-200 flex justify-between">
+          <span class="font-medium text-slate-700">Built from</span>
+          <span class="text-slate-600">Three tasks, worth 10% each</span>
+        </div>
+        <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200 flex justify-between">
+          <span class="font-medium text-indigo-900">Total weight</span>
+          <span class="text-indigo-700 font-bold">30% of final grade</span>
+        </div>
+        <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 flex justify-between">
+          <span class="font-medium text-emerald-900">Final submission</span>
+          <span class="text-emerald-700 font-bold">Midnight CET, Fri 28 Aug 2026</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center justify-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2">30% Broken Into Three Tasks</h3>
+        <div class="chart-container" style="height:260px;"><canvas id="weightChart"></canvas></div>
+        <p class="text-xs text-center text-slate-400 mt-2">Task 01 + Task 02 + Task 03 = 30% of final grade (not 60%).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">2. The rule that makes it a capstone</h2>
+    <div class="bg-indigo-600 text-white rounded-lg p-5 mb-4 text-center">
+      <p class="text-xl font-bold">One subject. Three passes.</p>
+    </div>
+    <p class="text-slate-600 mb-4">
+      You choose <strong>one organisation</strong> and <strong>one system</strong> in Task 01, and keep both until
+      28 August. Tasks 02 and 03 go deeper into the same subject. <strong>You cannot switch.</strong>
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+        <strong class="text-blue-900 block text-lg">≥3 roles</strong>
+        <span class="text-blue-700 text-sm">At least three roles involved in the process.</span>
+      </div>
+      <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+        <strong class="text-blue-900 block text-lg">One cycle</strong>
+        <span class="text-blue-700 text-sm">A complete cycle you can observe in under 30 minutes.</span>
+      </div>
+      <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+        <strong class="text-blue-900 block text-lg">Something to count</strong>
+        <span class="text-blue-700 text-sm">A measurable element that carries you through all three tasks.</span>
+      </div>
+    </div>
+    <p class="text-slate-500 text-sm mt-4 italic">A subject chosen because it sounds impressive will not carry you through — choose carefully in Task 01.</p>
+  </div>
+</section>
+
+<!-- ===================== SECTION 2: TIMELINE ===================== -->
+<section id="timeline-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">3. Four Lectures, Three Tasks</h2>
+    <p class="text-slate-600 mb-6">
+      The twelve days between 16 and 28 August are not spare time — they are when Tasks 02 and 03 happen, and when
+      you rewrite Part A using what the feedback told you. Step through the sequence below.
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 mb-8">
+      <div id="step-1-nav" onclick="showStep(1)" class="p-3 rounded-lg cursor-pointer text-center font-semibold text-sm bg-indigo-600 text-white shadow-md">Lecture 01</div>
+      <div id="step-2-nav" onclick="showStep(2)" class="p-3 rounded-lg cursor-pointer text-center font-semibold text-sm bg-slate-100 text-slate-500">Lecture 02</div>
+      <div id="step-3-nav" onclick="showStep(3)" class="p-3 rounded-lg cursor-pointer text-center font-semibold text-sm bg-slate-100 text-slate-500">Lecture 03</div>
+      <div id="step-4-nav" onclick="showStep(4)" class="p-3 rounded-lg cursor-pointer text-center font-semibold text-sm bg-slate-100 text-slate-500">Lecture 04</div>
+    </div>
+
+    <div class="bg-slate-50 rounded-lg border border-slate-200 p-6 min-h-[220px]">
+      <div id="tl-step-1" class="tl-step">
+        <span class="text-xs font-bold text-indigo-600 uppercase">Lecture 01 — IS in the Digital Age</span>
+        <h3 class="text-xl font-bold text-slate-800 mt-1 mb-2">Task 01 — Baseline Assessment <span class="text-slate-400">(REGISTER + DESCRIBE)</span></h3>
+        <p class="text-slate-600 text-sm mb-3">Produces <strong>Part A</strong> · Weight <strong>10%</strong> · Due <strong>Sunday 16 Aug, midnight CET</strong></p>
+        <p class="text-slate-600 text-sm">Establish what the system <em>is</em>: its four activities, three dimensions, one business process mapped across departments, a competitive-forces scorecard with evidence beside every score, and an ethics review.</p>
+      </div>
+      <div id="tl-step-2" class="tl-step hidden">
+        <span class="text-xs font-bold text-indigo-600 uppercase">Lecture 02</span>
+        <h3 class="text-xl font-bold text-slate-800 mt-1 mb-2">Task 02 <span class="text-slate-400">(briefed in that lecture) — DIAGNOSE</span></h3>
+        <p class="text-slate-600 text-sm mb-3">Produces <strong>Part B</strong> · Weight <strong>10%</strong> · Due announced in Lecture 02</p>
+        <p class="text-slate-600 text-sm">Go beneath the surface of the same system: its data, its integration with other systems, where information is duplicated or lost, and what the handoffs actually cost. Closes the open questions written in A7.</p>
+      </div>
+      <div id="tl-step-3" class="tl-step hidden">
+        <span class="text-xs font-bold text-indigo-600 uppercase">Lecture 03</span>
+        <h3 class="text-xl font-bold text-slate-800 mt-1 mb-2">Task 03 <span class="text-slate-400">(briefed in that lecture) — JUDGE</span></h3>
+        <p class="text-slate-600 text-sm mb-3">Produces <strong>Part C</strong> · Weight <strong>10%</strong> · Due announced in Lecture 03</p>
+        <p class="text-slate-600 text-sm">Reach a defensible position: recommend a change, cost it in something other than money, name what would have to be true for you to be wrong, and say how you would measure whether the change worked.</p>
+      </div>
+      <div id="tl-step-4" class="tl-step hidden">
+        <span class="text-xs font-bold text-emerald-600 uppercase">Lecture 04 — Consolidation Workshop</span>
+        <h3 class="text-xl font-bold text-slate-800 mt-1 mb-2">No new task — merge, polish, act on feedback</h3>
+        <p class="text-slate-600 text-sm mb-3">Produces <strong>The Full Dossier</strong> · Weight <strong>30% total</strong> · Due <strong>Friday 28 Aug, midnight CET</strong></p>
+        <p class="text-slate-600 text-sm">Parts A, B and C are merged and revised using feedback received along the way, so the final document reads as one dossier — not three homeworks stapled together.</p>
+      </div>
+    </div>
+
+    <div class="flex justify-between mt-4">
+      <button onclick="prevStep()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-md font-medium transition-colors">◀ Previous</button>
+      <button onclick="nextStep()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium transition-colors">Next ▶</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 3: THE THREE PARTS ===================== -->
+<section id="parts-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">4. What Each Pass Does</h2>
+    <p class="text-slate-600 mb-6">Parts B and C are described here so you can see where you are heading. The binding briefs arrive with Lectures 02 and 03 and may differ in detail — <strong>Part A will not change.</strong></p>
+
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button onclick="switchPart('a')" id="partbtn-a" class="px-4 py-2 rounded-md text-sm font-semibold bg-indigo-600 text-white">Part A — Describe</button>
+      <button onclick="switchPart('b')" id="partbtn-b" class="px-4 py-2 rounded-md text-sm font-semibold bg-slate-100 text-slate-600">Part B — Diagnose</button>
+      <button onclick="switchPart('c')" id="partbtn-c" class="px-4 py-2 rounded-md text-sm font-semibold bg-slate-100 text-slate-600">Part C — Judge</button>
+    </div>
+
+    <div id="part-a" class="part-panel bg-blue-50 border-l-4 border-blue-500 rounded-lg p-5">
+      <h3 class="font-bold text-blue-900 text-lg mb-2">Part A — DESCRIBE (Task 01, this week)</h3>
+      <p class="text-blue-800 text-sm">Establish what the system <strong>is</strong>: its four activities, its three dimensions, one business process mapped across departments, a competitive-forces scorecard with evidence beside every score, and an ethics review. Ends with your six-lens baseline, an evidence log, and the questions you could not answer.</p>
+      <p class="text-blue-900 font-semibold text-sm mt-3">This is the foundation. Everything later either builds on it or corrects it.</p>
+    </div>
+    <div id="part-b" class="part-panel bg-indigo-50 border-l-4 border-indigo-500 rounded-lg p-5 hidden">
+      <h3 class="font-bold text-indigo-900 text-lg mb-2">Part B — DIAGNOSE (Task 02, provisional shape)</h3>
+      <p class="text-indigo-800 text-sm">Go beneath the surface of the same system: its data, its integration with other systems, where information is duplicated or lost, and what the handoffs actually cost. You will close some of the open questions you wrote in A7.</p>
+    </div>
+    <div id="part-c" class="part-panel bg-purple-50 border-l-4 border-purple-500 rounded-lg p-5 hidden">
+      <h3 class="font-bold text-purple-900 text-lg mb-2">Part C — JUDGE (Task 03, provisional shape)</h3>
+      <p class="text-purple-800 text-sm">Reach a defensible position. Recommend a change, cost it in something other than money, name what would have to be true for you to be wrong, and say how you would measure whether the change worked.</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">5. What the Final Dossier Looks Like</h2>
+    <p class="text-slate-600 mb-6">One PDF, roughly 5,000–6,500 words of prose plus tables and figures.</p>
+    <div class="space-y-2 font-mono text-sm">
+      <div class="p-3 bg-slate-100 rounded border border-slate-200">COVER — name · student number · subject organisation and system</div>
+      <div class="p-3 bg-amber-50 rounded border border-amber-300">EXECUTIVE SUMMARY — one page, written <strong>last</strong> · ~350 words · strongest finding · weakest lens</div>
+      <div class="p-3 bg-blue-50 rounded border border-blue-200">CONTENTS — Part A (revised) · Part B (revised) · Part C (revised)</div>
+      <div class="p-3 bg-amber-50 rounded border border-amber-300">REFLECTION — ~400 words · what you got wrong in Part A and how you know · what you'd do differently</div>
+      <div class="p-3 bg-slate-100 rounded border border-slate-200">APPENDICES — consolidated evidence log · all figures · all scorecards · full source list</div>
+    </div>
+    <p class="text-amber-800 text-sm mt-4 italic bg-amber-50 p-3 rounded-lg border border-amber-200">Two things exist only in the final version: the executive summary (written last, read first) and the reflection — a genuine account of what you got wrong, not a "thank-you note." Honest reflections score well.</p>
+  </div>
+</section>
+
+<!-- ===================== SECTION 4: MARKING SCHEME ===================== -->
+<section id="marking-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">6. How the Marks Work</h2>
+    <p class="text-slate-600 mb-6">
+      Each task is marked out of 100 and scaled to 10%. The final dossier is marked on
+      <strong>consolidation</strong>: whether you acted on feedback, whether the three parts read as one document,
+      and whether the executive summary and reflection do their jobs.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+      <div>
+        <h3 class="text-lg font-semibold text-slate-800 mb-3">The Six Lenses (weight)</h3>
+        <div class="chart-container" style="height:280px;"><canvas id="lensChart"></canvas></div>
+      </div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between p-2 bg-slate-50 rounded"><span>1. Purpose — which business objectives does the system serve?</span><span class="font-bold">×1</span></div>
+        <div class="flex justify-between p-2 bg-slate-50 rounded"><span>2. People — who inputs, who decides, who is affected?</span><span class="font-bold">×1</span></div>
+        <div class="flex justify-between p-2 bg-slate-50 rounded"><span>3. Process — which steps does it change, remove or create?</span><span class="font-bold">×1</span></div>
+        <div class="flex justify-between p-2 bg-slate-50 rounded"><span>4. Strategy — which competitive force does it weaken?</span><span class="font-bold">×1</span></div>
+        <div class="flex justify-between p-2 bg-purple-50 border border-purple-200 rounded"><span class="font-semibold text-purple-900">5. Ethics — whose data, whose risk, whose accountability?</span><span class="font-bold text-purple-900">×2</span></div>
+        <div class="flex justify-between p-2 bg-purple-50 border border-purple-200 rounded"><span class="font-semibold text-purple-900">6. Evidence — what measurement proves each claim is true?</span><span class="font-bold text-purple-900">×2</span></div>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-semibold text-slate-800 mb-3">The four rules that never change</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg"><span class="font-bold text-red-900 block mb-1">1. Skip a lens, lose the mark</span><span class="text-red-800 text-sm">All six, every time.</span></div>
+      <div class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg"><span class="font-bold text-red-900 block mb-1">2. Double weight</span><span class="text-red-800 text-sm">Ethics and Evidence carry double weight.</span></div>
+      <div class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg"><span class="font-bold text-red-900 block mb-1">3. No finding, no score</span><span class="text-red-800 text-sm">A score with no written finding scores zero — not reduced, zero.</span></div>
+      <div class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg"><span class="font-bold text-red-900 block mb-1">4. Report the weakest lens</span><span class="text-red-800 text-sm">Not the average — averaging hides the thing you were asked to find.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 5: DEADLINES & RULES ===================== -->
+<section id="deadlines-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">7 &amp; 8. Deadlines, In One Place</h2>
+    <p class="text-slate-600 mb-6">Midnight CET on 28 August is roughly Friday afternoon in Montréal. Submit a day early — the DropBox accepts replacements, so an early upload costs nothing and protects you from everything.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-6 text-center">
+        <p class="text-xs font-bold text-indigo-500 uppercase tracking-wide mb-1">Task 01 — Part A</p>
+        <p class="text-2xl font-bold text-indigo-900 mb-1">Sun 16 Aug 2026</p>
+        <p class="text-sm text-indigo-700 mb-2">Midnight CET</p>
+        <p id="countdown-task1" class="text-3xl font-mono font-bold text-indigo-600"></p>
+        <p class="text-xs text-indigo-500 mt-1">Blackboard → Assignments → DropBox</p>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
+        <p class="text-xs font-bold text-emerald-500 uppercase tracking-wide mb-1">Full Written Project</p>
+        <p class="text-2xl font-bold text-emerald-900 mb-1">Fri 28 Aug 2026</p>
+        <p class="text-sm text-emerald-700 mb-2">Midnight CET</p>
+        <p id="countdown-final" class="text-3xl font-mono font-bold text-emerald-600"></p>
+        <p class="text-xs text-emerald-500 mt-1">Blackboard → Assignments → DropBox</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div class="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between"><span>Task 02 — Part B</span><span class="text-slate-500">announced in Lecture 02</span></div>
+      <div class="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between"><span>Task 03 — Part C</span><span class="text-slate-500">announced in Lecture 03</span></div>
+    </div>
+    <p class="text-red-700 text-sm mt-4 font-semibold bg-red-50 p-3 rounded-lg border border-red-200">Emailed submissions are not submissions. If something serious happens, tell your instructor before a deadline rather than after it.</p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Practical Things That Will Save You</h2>
+    <p class="text-slate-500 text-sm mb-4">Click each item to check it off as you plan your work.</p>
+    <div id="checklist" class="space-y-2"></div>
+  </div>
+
+  <div class="bg-slate-100 rounded-xl border border-slate-200 p-6 text-xs text-slate-500 leading-relaxed">
+    <p>All tools, formats and techniques named across this project are examples only — open and fully substitutable; research your own, compare at least two, and build your own where nothing fits. Scan every external link through VirusTotal before opening it. All case studies used in the course materials are entirely fictional. This is educational material, not legal, privacy, compliance or professional advice. The rules of engagement and the full disclaimer, copyright, academic-integrity and lawful-conduct notices in section 16 of the Task 01 exercise document apply to every task in this project and form part of the assessment requirements.</p>
+    <p class="mt-2 font-semibold">© 2026 Cyber.SoHo Educational Hub — All Rights Reserved</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+// --- Navigation ---
+function switchTab(tabId){
+  ['overview','timeline','parts','marking','deadlines'].forEach(id=>{
+    document.getElementById(id+'-view').classList.add('hidden');
+    document.getElementById(id+'-view').classList.remove('block');
+    const btn = document.getElementById('nav-'+id);
+    btn.classList.add('text-slate-300','border-transparent');
+    btn.classList.remove('bg-slate-800','text-white','border-indigo-500');
+  });
+  document.getElementById(tabId+'-view').classList.remove('hidden');
+  document.getElementById(tabId+'-view').classList.add('block','fade-in');
+  const activeBtn = document.getElementById('nav-'+tabId);
+  activeBtn.classList.remove('text-slate-300','border-transparent');
+  activeBtn.classList.add('bg-slate-800','text-white','border-indigo-500');
+
+  if(tabId==='overview' && !window.weightChart) initWeightChart();
+  if(tabId==='marking' && !window.lensChart) initLensChart();
+}
+
+// --- Charts ---
+function initWeightChart(){
+  const ctx = document.getElementById('weightChart').getContext('2d');
+  window.weightChart = new Chart(ctx, {
+    type:'doughnut',
+    data:{
+      labels:['Task 01 — Part A (10%)','Task 02 — Part B (10%)','Task 03 — Part C (10%)'],
+      datasets:[{ data:[10,10,10], backgroundColor:['#6366f1','#818cf8','#c7d2fe'], borderWidth:0, hoverOffset:8 }]
+    },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{ boxWidth:12, font:{size:11} } } } }
+  });
+}
+
+function initLensChart(){
+  const ctx = document.getElementById('lensChart').getContext('2d');
+  window.lensChart = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels:['1. Purpose','2. People','3. Process','4. Strategy','5. Ethics','6. Evidence'],
+      datasets:[{
+        label:'Relative weight',
+        data:[1,1,1,1,2,2],
+        backgroundColor:['#94a3b8','#94a3b8','#94a3b8','#94a3b8','#a855f7','#a855f7']
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{ x:{ beginAtZero:true, max:2.5, ticks:{ stepSize:1 } } }
+    }
+  });
+}
+
+// --- Timeline stepper ---
+let currentStep = 1;
+function showStep(n){
+  currentStep = n;
+  for(let i=1;i<=4;i++){
+    document.getElementById('tl-step-'+i).classList.add('hidden');
+    const nav = document.getElementById('step-'+i+'-nav');
+    nav.classList.remove('bg-indigo-600','text-white','shadow-md','bg-emerald-600');
+    nav.classList.add('bg-slate-100','text-slate-500');
+  }
+  document.getElementById('tl-step-'+n).classList.remove('hidden');
+  document.getElementById('tl-step-'+n).classList.add('fade-in');
+  const activeNav = document.getElementById('step-'+n+'-nav');
+  activeNav.classList.remove('bg-slate-100','text-slate-500');
+  activeNav.classList.add(n===4 ? 'bg-emerald-600' : 'bg-indigo-600','text-white','shadow-md');
+}
+function nextStep(){ if(currentStep<4) showStep(currentStep+1); }
+function prevStep(){ if(currentStep>1) showStep(currentStep-1); }
+
+// --- Parts tab ---
+function switchPart(p){
+  ['a','b','c'].forEach(x=>{
+    document.getElementById('part-'+x).classList.add('hidden');
+    const btn = document.getElementById('partbtn-'+x);
+    btn.classList.remove('bg-indigo-600','text-white');
+    btn.classList.add('bg-slate-100','text-slate-600');
+  });
+  document.getElementById('part-'+p).classList.remove('hidden');
+  document.getElementById('part-'+p).classList.add('fade-in');
+  const activeBtn = document.getElementById('partbtn-'+p);
+  activeBtn.classList.remove('bg-slate-100','text-slate-600');
+  activeBtn.classList.add('bg-indigo-600','text-white');
+}
+
+// --- Countdown ---
+function updateCountdowns(){
+  const now = new Date();
+  const task1 = new Date('2026-08-16T23:59:00+02:00');
+  const final = new Date('2026-08-28T23:59:00+02:00');
+  const fmt = (d) => {
+    const diff = d - now;
+    if(diff <= 0) return 'Due';
+    const days = Math.floor(diff/(1000*60*60*24));
+    return days + ' day' + (days===1?'':'s');
+  };
+  document.getElementById('countdown-task1').innerText = fmt(task1);
+  document.getElementById('countdown-final').innerText = fmt(final);
+}
+
+// --- Checklist ---
+const checklistItems = [
+  'Keep every version — name files with dates.',
+  'Keep the evidence log running from day one (double-weighted).',
+  'Write your open questions honestly — Task 02 answers them.',
+  'Observe as an ordinary user: collect no personal data, test nothing, publish nothing.',
+  'Know your clock — midnight CET is roughly Friday afternoon in Montréal.',
+  'Submit a day early — the DropBox accepts replacements.'
+];
+function buildChecklist(){
+  const container = document.getElementById('checklist');
+  checklistItems.forEach((text,i)=>{
+    const item = document.createElement('div');
+    item.className = 'p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer flex items-center gap-3 transition-colors';
+    item.innerHTML = '<span class="check-mark w-5 h-5 flex items-center justify-center rounded border-2 border-slate-300 text-transparent text-xs">✓</span><span class="text-sm text-slate-700">'+text+'</span>';
+    item.onclick = () => {
+      item.classList.toggle('bg-emerald-50');
+      item.classList.toggle('border-emerald-300');
+      const mark = item.querySelector('.check-mark');
+      mark.classList.toggle('text-emerald-600');
+      mark.classList.toggle('border-emerald-500');
+      const span = item.querySelector('span.text-sm');
+      span.classList.toggle('line-through');
+      span.classList.toggle('text-slate-400');
+    };
+    container.appendChild(item);
+  });
+}
+
+// --- Init ---
+initWeightChart();
+buildChecklist();
+updateCountdowns();
+setInterval(updateCountdowns, 3600000);
+</script>
+</body>
+</html>
