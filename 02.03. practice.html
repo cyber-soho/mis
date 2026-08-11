@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 02 Study Hub — Cyber.SoHo Educational Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Plus Jakarta Sans',sans-serif;background-color:#f8fafc;color:#0f172a}
+  .tab-content{display:none}
+  .tab-content.active{display:block;animation:fadeIn .3s ease-out}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .flashcard-container{perspective:1000px}
+  .flashcard-inner{position:relative;width:100%;height:300px;text-align:center;transition:transform .6s;transform-style:preserve-3d;cursor:pointer}
+  .flashcard-inner.flipped{transform:rotateY(180deg)}
+  .card-front,.card-back{position:absolute;width:100%;height:100%;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;padding:2rem;border-radius:1.5rem;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);overflow-y:auto}
+  .card-back{transform:rotateY(180deg);background-color:#eef2ff;border:2px solid #6366f1}
+  .card-front{background-color:#fff;border:2px solid #e2e8f0}
+  .chart-container{position:relative;width:100%;max-width:400px;margin:0 auto;height:300px}
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🖥️</span>
+      <h1 class="text-xl font-bold tracking-tight text-slate-800">Week 02 Study Hub — IS Assessment</h1>
+    </div>
+    <nav class="flex bg-slate-100 p-1 rounded-xl shadow-inner">
+      <button onclick="switchTab('dashboard')" class="nav-btn active px-6 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-indigo-600 shadow-sm" id="btn-dashboard">Dashboard</button>
+      <button onclick="switchTab('flashcards')" class="nav-btn px-6 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900" id="btn-flashcards">Flashcards</button>
+      <button onclick="switchTab('quiz')" class="nav-btn px-6 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900" id="btn-quiz">Quiz</button>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow max-w-5xl mx-auto px-4 py-8 w-full">
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="tab-content active space-y-8">
+    <div class="bg-indigo-600 rounded-3xl p-8 text-white shadow-xl shadow-indigo-100">
+      <h2 class="text-3xl font-bold mb-4">Welcome back, Analyst.</h2>
+      <p class="text-indigo-100 max-w-2xl leading-relaxed">This Study Hub covers Week 02 — Management of Information Systems: IT infrastructure and emerging technologies, databases and business intelligence, telecommunications and wireless networking, and securing information systems. Use the tabs above to memorise terms and test your assessment judgement.</p>
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-indigo-500/30 p-4 rounded-2xl flex items-center gap-4 border border-indigo-400/30">
+          <span class="text-3xl">🗂️</span>
+          <div><div class="text-xs uppercase font-bold text-indigo-200 tracking-widest">Memorization</div><div class="text-lg font-bold">28 Flashcards</div></div>
+        </div>
+        <div class="bg-indigo-500/30 p-4 rounded-2xl flex items-center gap-4 border border-indigo-400/30">
+          <span class="text-3xl">📝</span>
+          <div><div class="text-xs uppercase font-bold text-indigo-200 tracking-widest">Assessment</div><div class="text-lg font-bold">10 Practice Questions</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200">
+        <h3 class="font-bold text-lg mb-2">Instructions</h3>
+        <ul class="space-y-3 text-sm text-slate-600">
+          <li class="flex items-start gap-2"><span>✅</span> Use Flashcards to master the vocabulary — the "What."</li>
+          <li class="flex items-start gap-2"><span>✅</span> Take the Quiz to practice assessment judgement — the "Why."</li>
+          <li class="flex items-start gap-2"><span>✅</span> Complete the quiz to see your data-driven performance breakdown.</li>
+        </ul>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-2xl text-white">
+        <h3 class="font-bold text-lg mb-2 text-indigo-400">Quick Pro-Tip</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">"Which cloud provider is best?" and "which database should I use?" both have the same honest answer: <em>it depends on the assessment.</em> Learn the method, not a favourite vendor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section id="flashcards" class="tab-content space-y-8">
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-slate-800">Knowledge Cards</h2>
+      <p class="text-slate-500 text-sm mt-1">Click the card to flip it, use the arrows to navigate.</p>
+    </div>
+    <div class="max-w-md mx-auto flashcard-container">
+      <div class="flashcard-inner" id="flashcard-inner" onclick="this.classList.toggle('flipped')">
+        <div class="card-front"><p id="card-front-text" class="text-xl font-bold text-slate-800"></p></div>
+        <div class="card-back"><p id="card-back-text" class="text-lg text-indigo-900 leading-relaxed"></p></div>
+      </div>
+    </div>
+    <div class="flex items-center justify-center gap-6">
+      <button onclick="prevCard()" class="p-3 rounded-full bg-white border border-slate-200 hover:bg-slate-50 shadow-sm">⬅️</button>
+      <div class="text-slate-400 font-mono text-sm"><span id="card-counter">1</span> / 28</div>
+      <button onclick="nextCard()" class="p-3 rounded-full bg-white border border-slate-200 hover:bg-slate-50 shadow-sm">➡️</button>
+    </div>
+    <div class="max-w-md mx-auto h-2 bg-slate-200 rounded-full overflow-hidden">
+      <div id="card-progress" class="h-full bg-indigo-500 transition-all duration-300" style="width:4%"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="tab-content space-y-8">
+    <div id="quiz-intro" class="text-center py-12">
+      <div class="text-5xl mb-4">🎯</div>
+      <h2 class="text-3xl font-bold text-slate-800">Ready for the Assessment?</h2>
+      <p class="text-slate-500 mt-2 mb-8">Test your ability to make defensible infrastructure, data, network, and security judgements.</p>
+      <button onclick="startQuiz()" class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-bold shadow-lg hover:bg-indigo-700 transition-transform hover:-translate-y-1">Start Quiz</button>
+    </div>
+    <div id="quiz-active" class="hidden max-w-2xl mx-auto space-y-6">
+      <div class="flex justify-between items-center text-sm font-bold text-slate-400">
+        <span id="quiz-progress-text">Question 1 of 10</span><span id="quiz-score-live">Score: 0</span>
+      </div>
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+        <div id="quiz-question" class="text-xl font-bold text-slate-800 mb-6"></div>
+        <div id="quiz-options" class="space-y-3"></div>
+        <div id="quiz-feedback" class="hidden mt-6 p-4 rounded-xl text-sm border"></div>
+        <div id="quiz-hint-box" class="mt-6 text-center">
+          <button onclick="toggleHint()" id="hint-toggle-btn" class="text-xs text-indigo-500 font-bold hover:underline">Need a hint?</button>
+          <p id="quiz-hint" class="hidden mt-2 text-xs text-slate-500 italic"></p>
+        </div>
+      </div>
+      <div class="flex justify-between">
+        <button id="next-q-btn" onclick="nextQuestion()" class="hidden ml-auto bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800">Next Question</button>
+      </div>
+    </div>
+    <div id="quiz-results" class="hidden text-center space-y-8">
+      <h2 class="text-3xl font-bold text-slate-800">Assessment Complete!</h2>
+      <div class="chart-container"><canvas id="resultsChart"></canvas></div>
+      <div id="result-summary" class="text-xl font-bold"></div>
+      <button onclick="resetQuiz()" class="bg-slate-200 text-slate-800 px-8 py-3 rounded-xl font-bold hover:bg-slate-300">Try Again</button>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub &copy; 2026 Schiller International University</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+// ---------------- DATA ----------------
+const flashcards = [
+  {front:"IT infrastructure", back:"The shared set of physical and software resources every application depends on but that no single application owns."},
+  {front:"The seven components of IT infrastructure", back:"Hardware platforms, OS platforms, enterprise applications, data management/storage, networking, internet platforms, and consulting/system integration services."},
+  {front:"Virtualization", back:"Running software that pretends to be a computer, on top of a real computer. The pretend computer is a VM, managed by a hypervisor."},
+  {front:"Container vs VM", back:"A container shares the host OS instead of simulating its own — faster and lighter, but less isolated."},
+  {front:"IaaS", back:"Infrastructure as a Service — you rent VMs, storage and networks; you manage everything above that. Maximum control, maximum work."},
+  {front:"PaaS", back:"Platform as a Service — you rent a ready-made OS+runtime environment and deploy your own code. Less control, much less work."},
+  {front:"SaaS", back:"Software as a Service — you rent finished software and configure it. Almost no control, almost no work — but the data is still yours."},
+  {front:"The one row that never changes across IaaS/PaaS/SaaS", back:"Data. In every model, you remain responsible for your data, even though you can rent the machines."},
+  {front:"TCO", back:"Total Cost of Ownership — everything a system costs over its life, not just the sticker price. Administrator time is the most commonly omitted line."},
+  {front:"Emerging technology assessment discipline", back:"Ask: (1) What problem do we actually have? (2) What does it cost including the people? (3) What happens if the vendor disappears or triples the price (lock-in)?"},
+  {front:"Database (precise definition)", back:"A collection of data organised for efficient storage, retrieval and update by many users, under rules the storage system itself enforces."},
+  {front:"The five diseases of the file environment", back:"Data redundancy, data inconsistency, program-data dependence, lack of flexibility, poor security and sharing."},
+  {front:"Primary key", back:"A column (or set of columns) that uniquely identifies every row and is never empty — prevents rows from being confused or anonymous."},
+  {front:"Foreign key", back:"A column holding another table's primary key value — enforces referential integrity by refusing references to rows that don't exist."},
+  {front:"Normalisation, in one sentence", back:"Every fact stored in exactly one place. If you must change something in two places to keep it true, the design is wrong."},
+  {front:"Why not use email as a primary key", back:"Because it can change — and a primary key value propagates into every foreign key that references it, requiring simultaneous updates everywhere."},
+  {front:"A SELECT with JOIN and GROUP BY", back:"Is not a database operation — it is a management report. Dashboards and BI suites are just nicer windows onto that query."},
+  {front:"Data warehouse vs data lake", back:"A warehouse stores cleaned, structured data (structure applied before storing); a lake stores raw data of any shape (structure applied when read)."},
+  {front:"TCP/IP model, the four layers", back:"Application (message meaning), Transport (reliable delivery, ports), Internet (routing, IP addresses), Link (one physical hop, hardware addresses)."},
+  {front:"Encapsulation", back:"Each layer wraps data in its own header on the way down; the receiving device unwraps exactly the matching header on the way up."},
+  {front:"The eight-step request trace", back:"Name lookup (DNS) → route selection → link delivery → internet routing → TCP handshake → TLS negotiation → HTTP request/response → unwrap/render."},
+  {front:"Non-overlapping Wi-Fi channels (2.4GHz)", back:"Only channels 1, 6, and 11 don't overlap — access points sharing a channel must take turns using the same airtime."},
+  {front:"Bandwidth vs latency", back:"Independent quantities. Bandwidth is capacity; latency is delay. Buying more bandwidth never fixes a latency problem."},
+  {front:"CIA triad", back:"Confidentiality, Integrity, Availability — the three properties security protects. They trade against each other; you cannot maximise all three."},
+  {front:"Threat, vulnerability, asset, control (the sentence)", back:"A threat exploits a vulnerability to damage an asset; a control reduces likelihood or impact. You can't remove threats — only vulnerabilities, with controls."},
+  {front:"Defence in depth — seven layers", back:"Policy/people, physical, perimeter, network, endpoint, application/identity, data. A gap in the attacker's actual path still defeats six good layers."},
+  {front:"SLE, ARO, ALE", back:"SLE = cost of one occurrence. ARO = expected occurrences per year. ALE = SLE × ARO — the amount you expect to lose to a risk in an average year."},
+  {front:"ROSI", back:"Return on Security Investment = (risk reduction − annual control cost) / annual control cost. If reduction is smaller than cost, don't buy the control."},
+];
+
+const quizQuestions = [
+  {question:"An organisation says: \"We moved everything to SaaS, so data protection is now our provider's problem.\" What is wrong with this?",
+   hint:"Look at the Data row of the responsibility table across all four models.",
+   options:[
+     {text:"In every service model, including SaaS, the data — and its protection — remains the customer's responsibility.", isCorrect:true, rationale:"You can rent the machines. You cannot rent away responsibility for the data."},
+     {text:"SaaS providers are legally required to assume all liability.", isCorrect:false, rationale:"No such blanket requirement exists; contracts vary, but data responsibility remains with the customer."},
+     {text:"Nothing is wrong — this is exactly how SaaS works.", isCorrect:false, rationale:"This is the single most important line in the responsibility table, and it says the opposite."},
+     {text:"SaaS has no data protection implications at all.", isCorrect:false, rationale:"Data protection is central to every service model, not absent from any of them."}]},
+  {question:"A server runs at 15% utilisation. What does virtualization change about this, in economic terms?",
+   hint:"Think about what has already been paid for versus what is being used.",
+   options:[
+     {text:"It lets several VMs share the same hardware, converting already-purchased capacity into usable capacity with no new spend.", isCorrect:true, rationale:"The waste was already paid for, powered, and cooled — virtualization uses it instead of wasting it."},
+     {text:"It requires buying a second physical server to add VMs.", isCorrect:false, rationale:"Virtualization is specifically about running more workloads on the same physical hardware."},
+     {text:"It has no economic effect, only a technical one.", isCorrect:false, rationale:"The economics — utilisation of already-purchased capacity — are the entire point."},
+     {text:"It reduces the server's total capacity.", isCorrect:false, rationale:"It increases effective utilisation of existing capacity; capacity itself is unchanged."}]},
+  {question:"In a 5-year TCO comparison between buying and renting a server, which input most often flips the recommendation and is most often left out?",
+   hint:"It is not on any invoice.",
+   options:[
+     {text:"Administrator/staff time", isCorrect:true, rationale:"It's inside payroll already, so it's rarely counted as a cost of the technology decision — yet it's often the largest line."},
+     {text:"Electricity and cooling", isCorrect:false, rationale:"Real, but typically small compared to labour."},
+     {text:"Software licence fees", isCorrect:false, rationale:"Usually a modest, visible, budgeted cost."},
+     {text:"Hardware depreciation", isCorrect:false, rationale:"Predictable and usually already accounted for in a TCO model."}]},
+  {question:"A club spreadsheet stores \"Maria Silva\", \"maria silva\", and \"M. Silva\" as if they were different people. Which disease is this, and what's the structural cause?",
+   hint:"It's not a typing mistake — it's about where the fact is stored.",
+   options:[
+     {text:"Data inconsistency, caused by storing identity per-loan-row instead of once per person.", isCorrect:true, rationale:"Repeating the same fact on every row creates a fresh chance to disagree with itself each time."},
+     {text:"Program-data dependence, caused by an outdated report format.", isCorrect:false, rationale:"That disease is about changing formats breaking programs, not about repeated facts disagreeing."},
+     {text:"Poor security, caused by unrestricted file access.", isCorrect:false, rationale:"Access control isn't the mechanism producing three different spellings of one name."},
+     {text:"Lack of flexibility, caused by no reporting tools.", isCorrect:false, rationale:"This is about redundant storage of the same fact, not about the difficulty of building reports."}]},
+  {question:"Why is an email address a poor primary key, even though it's unique?",
+   hint:"Think about what happens when it changes.",
+   options:[
+     {text:"Because it can change, and every foreign key referencing it would need simultaneous updates everywhere it's used.", isCorrect:true, rationale:"A surrogate key never needs to change even when business facts change."},
+     {text:"Because email addresses are never actually unique.", isCorrect:false, rationale:"Uniqueness isn't the problem here — mutability is."},
+     {text:"Because databases can't index text fields.", isCorrect:false, rationale:"Databases index text fields all the time; that's not the issue."},
+     {text:"Because primary keys must be numeric.", isCorrect:false, rationale:"Primary keys can be text; the issue is stability, not data type."}]},
+  {question:"A dashboard shows \"Microcontroller: 14 loans\" and \"Microcontroler: 3 loans\" as separate categories. Which single database feature would have prevented this?",
+   hint:"It restricts a column to an approved list of values.",
+   options:[
+     {text:"A CHECK constraint restricting category to an approved list", isCorrect:true, rationale:"This refuses the misspelling at the point of entry, rather than discovering it later in a report."},
+     {text:"A foreign key to a categories table with no constraint enforcement", isCorrect:false, rationale:"Without enforcement, the misspelling could still be inserted."},
+     {text:"A UNIQUE constraint on the loan ID", isCorrect:false, rationale:"That prevents duplicate loan IDs, unrelated to category spelling."},
+     {text:"Increasing the column's text length", isCorrect:false, rationale:"Length has nothing to do with restricting allowed values."}]},
+  {question:"A user reports: \"I can open pages by IP address but not by name.\" Which step of the eight-step trace has failed?",
+   hint:"Names are turned into addresses by one specific service.",
+   options:[
+     {text:"Step 1 — Name lookup (DNS)", isCorrect:true, rationale:"If the IP address works but the name doesn't, DNS resolution is the broken step."},
+     {text:"Step 3 — Link-layer delivery", isCorrect:false, rationale:"If any connectivity works at all (by IP), the link layer is functioning."},
+     {text:"Step 6 — Security negotiation (TLS)", isCorrect:false, rationale:"TLS issues typically show a certificate warning, not a total failure to resolve a name."},
+     {text:"Step 8 — Unwrap and render", isCorrect:false, rationale:"Rendering happens only after a successful connection; this symptom occurs before that."}]},
+  {question:"Why would increasing Ashworth Residence's internet connection from 500 Mbps to 1 Gbps not have fixed their evening slowdown?",
+   hint:"Compare the wired and wireless speed tests on the same laptop.",
+   options:[
+     {text:"The link was only 62% utilised at peak — the real constraint was wireless airtime contention from co-channel interference, not internet bandwidth.", isCorrect:true, rationale:"A wired test on the same laptop hit 470 Mbps while Wi-Fi hit 6 Mbps — the fault is isolated to the link layer, not the internet connection."},
+     {text:"Because 1 Gbps connections are not available residentially.", isCorrect:false, rationale:"Availability isn't the issue raised by the case; the measurements show it wouldn't help anyway."},
+     {text:"Because DNS resolution was too slow.", isCorrect:false, rationale:"DNS resolved in 18ms — well within normal range and eliminated early in the trace."},
+     {text:"Because TCP handshakes were failing.", isCorrect:false, rationale:"The wired test succeeded at full speed, proving TCP itself was healthy."}]},
+  {question:"In the Fairview business-email-compromise case, six of seven defence-in-depth layers were present and functioning. Why did the attack still succeed?",
+   hint:"Which single layer was on the attacker's actual path?",
+   options:[
+     {text:"The layer that was missing — application and identity (no MFA) — was the only layer on the attacker's path; the other six were irrelevant to this specific attack.", isCorrect:true, rationale:"The attacker used valid stolen credentials through the normal sign-in route, bypassing perimeter, network, endpoint, and physical layers entirely."},
+     {text:"Defence in depth doesn't work against phishing.", isCorrect:false, rationale:"Defence in depth does work — but only if a relevant layer sits on the actual attack path, which it didn't here."},
+     {text:"Because backups had never been tested.", isCorrect:false, rationale:"Backups were irrelevant because nothing was destroyed in this incident — it was a fraud, not data loss."},
+     {text:"Because the firewall was misconfigured.", isCorrect:false, rationale:"The perimeter/firewall layer was present and functioning; it simply wasn't on the attacker's path."}]},
+  {question:"A risk has SLE = CAD 80,000 and ARO = 0.25. A control costing CAD 12,000/year reduces ARO to 0.05. Should it be purchased?",
+   hint:"Calculate ALE before and after, then compare the reduction to the cost.",
+   options:[
+     {text:"Yes — ALE drops from CAD 20,000 to CAD 4,000 (a CAD 16,000 reduction), which is well above the CAD 12,000 cost, giving a positive ROSI.", isCorrect:true, rationale:"Risk reduction (16,000) minus cost (12,000), divided by cost, gives roughly 33% ROSI — a modest but positive return."},
+     {text:"No — the ARO estimate makes any control unjustifiable by definition.", isCorrect:false, rationale:"The arithmetic actually favours purchasing, though the margin is modest enough to scrutinise the ARO estimate."},
+     {text:"Yes, but only because SLE is large regardless of the control's effect.", isCorrect:false, rationale:"Size of SLE alone doesn't justify a purchase — the reduction versus cost comparison does."},
+     {text:"It cannot be determined without knowing the vendor.", isCorrect:false, rationale:"ROSI can be calculated directly from SLE, ARO before/after, and cost — no vendor information is needed."}]}
+];
+
+let currentCardIndex = 0;
+let currentQuizIndex = 0;
+let quizScore = 0;
+let resultsChart = null;
+
+// ---------------- NAVIGATION ----------------
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{b.classList.remove('bg-white','text-indigo-600','shadow-sm','active'); b.classList.add('text-slate-600');});
+  const activeBtn = document.getElementById('btn-'+tabId);
+  activeBtn.classList.add('bg-white','text-indigo-600','shadow-sm','active');
+  activeBtn.classList.remove('text-slate-600');
+}
+
+// ---------------- FLASHCARDS ----------------
+function updateCard(){
+  const card = flashcards[currentCardIndex];
+  const inner = document.getElementById('flashcard-inner');
+  inner.classList.remove('flipped');
+  setTimeout(()=>{
+    document.getElementById('card-front-text').innerText = card.front;
+    document.getElementById('card-back-text').innerText = card.back;
+    document.getElementById('card-counter').innerText = currentCardIndex+1;
+    document.getElementById('card-progress').style.width = ((currentCardIndex+1)/flashcards.length*100)+'%';
+  },150);
+}
+function nextCard(){ currentCardIndex = (currentCardIndex+1)%flashcards.length; updateCard(); }
+function prevCard(){ currentCardIndex = (currentCardIndex-1+flashcards.length)%flashcards.length; updateCard(); }
+
+// ---------------- QUIZ ----------------
+function startQuiz(){
+  document.getElementById('quiz-intro').classList.add('hidden');
+  document.getElementById('quiz-active').classList.remove('hidden');
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = quizQuestions[currentQuizIndex];
+  document.getElementById('quiz-question').innerText = q.question;
+  document.getElementById('quiz-progress-text').innerText = `Question ${currentQuizIndex+1} of ${quizQuestions.length}`;
+  document.getElementById('quiz-hint').innerText = q.hint;
+  document.getElementById('quiz-hint').classList.add('hidden');
+  document.getElementById('hint-toggle-btn').innerText = 'Need a hint?';
+  const optionsBox = document.getElementById('quiz-options');
+  optionsBox.innerHTML = '';
+  q.options.forEach((opt, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'w-full text-left p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-slate-700 font-medium quiz-opt-btn';
+    btn.innerText = opt.text;
+    btn.onclick = ()=>selectOption(idx);
+    optionsBox.appendChild(btn);
+  });
+  document.getElementById('quiz-feedback').classList.add('hidden');
+  document.getElementById('next-q-btn').classList.add('hidden');
+}
+function selectOption(idx){
+  const q = quizQuestions[currentQuizIndex];
+  const selected = q.options[idx];
+  const feedbackBox = document.getElementById('quiz-feedback');
+  document.querySelectorAll('.quiz-opt-btn').forEach(b=>b.disabled=true);
+  feedbackBox.classList.remove('hidden','bg-emerald-50','text-emerald-800','border-emerald-200','bg-rose-50','text-rose-800','border-rose-200');
+  if(selected.isCorrect){
+    quizScore++;
+    feedbackBox.classList.add('bg-emerald-50','text-emerald-800','border-emerald-200');
+    feedbackBox.innerHTML = `<strong>Correct!</strong> ${selected.rationale}`;
+  } else {
+    feedbackBox.classList.add('bg-rose-50','text-rose-800','border-rose-200');
+    feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${selected.rationale}`;
+  }
+  document.getElementById('quiz-score-live').innerText = `Score: ${quizScore}`;
+  document.getElementById('next-q-btn').classList.remove('hidden');
+}
+function toggleHint(){
+  const hint = document.getElementById('quiz-hint');
+  const btn = document.getElementById('hint-toggle-btn');
+  if(hint.classList.contains('hidden')){ hint.classList.remove('hidden'); btn.innerText='Hide hint'; }
+  else{ hint.classList.add('hidden'); btn.innerText='Need a hint?'; }
+}
+function nextQuestion(){
+  if(currentQuizIndex < quizQuestions.length-1){ currentQuizIndex++; renderQuestion(); }
+  else{ showResults(); }
+}
+function showResults(){
+  document.getElementById('quiz-active').classList.add('hidden');
+  document.getElementById('quiz-results').classList.remove('hidden');
+  document.getElementById('result-summary').innerText = `You scored ${quizScore} out of ${quizQuestions.length}`;
+  const ctx = document.getElementById('resultsChart').getContext('2d');
+  if(resultsChart) resultsChart.destroy();
+  resultsChart = new Chart(ctx,{type:'doughnut',data:{labels:['Correct','Incorrect'],
+    datasets:[{data:[quizScore, quizQuestions.length-quizScore], backgroundColor:['#10b981','#f43f5e'], borderWidth:0}]},
+    options:{maintainAspectRatio:false,cutout:'70%',plugins:{legend:{position:'bottom'}}}});
+}
+function resetQuiz(){
+  quizScore=0; currentQuizIndex=0;
+  document.getElementById('quiz-results').classList.add('hidden');
+  document.getElementById('quiz-intro').classList.remove('hidden');
+  document.getElementById('quiz-score-live').innerText='Score: 0';
+}
+
+updateCard();
+</script>
+</body>
+</html>

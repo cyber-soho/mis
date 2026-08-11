@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 02 — Part B: Diagnosis | Cyber.SoHo Educational Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-track{background:#0f172a;}
+  ::-webkit-scrollbar-thumb{background:#7e22ce;border-radius:4px;}
+  ::-webkit-scrollbar-thumb:hover{background:#a855f7;}
+  body{font-family:ui-sans-serif,system-ui,sans-serif;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  table{border-collapse:collapse;width:100%;}
+  th,td{border:1px solid #334155;padding:8px 12px;text-align:left;vertical-align:top;font-size:0.9rem;}
+  th{background:#1e293b;color:#e9d5ff;}
+  tr:nth-child(even){background:#0f172a;}
+  details summary{cursor:pointer;}
+  details[open] summary{color:#a855f7;}
+</style>
+</head>
+<body class="bg-slate-950 text-slate-200 leading-relaxed selection:bg-purple-800 selection:text-white">
+
+<nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50 border-b border-purple-700/40">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-lg tracking-wide">Cyber<span class="text-purple-400">.SoHo</span></span>
+        <span class="text-slate-400 text-sm hidden sm:inline">— IT 500 Task 02, Part B</span>
+      </div>
+      <div class="hidden md:flex items-center gap-1">
+        <button onclick="switchTab('overview')" id="nav-overview" class="tab-btn px-3 py-2 rounded-md text-sm font-medium bg-purple-700 text-white transition">Overview</button>
+        <button onclick="switchTab('vocab')" id="nav-vocab" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">Vocabulary</button>
+        <button onclick="switchTab('diagnostics')" id="nav-diagnostics" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">Diagnostics</button>
+        <button onclick="switchTab('lab')" id="nav-lab" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">Lab &amp; Write</button>
+        <button onclick="switchTab('rubric')" id="nav-rubric" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">Rubric</button>
+        <button onclick="switchTab('legal')" id="nav-legal" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">Legal</button>
+      </div>
+    </div>
+    <div class="md:hidden flex flex-wrap gap-1 pb-3">
+      <button onclick="switchTab('overview')" id="nav-overview-m" class="tab-btn-m px-2 py-1 rounded bg-purple-700 text-white text-xs">Overview</button>
+      <button onclick="switchTab('vocab')" id="nav-vocab-m" class="tab-btn-m px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs">Vocabulary</button>
+      <button onclick="switchTab('diagnostics')" id="nav-diagnostics-m" class="tab-btn-m px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs">Diagnostics</button>
+      <button onclick="switchTab('lab')" id="nav-lab-m" class="tab-btn-m px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs">Lab &amp; Write</button>
+      <button onclick="switchTab('rubric')" id="nav-rubric-m" class="tab-btn-m px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs">Rubric</button>
+      <button onclick="switchTab('legal')" id="nav-legal-m" class="tab-btn-m px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs">Legal</button>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+<!-- OVERVIEW -->
+<section id="overview-view" class="tab-panel active space-y-8">
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h1 class="text-3xl font-bold text-white mb-1">Task 02 — Part B: Diagnosis</h1>
+    <p class="text-purple-400 font-medium mb-6">Module 02 · Week 02 — Management of Information Systems (IS) Assessment</p>
+    <p class="text-slate-400 mb-6 text-sm italic">Cyber.SoHo Educational Hub — IT 500 (2025–2026) — "From the Industry to the Classroom — Building the IT's Future, Today and Together!"</p>
+    <div class="overflow-x-auto rounded-lg border border-slate-800">
+      <table>
+        <tr><th class="w-1/5">Weight</th><td>10% of IT 500 · instalment 2 of 3 in the Written Project (30% total)</td></tr>
+        <tr><th>Produces</th><td><strong>Part B — Diagnosis</strong>, 1,000–1,200 counted words</td></tr>
+        <tr><th>Working time</th><td><strong>3 hours maximum.</strong> If you pass 3h30, stop and submit what you have</td></tr>
+        <tr><th>Due</th><td><strong>Midnight CET, Sunday 23 August 2026</strong></td></tr>
+        <tr><th>Where</th><td>Blackboard → Assignments → DropBox. <em>Emailed submissions are not submissions</em></td></tr>
+        <tr><th>Subject</th><td>The <strong>same</strong> topic, organisation and system you registered in Task 01. No switching</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-white mb-4">0. Before You Start — Read Once (4 minutes)</h2>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">0.1 Where this sits: the capstone, not a homework</h3>
+    <p class="text-slate-300 mb-4">You are not writing three essays. You are writing <strong>one 3,000-word academic paper in three instalments</strong>, and this is the middle one. Task 01 described your system. Task 02 takes it apart. Task 03 will judge it.</p>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 text-center text-sm">
+      <div class="bg-slate-800 rounded-lg p-3 border border-slate-700"><p class="font-bold text-white">TASK 01</p><p class="text-slate-400">Register + Describe</p><p class="text-purple-400 mt-1">16 Aug · 10%</p></div>
+      <div class="bg-purple-900/40 rounded-lg p-3 border border-purple-600"><p class="font-bold text-white">TASK 02</p><p class="text-slate-300">Diagnose <span class="text-purple-300">(you are here)</span></p><p class="text-purple-300 mt-1">23 Aug · 10%</p></div>
+      <div class="bg-slate-800 rounded-lg p-3 border border-slate-700"><p class="font-bold text-white">TASK 03</p><p class="text-slate-400">Judge + Recommend</p><p class="text-purple-400 mt-1">28 Aug · 10%</p></div>
+      <div class="bg-slate-800 rounded-lg p-3 border border-slate-700"><p class="font-bold text-white">CONSOLIDATE</p><p class="text-slate-400">Merge · Polish</p><p class="text-purple-400 mt-1">31 Aug · 30% total</p></div>
+    </div>
+    <p class="text-slate-300 mb-4">The single most valuable thing you own right now is <strong>your Task 01 feedback</strong>. Open it before you write a word of Part B. Students who act on instalment-one feedback typically gain several marks on the final paper; students who do not, hand in the same three mistakes three times.</p>
+    <p class="text-slate-300 mb-6"><strong>Two things carry forward from Task 01 and are marked again here:</strong> your <strong>evidence log</strong> (every claim, traceable to where you got it) and your <strong>A7 open questions</strong> (the things you could not answer). Part B exists largely to close some of those questions.</p>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">0.2 Your three hours, on the course ponderation (2-1-3)</h3>
+    <p class="text-slate-300 mb-4">This course runs on a <strong>2-1-3 ponderation</strong> — 2 hours concept, 1 hour hands-on lab, 3 hours independent production, each week. Set a timer for each block. When a block's time is gone, move on with whatever you have — an incomplete pass that is written down scores; a perfect pass that never got written scores nothing.</p>
+    <div class="overflow-x-auto rounded-lg border border-slate-800 mb-6">
+      <table>
+        <tr><th>Block</th><th>Share</th><th>Minutes</th><th>What you do</th><th>What comes out</th></tr>
+        <tr><td><strong>1 — Concept</strong></td><td>2</td><td>60</td><td>Four diagnostic passes (B1–B4) over your own system</td><td>Four short findings, ~40 words each</td></tr>
+        <tr><td><strong>2 — Lab</strong></td><td>1</td><td>30</td><td>Put your numbers into the Week 02 lab files</td><td>Four numbers you can defend</td></tr>
+        <tr><td><strong>3 — Write</strong></td><td>3</td><td>90</td><td>Findings + six-lens rescore + open questions</td><td>Part B, 1,000–1,200 words, .docx</td></tr>
+      </table>
+    </div>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">0.4 Rules of Engagement — These Do Not Bend</h3>
+    <ol class="list-decimal list-inside space-y-2 text-slate-300">
+      <li>Gather evidence <strong>as an ordinary user</strong>, or from <strong>published sources</strong>. Nothing else.</li>
+      <li>Collect <strong>no personal data</strong> about anyone. No names, no records, no screenshots containing another person's information.</li>
+      <li><strong>Test nothing.</strong> No scanning, no probing, no credential attempts, no "just checking whether it's vulnerable". Observation only.</li>
+      <li><strong>Never contact</strong> a clinical, emergency, non-emergency or dispatch line for coursework. Healthcare and Public Safety topics are worked from published sources exclusively.</li>
+      <li><strong>Publish nothing.</strong> Your findings stay in your submission.</li>
+      <li>If a step cannot be done lawfully or ethically for your chosen system, <strong>write that down as a finding and move on</strong>. "I could not observe this without breaching rule 2" is a legitimate, markable answer. Inventing the observation is not.</li>
+    </ol>
+  </div>
+
+  <div class="bg-purple-950/30 border border-purple-800 rounded-xl p-6 md:p-8">
+    <h2 class="text-xl font-bold text-white mb-2">1. The Brief, In One Sentence</h2>
+    <p class="text-slate-200">Take the system you described in Task 01, look underneath it at four specific layers — infrastructure, data, network, security — and report <strong>where information is duplicated, where it is lost, and what the handoffs actually cost</strong>, with a measurement beside every claim.</p>
+    <p class="text-purple-300 mt-3 italic">Part A asked <em>what is this?</em> Part B asks <em>what is wrong with it, and how do you know?</em></p>
+  </div>
+</section>
+
+<!-- VOCAB -->
+<section id="vocab-view" class="tab-panel space-y-6">
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-white mb-2">0.3 Vocabulary</h2>
+    <p class="text-slate-400 mb-6">You are computer science students, but you are new to <strong>IS (Information System)</strong> assessment. Every term below appears in this task.</p>
+    <div class="overflow-x-auto rounded-lg border border-slate-800">
+      <table>
+        <tr><th class="w-1/4">Term</th><th>Plain meaning</th></tr>
+        <tr><td><strong>IT (Information Technology)</strong></td><td>The equipment: hardware, software, networks</td></tr>
+        <tr><td><strong>IS (Information System)</strong></td><td>The equipment <strong>plus</strong> the people and the process around it. Assessment is always of the IS, never of the IT alone</td></tr>
+        <tr><td><strong>System of record</strong></td><td>The one place where a fact is <em>supposed</em> to live authoritatively</td></tr>
+        <tr><td><strong>Handoff</strong></td><td>A point where work passes from one person, team or system to another. Handoffs are where time and information are lost</td></tr>
+        <tr><td><strong>Data duplication</strong></td><td>The same fact stored in more than one place, free to disagree with itself</td></tr>
+        <tr><td><strong>Integration</strong></td><td>Two systems exchanging data automatically. If a human retypes it, that is not integration — that is a handoff</td></tr>
+        <tr><td><strong>API</strong></td><td>An agreed way for one program to ask another program for something</td></tr>
+        <tr><td><strong>ETL (Extract, Transform, Load)</strong></td><td>Pulling data out of one system, making it consistent, loading it into another</td></tr>
+        <tr><td><strong>DBMS</strong></td><td>The software that stores data <strong>and refuses data that breaks its rules</strong></td></tr>
+        <tr><td><strong>Primary key / Foreign key</strong></td><td>The column that identifies a row uniquely / the column that points at another table's primary key</td></tr>
+        <tr><td><strong>SQL</strong></td><td>The language used to ask a database questions</td></tr>
+        <tr><td><strong>TCO (Total Cost of Ownership)</strong></td><td>Every cost over the life of a decision, not the purchase price</td></tr>
+        <tr><td><strong>IaaS / PaaS / SaaS</strong></td><td>Infrastructure / Platform / Software as a Service. Three rental models, distinguished by who is responsible for which layer</td></tr>
+        <tr><td><strong>Bandwidth vs latency</strong></td><td>How much data moves per second (Mbps) vs how long one packet takes to arrive (ms). Independent quantities. Buying more of one never fixes the other</td></tr>
+        <tr><td><strong>Airtime contention</strong></td><td>On Wi-Fi, only one device per channel transmits at a time. The rest wait. Invisible on a speed test</td></tr>
+        <tr><td><strong>CIA triad</strong></td><td>Confidentiality, Integrity, Availability — the three properties security protects</td></tr>
+        <tr><td><strong>SLE × ARO = ALE</strong></td><td>Single Loss Expectancy × Annualized Rate of Occurrence = Annualized Loss Expectancy: what a risk costs per year</td></tr>
+        <tr><td><strong>ROSI</strong></td><td>Whether a control returns more than it costs. Negative means <strong>do not buy it</strong></td></tr>
+        <tr><td><strong>Defence in depth</strong></td><td>Seven layers of protection, on the assumption that every one of them will eventually fail</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSTICS -->
+<section id="diagnostics-view" class="tab-panel space-y-6">
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-white mb-1">Block 1 — Concept (60 minutes)</h2>
+    <p class="text-slate-400 mb-6">Four diagnostic passes, fifteen minutes each. Each pass produces <strong>one written finding of roughly 40 words</strong> plus evidence. A pass with a score and no written finding <strong>scores zero</strong>.</p>
+
+    <details class="mb-4 bg-slate-800/60 border border-slate-700 rounded-lg p-4" open>
+      <summary class="font-bold text-lg text-white">B1 · The Infrastructure Pass (15 min)</summary>
+      <p class="text-purple-400 text-sm mb-3 mt-2 italic">IT Infrastructure and Emerging Technologies</p>
+      <p class="text-slate-300 mb-3"><strong>Question:</strong> what does your system run on, who is responsible for which layer, and what does that arrangement cost over five years?</p>
+      <ol class="list-decimal list-inside space-y-1 text-slate-300 text-sm">
+        <li>Decide the rental model: on-premises, IaaS, PaaS or SaaS.</li>
+        <li>Draw the responsibility split for each layer (application, runtime, OS, virtualization, servers/storage, networking, and your organisation's data) as "organisation" or "provider".</li>
+        <li>Answer: which layer, if it failed, would the organisation still be accountable for even though the provider operates it? Usually the data row.</li>
+        <li>Build a five-year TCO sketch: current arrangement vs one plausible alternative.</li>
+        <li><strong>Include staff time</strong> — hours/week × weeks/year × hourly rate. Most-often-omitted, usually the largest variable.</li>
+      </ol>
+      <p class="text-slate-400 text-sm mt-3"><strong>Finding (~40 words):</strong> state the model, name the layer where responsibility and accountability diverge, and give the five-year figure with the labour rate you assumed.</p>
+    </details>
+
+    <details class="mb-4 bg-slate-800/60 border border-slate-700 rounded-lg p-4">
+      <summary class="font-bold text-lg text-white">B2 · The Data Pass (15 min)</summary>
+      <p class="text-purple-400 text-sm mb-3 mt-2 italic">Foundations of Business Intelligence: Databases and Information Management</p>
+      <p class="text-slate-300 mb-3"><strong>Question:</strong> where does the data live, where is the same fact stored twice, and what question can this system <em>not</em> answer?</p>
+      <ol class="list-decimal list-inside space-y-1 text-slate-300 text-sm">
+        <li>List the entities your system handles (3–6 is normal).</li>
+        <li>For each entity name the system of record.</li>
+        <li>Hunt for duplication: is any fact typed in twice (main system + spreadsheet/email/form/second system)?</li>
+        <li>Name which of the five diseases of a file environment is present: redundancy, inconsistency, program–data dependence, poor security, or lack of data sharing.</li>
+        <li>Name one question a manager would reasonably ask that the system cannot answer, and why (missing key/field/link).</li>
+      </ol>
+      <p class="text-slate-400 text-sm mt-3"><strong>Finding (~40 words):</strong> one duplicated fact, its consequence named in Week 02 vocabulary, and one unanswerable management question with the structural reason.</p>
+    </details>
+
+    <details class="mb-4 bg-slate-800/60 border border-slate-700 rounded-lg p-4">
+      <summary class="font-bold text-lg text-white">B3 · The Network Pass (15 min)</summary>
+      <p class="text-purple-400 text-sm mb-3 mt-2 italic">Telecommunications, the Internet, and Wireless Technology</p>
+      <p class="text-slate-300 mb-3"><strong>Question:</strong> how does a request travel through this system, and where does the delay or loss actually sit?</p>
+      <ol class="list-decimal list-inside space-y-1 text-slate-300 text-sm">
+        <li>Trace one transaction end to end: user device → access network → internet → provider → back (6–9 steps).</li>
+        <li>Mark every step where work passes between people or systems — the handoffs.</li>
+        <li>For the slowest/most fragile handoff, estimate bandwidth (Mbps) and latency (ms) separately; say which one the complaint is actually about.</li>
+        <li>If wireless is involved, ask whether airtime contention explains the symptom before assuming a capacity shortage.</li>
+        <li>Cost the handoff in minutes, re-keying steps, or information lost in transit.</li>
+      </ol>
+      <p class="text-slate-400 text-sm mt-3"><strong>Finding (~40 words):</strong> name the constraint, distinguish it from the constraint people assume, and give the handoff cost in your chosen unit.</p>
+    </details>
+
+    <details class="mb-2 bg-slate-800/60 border border-slate-700 rounded-lg p-4">
+      <summary class="font-bold text-lg text-white">B4 · The Security Pass (15 min)</summary>
+      <p class="text-purple-400 text-sm mb-3 mt-2 italic">Securing Information Systems</p>
+      <p class="text-slate-300 mb-3"><strong>Question:</strong> what would go wrong, how much would it cost per year, and is the obvious fix worth buying?</p>
+      <ol class="list-decimal list-inside space-y-1 text-slate-300 text-sm">
+        <li>Name one realistic incident: phishing/social-engineering, credential reuse, unpatched component, or insider error.</li>
+        <li>Classify damage against the CIA triad: breached or not affected, with one clause of justification each.</li>
+        <li>Identify which of the seven defence-in-depth layers would have to fail (physical, perimeter, network, endpoint, application, data, or people-and-process). Layer 7 is the answer far more often than expected.</li>
+        <li>Quantify SLE and ARO, multiply for ALE.</li>
+        <li>Propose two controls (one costs money, one costs only a process change) and compute ROSI for both: (ALE_before − ALE_after − Cost) / Cost. Report both, including if one is negative.</li>
+      </ol>
+      <p class="text-slate-400 text-sm mt-3"><strong>Finding (~40 words):</strong> the incident, the failed layer, the ALE, and which of your two controls the arithmetic actually supports.</p>
+      <p class="text-amber-400 text-xs mt-3 italic">Ethical boundary: you are describing a plausible incident from published sources and ordinary observation — not probing, scanning, testing, or reporting a real vulnerability. If you believe you've accidentally discovered a genuine weakness, do not write it here — contact your instructor privately.</p>
+    </details>
+  </div>
+</section>
+
+<!-- LAB & WRITE -->
+<section id="lab-view" class="tab-panel space-y-6">
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-white mb-1">Block 2 — Lab (30 minutes)</h2>
+    <p class="text-slate-400 mb-6">Reuse the Week 02 lab files and replace fictional figures with your own estimates. Roughly seven minutes each.</p>
+    <div class="overflow-x-auto rounded-lg border border-slate-800">
+      <table>
+        <tr><th>Pass</th><th>Open this file</th><th>Change these inputs</th><th>Record this output</th></tr>
+        <tr><td><strong>B1</strong></td><td>data/W02_L1_TCO_Model.xlsx <em>(or)</em> code/L1_tco_calculator.py</td><td>Analysis period, hourly rate, working weeks, both options' up-front and recurring costs</td><td>Five-year total for each option, the difference, and the break-even year</td></tr>
+        <tr><td><strong>B2</strong></td><td>code/L2_club_inventory_db.py <em>(or)</em> data/W02_L2_Normalization.xlsx</td><td>Replace the three tables with your entities; keep the keys and the CHECK constraint</td><td>Which of your duplications the constraints would have prevented</td></tr>
+        <tr><td><strong>B3</strong></td><td>code/L3_network_workbench.html</td><td>Users, concurrency %, demand per user, link speed, access points, channels in use, devices per person</td><td>Link utilisation %, wireless utilisation %, and which one the tool names as the constraint</td></tr>
+        <tr><td><strong>B4</strong></td><td>code/L4_risk_workbench.html <em>(or)</em> data/W02_L4_Risk_Register.xlsx</td><td>Your SLE, your ARO, your two control costs</td><td>ALE, both ROSI figures, and the ranking</td></tr>
+      </table>
+    </div>
+    <p class="text-slate-300 mt-4 text-sm">When you change an input, write down <strong>why</strong> that value (one clause turns a guess into an estimate). Run each tool twice: once realistic, once pessimistic. If the recommendation survives both, say so; if it flips, that's a finding worth more than the original number.</p>
+  </div>
+
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-white mb-1">Block 3 — Write (90 minutes)</h2>
+    <p class="text-slate-400 mb-6">Producing Part B.</p>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">B5 · Duplication and Handoff Findings (~180 words)</h3>
+    <p class="text-slate-300 mb-4">Pull B2 and B3 together. State, in connected prose: one place information is duplicated (and what disagreement that permits); one place information is lost (a field on one side of a handoff, absent on the other); what the handoffs cost, in minutes, re-keying steps, or lost fields.</p>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">B6 · The Six-Lens Rescore (~200 words) — where most marks live</h3>
+    <p class="text-slate-300 mb-3">Rescore the same six lenses used in Task 01, with your Part B evidence. Ethics and Evidence count double. Every score needs a written finding beside it or the lens scores zero.</p>
+    <div class="overflow-x-auto rounded-lg border border-slate-800 mb-3">
+      <table>
+        <tr><th>Lens</th><th>Question it answers</th><th>Weight</th><th>Task 01</th><th>Task 02</th><th>Movement &amp; why</th></tr>
+        <tr><td>1. Purpose</td><td>Which business objectives does the system serve?</td><td>×1</td><td></td><td></td><td></td></tr>
+        <tr><td>2. People</td><td>Who inputs, who decides, who is affected?</td><td>×1</td><td></td><td></td><td></td></tr>
+        <tr><td>3. Process</td><td>Which steps does it change, remove or create?</td><td>×1</td><td></td><td></td><td></td></tr>
+        <tr><td>4. Strategy</td><td>Which competitive force does it weaken?</td><td>×1</td><td></td><td></td><td></td></tr>
+        <tr><td><strong>5. Ethics</strong></td><td>Whose data, whose risk, whose accountability?</td><td><strong>×2</strong></td><td></td><td></td><td></td></tr>
+        <tr><td><strong>6. Evidence</strong></td><td>What measurement proves each claim is true?</td><td><strong>×2</strong></td><td></td><td></td><td></td></tr>
+      </table>
+    </div>
+    <p class="text-slate-300 mb-6 text-sm">Report your <strong>weakest lens</strong>, not your average — averaging conceals exactly what the assessment asks you to find. Any lens whose score moved must be justified in one sentence.</p>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">B7 · Open Questions (~60 words)</h3>
+    <p class="text-slate-300 mb-2"><strong>1. Closed from A7:</strong> which Task 01 open questions did Part B answer? Quote the question, give the answer, cite the evidence.</p>
+    <p class="text-slate-300 mb-6"><strong>2. Newly opened:</strong> what did this diagnosis raise that you cannot yet answer? These become raw material for Task 03 — write them precisely enough to be actionable.</p>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">Word Budget</h3>
+    <div class="overflow-x-auto rounded-lg border border-slate-800 mb-6">
+      <table>
+        <tr><th>Section</th><th>Words</th></tr>
+        <tr><td>B1 Infrastructure finding</td><td>150</td></tr>
+        <tr><td>B2 Data finding</td><td>180</td></tr>
+        <tr><td>B3 Network finding</td><td>150</td></tr>
+        <tr><td>B4 Security finding</td><td>180</td></tr>
+        <tr><td>B5 Duplication and handoff</td><td>180</td></tr>
+        <tr><td>B6 Six-lens rescore</td><td>200</td></tr>
+        <tr><td>B7 Open questions</td><td>60</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>≈ 1,100 (target band 1,000–1,200)</strong></td></tr>
+      </table>
+    </div>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">Format — Set It Once, Never Touch It Again</h3>
+    <p class="text-slate-300 mb-6">Microsoft Word .docx · Times New Roman 12 · double spaced · one-inch margins on all four sides · cover page (title, name, professor's name, course title, date) · APA citations and references · at least three new academically sound sources this week · all figures/tables/screenshots imported into the Word document, never attached separately. Cover page, references and appendices are not counted in the word total. Run SafeAssign Direct before you submit.</p>
+
+    <h3 class="text-lg font-semibold text-purple-400 mb-2">Worked Fragment (entirely fictional)</h3>
+    <div class="bg-slate-800/60 border border-purple-800 rounded-lg p-4 text-sm text-slate-300">
+      <p class="italic text-slate-400 mb-2">Subject: Calderbank University IT service-desk ticketing and escalation system. Every figure is invented for teaching.</p>
+      <p><strong>B2 finding.</strong> The requester's department is stored in the ticket record and again in the staff directory, and the two disagree for roughly one ticket in nine after any internal move (observed across 45 publicly visible ticket summaries over three weeks). This is data redundancy producing inconsistency. The consequence: the desk cannot answer "which department generates the most password resets?", because the department field on the ticket is a free-text copy rather than a foreign key to the directory. [ESTIMATE — basis: sample of 45 summaries; ratio extrapolated]</p>
+    </div>
+  </div>
+</section>
+
+<!-- RUBRIC -->
+<section id="rubric-view" class="tab-panel space-y-6">
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-white mb-4">2. Marking — 100 Points, Scaled to 10%</h2>
+    <div class="overflow-x-auto rounded-lg border border-slate-800 mb-4">
+      <table>
+        <tr><th>#</th><th>Criterion</th><th>Points</th></tr>
+        <tr><td>1</td><td><strong>B1 Infrastructure pass</strong> — model identified, responsibility split correct, five-year figure with labour included</td><td>12</td></tr>
+        <tr><td>2</td><td><strong>B2 Data pass</strong> — entities and system of record, one duplication named, one unanswerable question with structural cause</td><td>12</td></tr>
+        <tr><td>3</td><td><strong>B3 Network pass</strong> — transaction traced, handoffs marked, bandwidth distinguished from latency, constraint named</td><td>12</td></tr>
+        <tr><td>4</td><td><strong>B4 Security pass</strong> — incident, CIA classification, failed layer, ALE, two controls with ROSI</td><td>12</td></tr>
+        <tr><td>5</td><td><strong>B5 Duplication and handoff cost</strong> — stated in a non-monetary unit, with evidence</td><td>10</td></tr>
+        <tr><td>6</td><td><strong>B6 Six-lens rescore</strong> — all six present, findings beside every score, movements justified, weakest lens reported</td><td>20</td></tr>
+        <tr><td>7</td><td><strong>B7 Open questions</strong> — A7 questions closed with evidence; new questions actionable</td><td>8</td></tr>
+        <tr><td>8</td><td><strong>Evidence log</strong> — cumulative, every claim traceable, estimates labelled as estimates</td><td>8</td></tr>
+        <tr><td>9</td><td><strong>Format and sources</strong> — Course Plan format met, APA correct, ≥3 new sound sources, SafeAssign run</td><td>6</td></tr>
+        <tr class="bg-purple-900/40"><td colspan="2"><strong>Total</strong></td><td><strong>100</strong></td></tr>
+      </table>
+    </div>
+    <p class="text-amber-400 text-sm mb-8"><strong>Automatic zeros within a criterion:</strong> a score with no written finding; an unlabelled estimate presented as an observation; a claim in the evidence log with no traceable source.</p>
+
+    <h2 class="text-2xl font-bold text-white mb-4">4. The Substitution Clause</h2>
+    <p class="text-slate-300 mb-3"><strong>Every tool, technique, file format and method named in this task is an example, not a requirement.</strong> All of it is open and fully substitutable — LibreOffice Calc, Google Sheets, Numbers, pandas, R, Julia, DuckDB, PostgreSQL, a Jupyter notebook, a whiteboard photograph or a hand-drawn table. If you would rather write your own script, that is a better answer, not a worse one.</p>
+    <p class="text-slate-300 mb-3">One condition — if you substitute anything, add to your appendix:</p>
+    <div class="bg-slate-800/60 border border-slate-700 rounded-lg p-4 text-sm text-slate-300 font-mono mb-6">
+      SUBSTITUTION NOTE<br>
+      Original suggested: W02_L3_Bandwidth_Budget.xlsx<br>
+      What I used instead: a Python script using pandas<br>
+      Why: I wanted to sweep 200 concurrency values rather than one, and I already know pandas better than Excel formulas.<br>
+      What changed in the result: none — same verdict at the default inputs.
+    </div>
+    <p class="text-slate-300 mb-8">Go further than this task asks. Research your own tools, compare at least two before choosing, and where nothing fits, build one. Say what you built and why, and it will be marked as a strength.</p>
+
+    <h2 class="text-2xl font-bold text-white mb-4">5. Links</h2>
+    <div class="overflow-x-auto rounded-lg border border-slate-800">
+      <table>
+        <tr><th>Resource</th><th>Why you would open it</th></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.roehampton.ac.uk/" target="_blank" rel="noopener">University of Roehampton</a></td><td>The credential this project counts 100% toward</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://apastyle.apa.org/" target="_blank" rel="noopener">APA Style — official</a></td><td>Reference format required by the Course Plan</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/index.html" target="_blank" rel="noopener">Purdue OWL — APA guide</a></td><td>Free worked APA examples when the official site is terse</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.nist.gov/" target="_blank" rel="noopener">NIST</a></td><td>Incident-handling phases and security control vocabulary for B4</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.iso.org/" target="_blank" rel="noopener">ISO</a></td><td>Standards referenced when describing management systems</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.ietf.org/" target="_blank" rel="noopener">IETF</a></td><td>The protocol specifications behind your B3 trace</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.ieee.org/" target="_blank" rel="noopener">IEEE</a></td><td>The 802.11 wireless standards family</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.w3.org/" target="_blank" rel="noopener">W3C</a></td><td>Web standards, including accessibility, if your system is browser-based</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://owasp.org/" target="_blank" rel="noopener">OWASP</a></td><td>Application-layer risk vocabulary for B4</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.cisa.gov/" target="_blank" rel="noopener">CISA</a></td><td>Published advisories usable as B4 evidence</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.cyber.gc.ca/" target="_blank" rel="noopener">Canadian Centre for Cyber Security</a></td><td>Canadian guidance and published threat assessments</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.enisa.europa.eu/" target="_blank" rel="noopener">ENISA</a></td><td>EU threat landscape reports, a strong APA source</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python</a> · <a class="text-purple-400 underline" href="https://www.sqlite.org/docs.html" target="_blank" rel="noopener">SQLite</a></td><td>The two tools the lab files use</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://developer.mozilla.org/" target="_blank" rel="noopener">MDN Web Docs</a></td><td>Reference if you extend the HTML workbenches</td></tr>
+        <tr><td><a class="text-purple-400 underline" href="https://www.virustotal.com/gui/home/url" target="_blank" rel="noopener">VirusTotal — URL scanner</a></td><td><strong>Scan every external link through this before opening it</strong></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL -->
+<section id="legal-view" class="tab-panel space-y-6">
+  <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 md:p-8 text-sm text-slate-300 space-y-4">
+    <h2 class="text-2xl font-bold text-white mb-2">6. Disclaimer, Intellectual Property, and Terms of Use</h2>
+    <p><strong>6.1 Ownership.</strong> This task, its structure, wording, rubric, examples and accompanying files are the original work and intellectual property of the Cyber.SoHo Educational Hub. Provided for enrolled educational use within IT 500 only. No part may be reproduced, redistributed, resold, publicly posted, or used to train a machine-learning model without prior written permission. Enrolled students may download, store, print and annotate this package for their own study.</p>
+    <p><strong>6.2 No affiliation, no endorsement.</strong> No sponsorship, affiliation, endorsement or partnership with any company, product, standards body, university or institution named in this document is claimed or implied. All trademarks and organisation names belong to their respective owners and are referenced for identification and educational commentary only.</p>
+    <p><strong>6.3 Fictional scenarios.</strong> Calderbank University and every figure, ratio, cost and observation attributed to it are invented for teaching. All case studies used across this course are entirely fictional. Any resemblance to a real institution, system or incident is coincidental. These figures are not citable as evidence about the real world.</p>
+    <p><strong>6.4 Educational purpose.</strong> This is educational content. It is not legal, privacy, compliance, clinical, financial, security or professional advice, and it does not create a professional relationship of any kind.</p>
+    <p><strong>6.5 Lawful and ethical conduct.</strong> This task authorises observation only: acting as an ordinary user of a service, and reading material an organisation has itself published. It authorises no testing of any kind — no scanning, probing, enumeration, credential testing, traffic interception, social engineering, or access to any system, account or network you do not own or lack written authorisation to examine. Doing so may constitute a criminal offence, including under the Criminal Code of Canada s.342.1, the United States Computer Fraud and Abuse Act (18 U.S.C. §1030), EU Directive 2013/40/EU, and Spain's Ley Orgánica 10/1995, alongside equivalent legislation elsewhere. Any student who exceeds these boundaries does so entirely on their own initiative and accepts sole responsibility for the consequences.</p>
+    <p><strong>6.6 Privacy and data protection.</strong> Collect no personal data. Do not record, photograph, screenshot or transcribe any information that identifies a living person. If personal data reaches your notes accidentally, delete it and note in your evidence log that you did so.</p>
+    <p><strong>6.7 Responsible disclosure.</strong> If, while observing as an ordinary user, you believe you have encountered a genuine security weakness in a real organisation, do not document it in this assignment, do not investigate further, and do not tell your classmates. Close your notes and contact your instructor privately.</p>
+    <p><strong>6.8 External links and third-party content.</strong> Linked sites are not controlled by the Cyber.SoHo Educational Hub and their content may change without notice. Verify every external link through VirusTotal before opening it.</p>
+    <p><strong>6.9 Tools, files and warranty.</strong> All accompanying code, spreadsheets and files are provided "as is", without warranty of any kind, express or implied. Run them in an environment you control.</p>
+    <p><strong>6.10 Academic integrity.</strong> The work you submit must be your own. Discussion with classmates is encouraged; shared text is not. Sources must be real, findable, and actually used. SafeAssign runs automatically on submission.</p>
+    <p><strong>6.11 Accuracy, corrections and precedence.</strong> Errors are possible — report them; corrections are welcomed and credited. Where this document and your official Course Plan disagree, the Course Plan governs. Where this document and a written instruction from your instructor disagree, the instructor's written instruction governs.</p>
+    <p><strong>6.12 Severability.</strong> If any provision of these terms is found unenforceable, the remaining provisions continue in full force.</p>
+    <p class="italic text-slate-500 pt-2 border-t border-slate-800">Cyber.SoHo Educational Hub — From the Industry to the Classroom — Building the IT's Future, Today and Together! © 2026 Cyber.SoHo Educational Hub — ALL Rights Reserved</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub</span>
+      &copy; 2026 Schiller International University
+    </p>
+  </div>
+</footer>
+
+<script>
+function switchTab(tabId){
+  const ids=['overview','vocab','diagnostics','lab','rubric','legal'];
+  ids.forEach(id=>{
+    document.getElementById(id+'-view').classList.remove('active');
+    const btn=document.getElementById('nav-'+id);
+    const btnM=document.getElementById('nav-'+id+'-m');
+    if(btn){btn.classList.remove('bg-purple-700','text-white');btn.classList.add('text-slate-300');}
+    if(btnM){btnM.classList.remove('bg-purple-700','text-white');btnM.classList.add('bg-slate-800','text-slate-300');}
+  });
+  document.getElementById(tabId+'-view').classList.add('active');
+  const btn=document.getElementById('nav-'+tabId);
+  const btnM=document.getElementById('nav-'+tabId+'-m');
+  if(btn){btn.classList.add('bg-purple-700','text-white');btn.classList.remove('text-slate-300');}
+  if(btnM){btnM.classList.add('bg-purple-700','text-white');btnM.classList.remove('bg-slate-800','text-slate-300');}
+}
+</script>
+</body>
+</html>

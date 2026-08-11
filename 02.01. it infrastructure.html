@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 02 — Management of Information Systems | Cyber.SoHo Educational Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:#f1f5f9}
+  ::-webkit-scrollbar-thumb{background:#94a3b8;border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:#64748b}
+  .chart-container{position:relative;width:100%;max-width:640px;margin:0 auto;height:300px;max-height:400px}
+  @media(min-width:768px){.chart-container{height:340px}}
+  .onion-layer{transition:all .4s ease-in-out}
+  .layer-removed{transform:translateX(80px);opacity:0;pointer-events:none}
+  pre{white-space:pre-wrap;word-break:break-word}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed selection:bg-indigo-100 selection:text-indigo-800">
+
+<nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🖥️</span>
+        <span class="font-bold text-lg tracking-wide">Week 02 <span class="text-indigo-400">IS Assessment</span></span>
+      </div>
+      <div class="hidden md:block">
+        <div class="ml-6 flex items-baseline space-x-2">
+          <button onclick="switchTab('infra')" id="nav-infra" class="px-3 py-2 rounded-md text-sm font-medium bg-slate-800 text-white transition hover:bg-slate-700 border-b-2 border-indigo-500">1. Infrastructure</button>
+          <button onclick="switchTab('data')" id="nav-data" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">2. Databases &amp; BI</button>
+          <button onclick="switchTab('network')" id="nav-network" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">3. Networking</button>
+          <button onclick="switchTab('security')" id="nav-security" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 transition hover:bg-slate-700 hover:text-white border-b-2 border-transparent">4. Security</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+<!-- ============ SECTION 1 — INFRASTRUCTURE ============ -->
+<section id="infra-view" class="space-y-8 block">
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-4">IT Infrastructure &amp; Emerging Technologies</h1>
+    <p class="text-slate-600 mb-6 text-lg"><strong>IT infrastructure</strong> is the shared set of physical and software resources that every application in an organisation depends on, but that no single application owns. Because it is shared, when it fails it fails for everyone at once — which is why infrastructure decisions are <em>management</em> decisions, not just technical ones.</p>
+
+    <h2 class="text-xl font-semibold text-slate-800 mb-4">The Seven Components — Your Assessment Checklist</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500"><strong class="text-indigo-900 block">1. Computer hardware platforms</strong><span class="text-indigo-700 text-sm">What machines do we run on, and how old are they?</span></div>
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500"><strong class="text-indigo-900 block">2. Operating system platforms</strong><span class="text-indigo-700 text-sm">Which OS versions, and are they still supported?</span></div>
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500"><strong class="text-indigo-900 block">3. Enterprise software applications</strong><span class="text-indigo-700 text-sm">What are the big systems of record?</span></div>
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500"><strong class="text-indigo-900 block">4. Data management &amp; storage</strong><span class="text-indigo-700 text-sm">Where does the data live, and who backs it up?</span></div>
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500"><strong class="text-indigo-900 block">5. Networking &amp; telecommunications</strong><span class="text-indigo-700 text-sm">How do pieces reach each other and the outside world?</span></div>
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500"><strong class="text-indigo-900 block">6. Internet platforms</strong><span class="text-indigo-700 text-sm">What is our public presence, and where is it hosted?</span></div>
+      <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500 shadow-md md:col-span-2"><strong class="text-purple-900 block">7. Consulting &amp; system integration services</strong><span class="text-purple-700 text-sm">Who has the knowledge to make these pieces work together? Knowledge is a shared resource too — this is a management view of infrastructure, and it includes the humans who keep it alive.</span></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div class="lg:col-span-1 space-y-4">
+        <h3 class="font-bold text-slate-800">The Responsibility Split</h3>
+        <p class="text-sm text-slate-600">In every single service model — including SaaS — <strong>the data is yours.</strong> You can rent the machines. You cannot rent away responsibility for the data.</p>
+        <table class="w-full text-xs border border-slate-200 rounded overflow-hidden">
+          <thead class="bg-slate-800 text-white"><tr><th class="p-2 text-left">Layer</th><th class="p-1">On-prem</th><th class="p-1">IaaS</th><th class="p-1">PaaS</th><th class="p-1">SaaS</th></tr></thead>
+          <tbody id="respTable" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+      <div class="lg:col-span-2 bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2 text-center">Print Hub: Buy vs Rent — 5-Year TCO Simulator</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 text-xs">
+          <div><label class="block text-slate-500 mb-1">Admin hourly rate (Buy), CAD</label><input id="rateBuy" type="number" value="18" class="w-full border border-slate-300 rounded p-1"></div>
+          <div><label class="block text-slate-500 mb-1">Admin hrs/week (Buy)</label><input id="hrsBuy" type="number" value="6" class="w-full border border-slate-300 rounded p-1"></div>
+          <div><label class="block text-slate-500 mb-1">Admin hourly rate (Rent), CAD</label><input id="rateRent" type="number" value="18" class="w-full border border-slate-300 rounded p-1"></div>
+          <div><label class="block text-slate-500 mb-1">Admin hrs/week (Rent)</label><input id="hrsRent" type="number" value="2" class="w-full border border-slate-300 rounded p-1"></div>
+        </div>
+        <button onclick="runTCO()" class="mb-3 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-semibold">Recalculate 5-Year TCO</button>
+        <div class="chart-container"><canvas id="tcoChart"></canvas></div>
+        <p id="tcoVerdict" class="text-sm text-center mt-3 font-semibold text-slate-700"></p>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-800 text-sm">
+      <strong>Assessment discipline for emerging technologies (edge, containers, ML, quantum):</strong> ask three questions in order — (1) what problem does this solve that we <em>actually</em> have? (2) what does it cost, including the people? (3) what happens if the vendor disappears or triples the price (lock-in)? An organisation that cannot answer all three should not adopt yet.
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — DATABASES & BI ============ -->
+<section id="data-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Foundations of Business Intelligence</h2>
+    <p class="text-slate-600 mb-6">A <strong>database</strong> is a collection of data organised so it can be stored, retrieved, and updated by many users at once, <em>under rules the storage system itself enforces.</em> A spreadsheet stores what you typed. A database stores only what is allowed.</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div>
+        <h3 class="font-bold text-slate-800 mb-2">The Five Diseases of the File Environment</h3>
+        <ul class="space-y-2 text-sm">
+          <li class="p-3 bg-rose-50 rounded border-l-4 border-rose-400"><strong>Data redundancy</strong> — the same fact stored in more than one place.</li>
+          <li class="p-3 bg-rose-50 rounded border-l-4 border-rose-400"><strong>Data inconsistency</strong> — those copies disagree.</li>
+          <li class="p-3 bg-rose-50 rounded border-l-4 border-rose-400"><strong>Program-data dependence</strong> — changing the format breaks the programs.</li>
+          <li class="p-3 bg-rose-50 rounded border-l-4 border-rose-400"><strong>Lack of flexibility</strong> — any new question needs new programming.</li>
+          <li class="p-3 bg-rose-50 rounded border-l-4 border-rose-400"><strong>Poor security &amp; sharing</strong> — no single place to enforce who sees what.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-800 mb-2">The Relational Model, Four Ideas</h3>
+        <ol class="space-y-2 text-sm list-decimal list-inside">
+          <li><strong>Table</strong> — rows describing one kind of thing.</li>
+          <li><strong>Primary key</strong> — uniquely identifies every row, never empty.</li>
+          <li><strong>Foreign key</strong> — a column referencing another table's primary key; enforces <em>referential integrity.</em></li>
+          <li><strong>Normalisation</strong> — every fact stored in exactly one place. If you must change something in two places to keep it true, the design is wrong.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-slate-900 rounded-xl p-6 text-white">
+      <h3 class="font-bold text-indigo-300 mb-3">Live demo — the database refuses bad data (Club Inventory)</h3>
+      <p class="text-slate-300 text-sm mb-4">This mirrors the SQLite example from the lecture: <code class="text-emerald-300">members</code>, <code class="text-emerald-300">items</code>, and <code class="text-emerald-300">loans</code> tables, with a <code class="text-emerald-300">CHECK</code> constraint on category and a foreign key on member/item. Try inserting an invalid category or an unknown member id.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs mb-3">
+        <input id="catInput" placeholder="Category to insert, e.g. Microcontroler" class="p-2 rounded bg-slate-800 border border-slate-700 text-white">
+        <input id="memberInput" placeholder="Member ID for a new loan, e.g. 9999" class="p-2 rounded bg-slate-800 border border-slate-700 text-white">
+      </div>
+      <button onclick="testDB()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded font-semibold text-sm">Run Proofs</button>
+      <pre id="dbOut" class="mt-3 bg-black/40 p-3 rounded text-xs font-mono text-emerald-300 min-h-[60px]"></pre>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border border-slate-200 rounded-lg p-4">
+        <h3 class="font-bold text-slate-800 mb-2">SQL — Five Statements</h3>
+        <table class="w-full text-xs">
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="p-1 font-mono font-bold text-indigo-700">CREATE TABLE</td><td class="p-1">Defines a table and its rules</td></tr>
+            <tr><td class="p-1 font-mono font-bold text-indigo-700">INSERT</td><td class="p-1">Adds rows</td></tr>
+            <tr><td class="p-1 font-mono font-bold text-indigo-700">SELECT</td><td class="p-1">Asks a question</td></tr>
+            <tr><td class="p-1 font-mono font-bold text-indigo-700">UPDATE</td><td class="p-1">Changes existing rows</td></tr>
+            <tr><td class="p-1 font-mono font-bold text-indigo-700">DELETE</td><td class="p-1">Removes rows</td></tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-slate-500 mt-2">A <strong>SELECT with a JOIN and a GROUP BY is not a database operation — it is a management report.</strong></p>
+      </div>
+      <div class="border border-slate-200 rounded-lg p-4">
+        <h3 class="font-bold text-slate-800 mb-2">BI Pipeline &amp; Failure Modes</h3>
+        <p class="text-xs text-slate-600">Source systems → ETL → Data warehouse → Analysis/Reporting → Decision. Only the warehouse going stale is really technical — the rest are failures of <em>definition</em>: recording the wrong thing, undocumented transforms, unasked questions, distrusted numbers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — NETWORKING ============ -->
+<section id="network-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Telecommunications, the Internet &amp; Wireless</h2>
+    <p class="text-slate-600 mb-6">A network is <strong>an agreement</strong> — shared protocols that let devices from different eras and vendors exchange data. The TCP/IP model splits this into four layers, each replaceable without touching the others.</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-1 space-y-4">
+        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+          <h3 class="font-bold text-indigo-900 mb-1">Encapsulation</h3>
+          <p class="text-indigo-800 text-sm">As data descends the stack it is wrapped in a header at each layer. On arrival, the process reverses: each layer unwraps only its own header.</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-4">
+          <p id="onion-status" class="text-sm font-mono text-purple-600 mb-2">Status: message ready to send...</p>
+          <button onclick="nextHop()" class="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md font-semibold mb-2">Send Down the Stack</button>
+          <button onclick="resetOnion()" class="w-full py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-md font-medium">Reset</button>
+        </div>
+      </div>
+      <div class="lg:col-span-2 bg-slate-900 rounded-xl p-6 flex flex-col items-center justify-center min-h-[300px]">
+        <div class="stack w-full max-w-md space-y-2" id="stack">
+          <div class="layer onion-layer border-2 border-blue-500 rounded-lg p-3" data-layer="4"><span class="text-blue-400 font-mono text-xs">Layer 4 — Application</span><div class="text-white text-sm font-bold">HTTP GET /library</div></div>
+          <div class="layer onion-layer border-2 border-emerald-500 rounded-lg p-3" data-layer="3"><span class="text-emerald-400 font-mono text-xs">Layer 3 — Transport</span><div class="text-white text-sm">Adds TCP port &amp; sequence</div></div>
+          <div class="layer onion-layer border-2 border-amber-500 rounded-lg p-3" data-layer="2"><span class="text-amber-400 font-mono text-xs">Layer 2 — Internet</span><div class="text-white text-sm">Adds source/destination IP</div></div>
+          <div class="layer onion-layer border-2 border-red-500 rounded-lg p-3" data-layer="1"><span class="text-red-400 font-mono text-xs">Layer 1 — Link</span><div class="text-white text-sm">Adds hardware address &amp; frame check</div></div>
+        </div>
+        <pre id="packetBox" class="mt-4 bg-black/50 text-slate-200 text-xs font-mono p-3 rounded w-full max-w-md min-h-[50px]">Press "Send Down the Stack".</pre>
+      </div>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="border border-slate-200 rounded-lg p-4">
+        <h3 class="font-bold text-slate-800 mb-2">The Eight-Step Trace (memorise this)</h3>
+        <ol class="text-sm list-decimal list-inside space-y-1 text-slate-600">
+          <li>Name lookup (DNS)</li><li>Route selection (gateway/subnet)</li><li>Link-layer delivery to first hop</li><li>Routing across the internet</li><li>Transport-layer connection (TCP)</li><li>Security negotiation (TLS)</li><li>Application request/response (HTTP)</li><li>Unwrap and render</li>
+        </ol>
+        <p class="text-xs text-slate-500 mt-2">Each step has a distinct symptom — this is a real diagnostic checklist, not trivia.</p>
+      </div>
+      <div class="border border-slate-200 rounded-lg p-4">
+        <h3 class="font-bold text-slate-800 mb-2">Wi-Fi Channel Planner</h3>
+        <p class="text-xs text-slate-600 mb-2">Only channels <strong>1, 6, and 11</strong> (2.4GHz) don't overlap. Enter access-point count:</p>
+        <input id="apCount" type="number" value="6" min="1" max="30" class="w-24 border border-slate-300 rounded p-1 text-sm mb-2">
+        <button onclick="planChannels()" class="ml-2 px-3 py-1 bg-indigo-600 text-white rounded text-sm">Generate Plan</button>
+        <div id="planOut" class="text-xs mt-2"></div>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+      <h3 class="font-bold text-slate-800 mb-2">Case: Ashworth Residence — "The Wi-Fi Dies at 8pm"</h3>
+      <p class="text-sm text-slate-600 mb-3">500 Mbps fibre, 310 Mbps peak usage (not saturated). Wired laptop: 470 Mbps. Wi-Fi laptop: 6 Mbps. All 6 access points on channel 6, 38–51 devices each, 34% retransmission rate.</p>
+      <p class="text-sm bg-white border border-slate-200 rounded p-3"><strong>Finding:</strong> the internet connection is at 62% capacity and is <em>not</em> the constraint. The constraint is wireless airtime contention from co-channel interference. Fix: re-plan to 1-6-11 (zero cost), enable band steering (zero cost), add access points (~CAD 2,400) — <em>before</em> buying more bandwidth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 — SECURITY ============ -->
+<section id="security-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Securing Information Systems</h2>
+    <p class="text-slate-600 mb-6">Security is a management discipline for deciding how much loss you accept, and spending accordingly — not a product. Everything protects the <strong>CIA triad</strong>: Confidentiality, Integrity, Availability. These three trade against each other; there is no configuration that maximises all three.</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div class="border border-slate-200 rounded-lg p-4">
+        <h3 class="font-bold text-slate-800 mb-2">Risk Vocabulary</h3>
+        <table class="w-full text-xs"><tbody class="divide-y divide-slate-100">
+          <tr><td class="p-1 font-bold text-purple-700">Asset</td><td class="p-1">Something with value you're protecting</td></tr>
+          <tr><td class="p-1 font-bold text-purple-700">Threat</td><td class="p-1">Something that could cause harm</td></tr>
+          <tr><td class="p-1 font-bold text-purple-700">Vulnerability</td><td class="p-1">A weakness a threat could use</td></tr>
+          <tr><td class="p-1 font-bold text-purple-700">Risk</td><td class="p-1">Likelihood × impact</td></tr>
+          <tr><td class="p-1 font-bold text-purple-700">Control</td><td class="p-1">Something that reduces the risk</td></tr>
+        </tbody></table>
+        <p class="text-xs text-slate-500 mt-2">A threat exploits a vulnerability to damage an asset; a control reduces likelihood or impact. You cannot remove threats — only vulnerabilities and add controls.</p>
+      </div>
+      <div class="border border-slate-200 rounded-lg p-4">
+        <h3 class="font-bold text-slate-800 mb-2">Defence in Depth — Seven Layers</h3>
+        <ol class="text-xs list-decimal list-inside space-y-1 text-slate-600">
+          <li>Policy and people</li><li>Physical</li><li>Perimeter</li><li>Network</li><li>Endpoint</li><li>Application &amp; identity</li><li>Data (encryption, tested backups)</li>
+        </ol>
+        <p class="text-xs text-slate-500 mt-2">Six good layers and one gap in the attacker's actual path is still a gap — assess layer by layer against a specific attack path.</p>
+      </div>
+    </div>
+
+    <div class="bg-slate-900 rounded-xl p-6 text-white">
+      <h3 class="font-bold text-indigo-300 mb-1">ALE / ROSI Calculator — "Fairview" Business Email Compromise</h3>
+      <p class="text-slate-300 text-sm mb-4">SLE (Single Loss Expectancy) × ARO (Annualized Rate of Occurrence) = ALE (Annualized Loss Expectancy). ROSI = (risk reduction − control cost) / control cost.</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs mb-4">
+        <div><label class="block text-slate-400 mb-1">SLE (CAD)</label><input id="sle" type="number" value="60000" class="w-full p-2 rounded bg-slate-800 border border-slate-700 text-white"></div>
+        <div><label class="block text-slate-400 mb-1">ARO before</label><input id="aroBefore" type="number" value="0.6" step="0.05" class="w-full p-2 rounded bg-slate-800 border border-slate-700 text-white"></div>
+        <div><label class="block text-slate-400 mb-1">Control cost (CAD/yr)</label><input id="ctrlCost" type="number" value="4300" class="w-full p-2 rounded bg-slate-800 border border-slate-700 text-white"></div>
+        <div><label class="block text-slate-400 mb-1">ARO after control</label><input id="aroAfter" type="number" value="0.05" step="0.05" class="w-full p-2 rounded bg-slate-800 border border-slate-700 text-white"></div>
+      </div>
+      <button onclick="calcALE()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded font-semibold text-sm">Evaluate Control</button>
+      <div id="aleOut" class="mt-4 text-sm"></div>
+      <div class="chart-container mt-4"><canvas id="aleChart"></canvas></div>
+    </div>
+
+    <div class="mt-8 bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-800 text-sm">
+      <strong>The six phases of incident response (NIST SP 800-61):</strong> Preparation → Identification → Containment → Eradication → Recovery → Lessons learned. Phase six is the one organisations skip — and skipping it guarantees recurrence.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub &copy; 2026 Schiller International University</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+// ---------- Navigation ----------
+function switchTab(tabId){
+  ['infra','data','network','security'].forEach(id=>{
+    document.getElementById(id+'-view').classList.add('hidden');
+    document.getElementById('nav-'+id).classList.add('text-slate-300','border-transparent');
+    document.getElementById('nav-'+id).classList.remove('bg-slate-800','text-white','border-indigo-500');
+  });
+  document.getElementById(tabId+'-view').classList.remove('hidden');
+  document.getElementById('nav-'+tabId).classList.remove('text-slate-300','border-transparent');
+  document.getElementById('nav-'+tabId).classList.add('bg-slate-800','text-white','border-indigo-500');
+  if(tabId==='infra' && !window.respDrawn){ drawResp(); window.respDrawn=true; runTCO(); }
+  if(tabId==='security' && !window.aleDrawn){ window.aleDrawn=true; calcALE(); }
+}
+
+// ---------- Responsibility table ----------
+function drawResp(){
+  const rows = [
+    ['Application code','You','You','You','Provider'],
+    ['Data','You','You','You','You'],
+    ['Runtime/libraries','You','You','Provider','Provider'],
+    ['Operating system','You','You','Provider','Provider'],
+    ['Virtualization','You','Provider','Provider','Provider'],
+    ['Servers/Storage/Networking','You','Provider','Provider','Provider'],
+    ['Physical building & power','You','Provider','Provider','Provider'],
+  ];
+  document.getElementById('respTable').innerHTML = rows.map(r=>`<tr>${r.map((c,i)=>`<td class="p-1 ${i===0?'font-semibold text-left':'text-center'} ${c==='You'?'text-indigo-700 font-bold':'text-slate-500'}">${c}</td>`).join('')}</tr>`).join('');
+}
+
+// ---------- TCO simulator ----------
+let tcoChart;
+function cumulative(oneTime, recurring, hrsWeek, rate, scheduled){
+  let running=0, series=[];
+  for(let y=0;y<=5;y++){
+    let cost = y===0? oneTime : 0;
+    if(y>=1) cost += recurring;
+    cost += hrsWeek*34*rate;
+    if(scheduled[y]) cost += scheduled[y];
+    running += cost;
+    series.push(Math.round(running));
+  }
+  return series;
+}
+function runTCO(){
+  const rB = parseFloat(document.getElementById('rateBuy').value)||0;
+  const hB = parseFloat(document.getElementById('hrsBuy').value)||0;
+  const rR = parseFloat(document.getElementById('rateRent').value)||0;
+  const hR = parseFloat(document.getElementById('hrsRent').value)||0;
+  const buy = cumulative(5000, 1550, hB, rB, {4:1900});
+  const rent = cumulative(900, 2190, hR, rR, {});
+  const ctx = document.getElementById('tcoChart').getContext('2d');
+  if(tcoChart) tcoChart.destroy();
+  tcoChart = new Chart(ctx,{type:'line',data:{labels:['Y0','Y1','Y2','Y3','Y4','Y5'],
+    datasets:[
+      {label:'Buy (cumulative CAD)',data:buy,borderColor:'#dc2626',backgroundColor:'rgba(220,38,38,0.08)',fill:true,tension:.2},
+      {label:'Rent (cumulative CAD)',data:rent,borderColor:'#4f46e5',backgroundColor:'rgba(79,70,229,0.08)',fill:true,tension:.2}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+  const diff = buy[5]-rent[5];
+  document.getElementById('tcoVerdict').innerText = diff>0
+    ? `Renting saves CAD ${diff.toLocaleString()} over 5 years with these assumptions.`
+    : `Buying saves CAD ${Math.abs(diff).toLocaleString()} over 5 years — admin time is the swing factor.`;
+}
+
+// ---------- DB proofs ----------
+function testDB(){
+  const cat = document.getElementById('catInput').value.trim();
+  const mem = document.getElementById('memberInput').value.trim();
+  const APPROVED = ['Test equipment','Microcontroller','Tools','Consumable'];
+  const KNOWN_MEMBERS = ['1','2','3'];
+  let out = '';
+  if(cat){
+    out += APPROVED.includes(cat)
+      ? `INSERT category "${cat}" ... ACCEPTED (on the approved list).\n`
+      : `INSERT category "${cat}" ... REFUSED by CHECK constraint. Reason: category not in ('Test equipment','Microcontroller','Tools','Consumable').\n`;
+  }
+  if(mem){
+    out += KNOWN_MEMBERS.includes(mem)
+      ? `INSERT loan for member_id ${mem} ... ACCEPTED (member exists).\n`
+      : `INSERT loan for member_id ${mem} ... REFUSED by FOREIGN KEY constraint. Reason: no matching member_id in members.\n`;
+  }
+  document.getElementById('dbOut').innerText = out || 'Enter a category and/or member id above, then run.';
+}
+
+// ---------- Encapsulation animation ----------
+let hop = 0;
+const headers = {4:'',3:'[TCP src=54231 dst=443 seq=1]',2:'[IP src=10.20.4.17 dst=142.11.9.6]',1:'[ETH src=AA:BB:CC dst=00:1B:44]'};
+function nextHop(){
+  document.querySelectorAll('.layer').forEach(l=>l.classList.remove('bg-slate-700'));
+  if(hop>=4){ resetOnion(); return; }
+  hop++;
+  const el = document.querySelector(`.layer[data-layer="${5-hop}"]`);
+  if(el) el.classList.add('bg-slate-700');
+  let wrapped='GET /library HTTP/1.1';
+  for(let l=5-hop;l<=4;l++){ if(headers[l]) wrapped = headers[l]+' '+wrapped; }
+  document.getElementById('packetBox').innerText = `Layer ${5-hop} wraps the message:\n${wrapped}`;
+  document.getElementById('onion-status').innerText = `Status: Layer ${5-hop} header added`;
+}
+function resetOnion(){
+  hop=0;
+  document.querySelectorAll('.layer').forEach(l=>l.classList.remove('bg-slate-700'));
+  document.getElementById('packetBox').innerText='Press "Send Down the Stack".';
+  document.getElementById('onion-status').innerText='Status: message ready to send...';
+}
+
+// ---------- Channel planner ----------
+function planChannels(){
+  const n = parseInt(document.getElementById('apCount').value)||1;
+  const NON=[1,6,11];
+  let rows='<table class="w-full text-xs"><tr><th class="text-left p-1">AP</th><th class="p-1">Recommended channel</th></tr>';
+  for(let i=0;i<n;i++){ rows += `<tr><td class="p-1">AP-${i+1}</td><td class="p-1 font-bold text-emerald-600">${NON[i%3]}</td></tr>`; }
+  rows += '</table>';
+  const contending = n>1? n : 0;
+  rows += `<p class="mt-2 text-slate-600">Currently all ${n} on one channel → ${contending} contend for the same airtime. Under 1-6-11 rotation, at most ${Math.ceil(n/3)} share any single channel. Cost: <strong>zero</strong> (configuration only).</p>`;
+  document.getElementById('planOut').innerHTML = rows;
+}
+
+// ---------- ALE / ROSI ----------
+let aleChart;
+function calcALE(){
+  const sle=parseFloat(document.getElementById('sle').value)||0;
+  const aroB=parseFloat(document.getElementById('aroBefore').value)||0;
+  const aroA=parseFloat(document.getElementById('aroAfter').value)||0;
+  const cost=parseFloat(document.getElementById('ctrlCost').value)||0;
+  const aleBefore=sle*aroB, aleAfter=sle*aroA;
+  const reduction=aleBefore-aleAfter;
+  const rosi = cost>0 ? ((reduction-cost)/cost*100) : 0;
+  document.getElementById('aleOut').innerHTML = `
+    ALE before: <strong>CAD ${aleBefore.toLocaleString(undefined,{maximumFractionDigits:0})}</strong> &nbsp;|&nbsp;
+    ALE after: <strong>CAD ${aleAfter.toLocaleString(undefined,{maximumFractionDigits:0})}</strong> &nbsp;|&nbsp;
+    Risk reduction: <strong>CAD ${reduction.toLocaleString(undefined,{maximumFractionDigits:0})}</strong> &nbsp;|&nbsp;
+    ROSI: <strong class="${rosi>0?'text-emerald-400':'text-rose-400'}">${rosi.toFixed(0)}%</strong>
+    — ${rosi>0?'Justified: implement this control.':'Not justified: decline, or find a cheaper control.'}`;
+  const ctx=document.getElementById('aleChart').getContext('2d');
+  if(aleChart) aleChart.destroy();
+  aleChart = new Chart(ctx,{type:'bar',data:{labels:['ALE before','ALE after','Annual control cost'],
+    datasets:[{data:[aleBefore,aleAfter,cost],backgroundColor:['#dc2626','#16a34a','#4f46e5']}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+}
+
+// init
+switchTab('infra');
+</script>
+</body>
+</html>
