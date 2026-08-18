@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER.SOHO Educational Hub &mdash; Task 03: Key System Applications</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
+.chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
+@media (min-width: 768px) { .chart-container { height: 320px; } }
+.tab-btn.active { background-color: #1e293b; color: #fff; border-bottom: 2px solid #a855f7; }
+.tab-btn { border-bottom: 2px solid transparent; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed selection:bg-indigo-100 selection:text-indigo-800">
+
+<!-- Navigation -->
+<nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🖥️</span>
+        <span class="font-bold text-lg tracking-wide">CYBER<span class="text-purple-400">.SOHO</span></span>
+      </div>
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-2">
+          <button onclick="switchTab('overview')" id="nav-overview" class="tab-btn px-3 py-2 rounded-md text-sm font-medium bg-slate-800 text-white active">Overview</button>
+          <button onclick="switchTab('bigpicture')" id="nav-bigpicture" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Big Picture</button>
+          <button onclick="switchTab('parta')" id="nav-parta" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Part A · Labs</button>
+          <button onclick="switchTab('partb')" id="nav-partb" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Part B · Concepts</button>
+          <button onclick="switchTab('partc')" id="nav-partc" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Part C · Chapter 3</button>
+          <button onclick="switchTab('reference')" id="nav-reference" class="tab-btn px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Dictionary &amp; Rules</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+<!-- OVERVIEW -->
+<section id="overview-view" class="space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">Module 03 · Week 03 · TASK 03</h1>
+    <p class="text-lg text-purple-700 font-semibold mb-4">Key System Applications for the Digital Age</p>
+    <p class="text-slate-600 italic mb-6">From the Industry to the Classroom — Building the IT's Future, Today and Together!</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500">
+        <strong class="text-indigo-900 block text-sm uppercase">Due</strong>
+        <span class="text-indigo-800 text-sm">Friday, August 28, 2026 · 23:59 CET — Blackboard server clock is authoritative</span>
+      </div>
+      <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+        <strong class="text-blue-900 block text-sm uppercase">Where</strong>
+        <span class="text-blue-800 text-sm">DropBox inside the Assignments section of the course Blackboard</span>
+      </div>
+      <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+        <strong class="text-purple-900 block text-sm uppercase">Weight</strong>
+        <span class="text-purple-800 text-sm">Task 03 = 10% of the course. Tasks 01+02+03 = 30% "Continuous Course Assessments" &rarr; final Written Project</span>
+      </div>
+      <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
+        <strong class="text-emerald-900 block text-sm uppercase">Workload</strong>
+        <span class="text-emerald-800 text-sm">Planned for at least 4 hours of real work (&asymp; 4h 55min budget)</span>
+      </div>
+      <div class="p-4 bg-amber-50 rounded-lg border-l-4 border-amber-500 md:col-span-2">
+        <strong class="text-amber-900 block text-sm uppercase">Format</strong>
+        <span class="text-amber-800 text-sm">One ZIP file: <code>BIS_Task03_LASTNAME_Firstname.zip</code></span>
+      </div>
+      <div class="p-4 bg-slate-100 rounded-lg border-l-4 border-slate-500 md:col-span-2">
+        <strong class="text-slate-900 block text-sm uppercase">Topics covered</strong>
+        <span class="text-slate-700 text-sm">Achieving Operational Excellence and Customer Intimacy: Enterprise Applications · E-Commerce: Digital Markets, Digital Goods · Managing Knowledge · Enhancing Decision Making</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Grading Breakdown — 2 : 1 : 3</h2>
+        <ul class="space-y-3">
+          <li class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500"><strong class="text-blue-900">Part A — Extend the labs</strong><span class="block text-blue-700 text-sm">20 points · &asymp;110 min · 4 guided code extensions</span></li>
+          <li class="p-3 bg-purple-50 rounded-lg border-l-4 border-purple-500"><strong class="text-purple-900">Part B — Concepts, your words</strong><span class="block text-purple-700 text-sm">10 points · &asymp;40 min · 5 short written answers</span></li>
+          <li class="p-3 bg-emerald-50 rounded-lg border-l-4 border-emerald-500 shadow-md"><strong class="text-emerald-900">Part C — Chapter 3</strong><span class="block text-emerald-700 text-sm">30 points · &asymp;130 min · Written-Project chapter</span></li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center justify-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2">Point Distribution (60 pts total)</h3>
+        <div class="chart-container"><canvas id="gradingChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-xl font-bold text-slate-900 mb-4">Before You Start — Files &amp; Free Tools</h2>
+    <p class="text-slate-600 mb-4">Task 03 reuses the four working lab files from the Week 03 lecture package as your starting base: in industry you almost always extend running code, you rarely start from zero.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm font-mono">
+      <div class="bg-slate-100 p-3 rounded">Week03_L1_ERP_Order_Flow.py</div>
+      <div class="bg-slate-100 p-3 rounded">Week03_L2_Mini_eStore.html</div>
+      <div class="bg-slate-100 p-3 rounded">Week03_L3_Knowledge_Base.py</div>
+      <div class="bg-slate-100 p-3 rounded">Week03_L4_WhatIf_Dashboard.html</div>
+      <div class="bg-slate-100 p-3 rounded sm:col-span-2">Week03_L4_Cafe_Decision_Data.xlsx <span class="text-slate-500">(optional)</span></div>
+    </div>
+    <p class="text-slate-600 text-sm">Free tools that cover everything: Python 3, any modern browser, Visual Studio Code, and LibreOffice. Everything runs <strong>offline</strong>; only the links in the source document need internet.</p>
+  </div>
+</section>
+
+<!-- BIG PICTURE -->
+<section id="bigpicture-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">One Project, Four Weeks</h2>
+    <p class="text-slate-600 mb-6">This course does not collect three unrelated homeworks. The three tasks are three chapters of ONE ongoing capstone, the Written Project: <strong>"Digital Transformation Blueprint."</strong> You play a junior IS consultant for one fictional small company that you invent (5&ndash;50 employees), and you keep the same company through the whole course.</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-slate-800 text-white">
+          <tr><th class="p-3">Week</th><th class="p-3">Course Topic</th><th class="p-3">Capstone Output</th></tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-3 font-bold">1</td><td class="p-3">Information systems in the digital age</td><td class="p-3">Task 01 &rarr; Chapter 1: the company, its strategy, why IS matters, ethics</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-bold">2</td><td class="p-3">Information technology infrastructure</td><td class="p-3">Task 02 &rarr; Chapter 2: technology base — hardware, data, networks, security</td></tr>
+          <tr class="bg-purple-50 border-l-4 border-purple-500"><td class="p-3 font-bold">3</td><td class="p-3 font-semibold text-purple-900">Key System Applications for the Digital Age</td><td class="p-3">Task 03 (this one) &rarr; Chapter 3: application layer — enterprise apps, e-commerce, knowledge, decisions</td></tr>
+          <tr class="bg-white"><td class="p-3 font-bold">4</td><td class="p-3">Building and Managing Systems</td><td class="p-3">Chapter 4 + assembly: merge Chapters 1&ndash;4 into the final Written Project</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-bold">&mdash;</td><td class="p-3">Final Assessment</td><td class="p-3">Written Project (30%) + Comprehensive Exam</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-6 p-4 bg-amber-50 rounded-lg border-l-4 border-amber-500 text-amber-800 text-sm">
+      <strong>Joining late, or Tasks 01/02 used a different company?</strong> Allowed. Adopt ONE company now and add a half-page "catch-up profile" as Appendix A0. Record this under Deviations &amp; Choices — documented changes are never punished.
+    </div>
+    <div class="mt-4 p-4 bg-slate-100 rounded-lg text-slate-700 text-sm">
+      <strong>Capstone habits that will save you in Week 4:</strong> keep one project folder; never delete old versions (add _v2, _v3); every screenshot goes into an evidence/ sub-folder; every invented number gets one sentence saying it is invented.
+    </div>
+  </div>
+</section>
+
+<!-- PART A -->
+<section id="parta-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-2">Part A — Extend the Four Working Labs</h2>
+    <p class="text-purple-700 font-semibold mb-6">20 points · &asymp; 110 minutes</p>
+    <p class="text-slate-600 mb-6">General rules for all four: work on a copy; add a comment line before every line you add; if a lab refuses to run, read the error message bottom-up — it names the line. Each extension ends with <strong>Evidence</strong>: what to screenshot for your evidence/ folder.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border border-slate-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-blue-50 p-4 border-b border-blue-100 flex justify-between items-center">
+          <h3 class="font-bold text-blue-900">A1 — ERP: 2nd Product + Safe Restocking</h3>
+          <span class="text-xs bg-blue-200 px-2 py-1 rounded text-blue-800">5 pts</span>
+        </div>
+        <div class="p-4 text-sm text-slate-600 space-y-2">
+          <p><strong>Goal:</strong> prove you understand "one shared database" by growing it.</p>
+          <p>Add a second product to <code>ERP_DATABASE</code>, keep the silo copy with a deliberately old price, and write <code>restock(product_name, quantity)</code> that adds stock but politely refuses invalid products or non-positive quantities.</p>
+          <p class="text-slate-500 italic">Evidence: modified .py + screenshot showing successful restock and the refusal message.</p>
+        </div>
+      </div>
+
+      <div class="border border-slate-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-emerald-50 p-4 border-b border-emerald-100 flex justify-between items-center">
+          <h3 class="font-bold text-emerald-900">A2 — E-commerce: Subscription Card</h3>
+          <span class="text-xs bg-emerald-200 px-2 py-1 rounded text-emerald-800">5 pts</span>
+        </div>
+        <div class="p-4 text-sm text-slate-600 space-y-2">
+          <p><strong>Goal:</strong> turn the revenue-model table into working numbers.</p>
+          <p>Add <code>SUB_PRICE = 3.00</code> and a third card "Subscription (digital)" showing MRR = subscribers &times; $3.00, tiny digital cost, and monthly profit, clearly labeled "per month".</p>
+          <p class="text-slate-500 italic">Check: at 50 subscribers &rarr; $150.00/mo; at 500 &rarr; $1,500.00/mo.</p>
+        </div>
+      </div>
+
+      <div class="border border-slate-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-purple-50 p-4 border-b border-purple-100 flex justify-between items-center">
+          <h3 class="font-bold text-purple-900">A3 — Knowledge Base: Ranking + Search Fix</h3>
+          <span class="text-xs bg-purple-200 px-2 py-1 rounded text-purple-800">5 pts</span>
+        </div>
+        <div class="p-4 text-sm text-slate-600 space-y-2">
+          <p><strong>Goal:</strong> operate the knowledge-management value chain, not just recite it.</p>
+          <p>Write <code>top_articles(n)</code> ranked by usage, and fix the known weakness where "wifi keeps dropping" finds nothing useful.</p>
+          <p class="text-slate-500 italic">Evidence: screenshot showing the successful search and the Top-articles list.</p>
+        </div>
+      </div>
+
+      <div class="border border-slate-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-amber-50 p-4 border-b border-amber-100 flex justify-between items-center">
+          <h3 class="font-bold text-amber-900">A4 — Decision Dashboard: Fixed Cost</h3>
+          <span class="text-xs bg-amber-200 px-2 py-1 rounded text-amber-800">5 pts</span>
+        </div>
+        <div class="p-4 text-sm text-slate-600 space-y-2">
+          <p><strong>Goal:</strong> feel how fixed costs move a break-even point.</p>
+          <p>Add a 7th slider "Fixed cost per evening", $0&ndash;$60, default $25. Break-even becomes (staff &times; wage + fixed &divide; hours) &divide; (spend &minus; ingredient cost).</p>
+          <p class="text-slate-500 italic">Check: at $0 fixed cost, behaves like the original (break-even &asymp; 7.8).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART B -->
+<section id="partb-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-2">Part B — Five Concepts, Your Words</h2>
+    <p class="text-purple-700 font-semibold mb-6">10 points · &asymp; 40 minutes</p>
+    <p class="text-slate-600 mb-6">Answer in 2&ndash;4 sentences each, in your own words, always about your capstone company.</p>
+    <ol class="space-y-3 list-decimal list-inside">
+      <li class="p-3 bg-slate-50 rounded-lg">Name one realistic <strong>information-silo</strong> risk in your company and which design idea removes it.</li>
+      <li class="p-3 bg-slate-50 rounded-lg">Choose the <strong>e-commerce type</strong> (B2C / B2B / C2C) and one <strong>revenue model</strong>, and justify both.</li>
+      <li class="p-3 bg-slate-50 rounded-lg">Name one piece of <strong>tacit knowledge</strong> your company would lose if one person left, and describe capturing it via the four value-chain steps.</li>
+      <li class="p-3 bg-slate-50 rounded-lg">Pick one real decision, classify it (structured / semi-structured / unstructured), and name the supporting system (MIS, DSS, or ESS).</li>
+      <li class="p-3 bg-slate-50 rounded-lg"><strong>GIGO:</strong> name one way garbage data could enter your systems and one habit that prevents it.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- PART C -->
+<section id="partc-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-2">Part C — Chapter 3 of Your Written Project</h2>
+    <p class="text-purple-700 font-semibold mb-6">30 points · &asymp; 130 minutes</p>
+    <p class="text-slate-600 mb-6">Deliver one document (Chapter3_LASTNAME.pdf/.docx/.md, &asymp;3&ndash;4 pages) with exactly these sections:</p>
+    <div class="space-y-4">
+      <div class="p-4 bg-slate-50 rounded-lg border-l-4 border-slate-400"><strong>C1 &middot; Company snapshot</strong> — who the client is, what it sells, headcount (&le; half a page).</div>
+      <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"><strong>C2 &middot; Enterprise application plan (6 pts)</strong> — ERP / CRM / SCM to adopt first and why; name one real researched vendor with its official link (e.g. Odoo, Zoho).</div>
+      <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500"><strong>C3 &middot; E-commerce &amp; digital goods (6 pts)</strong> — one online product, its type &amp; revenue model, plus an invented cost/profit table comparing physical vs digital.</div>
+      <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500"><strong>C4 &middot; Knowledge plan (6 pts)</strong> — five invented knowledge-base articles (title + keywords + author role), loaded and searched in A3, with screenshot.</div>
+      <div class="p-4 bg-amber-50 rounded-lg border-l-4 border-amber-500"><strong>C5 &middot; Decision model (8 pts)</strong> — one semi-structured decision, adapted A4 dashboard or the Cafe workbook, inputs/break-even/verdict + one what-if sentence, with screenshot.</div>
+      <div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500"><strong>C6 &middot; Deviations &amp; Choices + AI &amp; Sources statement (4 pts, mandatory)</strong> — what you changed and why, your sources, and an AI-assistance statement: "The model drafts. The analyst decides. The analyst's name goes on the record."</div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h3 class="text-xl font-bold text-slate-900 mb-4">Package &amp; Submit</h3>
+    <p class="text-slate-600 mb-3">Build the ZIP <code class="bg-slate-100 px-1 rounded">BIS_Task03_LASTNAME_Firstname.zip</code> containing:</p>
+    <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+      <li>Chapter3_LASTNAME.(pdf|docx|md) — Part B answers + sections C1&ndash;C6</li>
+      <li>labs/ — your four modified files (+ the .xlsx if used in C5)</li>
+      <li>evidence/ — screenshots named A1.png &hellip; A4.png, C4.png, C5.png</li>
+      <li>(if applicable) Appendix_A0_company_profile.(pdf|md)</li>
+    </ul>
+    <p class="text-slate-600 text-sm mt-4">Upload to the DropBox in the Assignments section before <strong>Friday, August 28, 2026, 23:59 CET</strong>. Verify the upload finished before logging out.</p>
+  </div>
+</section>
+
+<!-- REFERENCE -->
+<section id="reference-view" class="space-y-8 hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Plain-Words Dictionary</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left border border-slate-200 rounded-lg overflow-hidden">
+        <thead class="bg-slate-800 text-white"><tr><th class="p-3">Term</th><th class="p-3">Plain Meaning</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr class="bg-white"><td class="p-3 font-semibold">IS / IT</td><td class="p-3">Information System(s) / Information Technology</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">ERP</td><td class="p-3">Enterprise Resource Planning — all departments share ONE central database</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">Information silo</td><td class="p-3">Each department keeps its own copy of data; copies drift apart and disagree</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">CRM</td><td class="p-3">Customer Relationship Management — one complete record per customer</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">SCM</td><td class="p-3">Supply Chain Management — sharing real numbers along the supply chain</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">B2C / B2B / C2C</td><td class="p-3">Business-to-Consumer / Business-to-Business / Consumer-to-Consumer</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">Revenue model</td><td class="p-3">How money comes in: sales, subscription, advertising, freemium, transaction fee, affiliate</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">Marginal cost</td><td class="p-3">Cost of delivering ONE MORE unit — near zero for digital goods</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">MRR</td><td class="p-3">Monthly Recurring Revenue = subscribers &times; monthly price</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">Tacit / explicit knowledge</td><td class="p-3">In a person's head / written down and searchable</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">Value chain (knowledge)</td><td class="p-3">Acquire &rarr; store &rarr; share &rarr; apply, then repeat</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">Structured / semi-structured / unstructured</td><td class="p-3">Rule decides / partly calculable + judgment / judgment only</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">MIS / DSS / ESS</td><td class="p-3">Routine reports / what-if models / executive KPI dashboards</td></tr>
+          <tr class="bg-slate-50"><td class="p-3 font-semibold">Break-even</td><td class="p-3">The point where money in equals money out</td></tr>
+          <tr class="bg-white"><td class="p-3 font-semibold">GIGO</td><td class="p-3">Garbage In, Garbage Out — output quality can never beat input quality</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Open-Tools Rule, Creativity &amp; Academic Honesty</h2>
+    <p class="text-slate-600 mb-4">Every tool, technique, file, example, vendor and most exercised content may be replaced by any suitable alternative — provided (1) the learning goal is still met, and (2) you record WHAT you changed and WHY in section C6. Documented substitutions are welcomed, not penalized.</p>
+    <p class="text-slate-600 mb-4">Academic honesty: individual work; discussing ideas is fine, sharing files or text is not. Invent all business data — never use real personal data (see Canada's PIPEDA via the Office of the Privacy Commissioner of Canada). AI assistance rule: <strong>"the model drafts, the analyst decides, the analyst's name goes on the record."</strong></p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Disclaimers &amp; Legal Notices</h2>
+    <div class="space-y-3 text-sm text-slate-600">
+      <p><strong class="text-slate-800">Educational purpose &amp; teacher protection.</strong> This task, its labs, tools and techniques are provided strictly for education. Some exercises deliberately resemble real industry tools in simplified, safe form; they are teaching miniatures, not production systems. Neither the instructor nor Cyber.SoHo Educational Hub endorses, and both expressly disclaim responsibility for, any use of these materials outside this course.</p>
+      <p><strong class="text-slate-800">Links &amp; safety.</strong> External links were working on August 18, 2026; the internet changes. Scan any link before opening with a checker such as VirusTotal. No responsibility is taken for external content.</p>
+      <p><strong class="text-slate-800">Trademarks &amp; no affiliation.</strong> Blackboard, Python, Visual Studio Code, LibreOffice, Odoo, Zoho and other names are trademarks of their respective owners, mentioned for identification only. All companies in student projects are fictional.</p>
+      <p><strong class="text-slate-800">Intellectual property &amp; originality.</strong> This task document and base lab files are original works of, and &copy; 2026, Cyber.SoHo Educational Hub — all rights reserved; course use only. Provided "as is", without warranty of any kind; nothing here is professional, legal or financial advice.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+    <div class="container mx-auto text-center text-sm">
+        <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+            <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+            <span>Educational Hub &copy; 2026 Schiller International University</span>
+        </p>
+    </div>
+</footer>
+
+<script>
+function switchTab(tabId) {
+  ['overview','bigpicture','parta','partb','partc','reference'].forEach(id => {
+    document.getElementById(id + '-view').classList.add('hidden');
+    const btn = document.getElementById('nav-' + id);
+    btn.classList.remove('active','bg-slate-800','text-white');
+    btn.classList.add('text-slate-300');
+  });
+  document.getElementById(tabId + '-view').classList.remove('hidden');
+  const activeBtn = document.getElementById('nav-' + tabId);
+  activeBtn.classList.add('active','bg-slate-800','text-white');
+  activeBtn.classList.remove('text-slate-300');
+  if (tabId === 'overview' && !window.gradingChart) initGradingChart();
+}
+
+function initGradingChart() {
+  const ctx = document.getElementById('gradingChart').getContext('2d');
+  window.gradingChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Part A — Labs (20)', 'Part B — Concepts (10)', 'Part C — Chapter 3 (30)'],
+      datasets: [{
+        data: [20, 10, 30],
+        backgroundColor: ['#3b82f6', '#a855f7', '#10b981'],
+        borderWidth: 0,
+        hoverOffset: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+}
+
+initGradingChart();
+</script>
+
+</body>
+</html>

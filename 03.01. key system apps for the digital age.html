@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber.SoHo — Week 03: Key System Applications for the Digital Age</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root{
+    --teal:#0E7C7B; --teal-dark:#0b6362; --rust:#B5440C; --paper:#FAF7F2;
+  }
+  body{ background:var(--paper); font-family:Arial, Helvetica, sans-serif; }
+  .brand-teal{ color:var(--teal); }
+  .brand-rust{ color:var(--rust); }
+  .bg-teal{ background-color:var(--teal); }
+  .bg-rust{ background-color:var(--rust); }
+  .border-teal{ border-color:var(--teal); }
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-track{ background:#eee7db; }
+  ::-webkit-scrollbar-thumb{ background:#0E7C7B; border-radius:4px; }
+  .chart-container{ position:relative; width:100%; max-width:560px; margin:0 auto; height:280px; max-height:360px; }
+  @media (min-width:768px){ .chart-container{ height:320px; } }
+  .tab-content{ display:none; }
+  .tab-content.active{ display:block; animation:fadeIn .3s ease-out; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  input[type=range]{ width:100%; accent-color:var(--teal); }
+  .bar-track{ background:#eee7db; border-radius:6px; height:16px; overflow:hidden; }
+  .bar-fill{ height:100%; transition:width .25s; }
+</style>
+</head>
+<body class="text-slate-800 leading-relaxed">
+
+<!-- NAVIGATION -->
+<nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🖥️</span>
+        <span class="font-bold text-lg tracking-wide">CYBER.<span class="brand-teal">SOHO</span> — Educational Hub</span>
+      </div>
+      <div class="hidden md:block">
+        <div class="ml-6 flex items-baseline space-x-2 text-sm">
+          <button onclick="switchTab('overview')" id="nav-overview" class="px-3 py-2 rounded-md font-medium bg-slate-800 text-white border-b-2 border-teal-400">Overview</button>
+          <button onclick="switchTab('l1')" id="nav-l1" class="px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-700 hover:text-white border-b-2 border-transparent">Enterprise Apps</button>
+          <button onclick="switchTab('l2')" id="nav-l2" class="px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-700 hover:text-white border-b-2 border-transparent">E-Commerce</button>
+          <button onclick="switchTab('l3')" id="nav-l3" class="px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-700 hover:text-white border-b-2 border-transparent">Knowledge Mgmt</button>
+          <button onclick="switchTab('l4')" id="nav-l4" class="px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-700 hover:text-white border-b-2 border-transparent">Decision Making</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+<!-- OVERVIEW -->
+<section id="overview-view" class="tab-content active space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">Week 03 — Key System Applications for the Digital Age</h1>
+    <p class="text-slate-500 mb-4 text-sm">Business Information Systems · Management of Information Systems (IS) · Fall 2026</p>
+    <p class="text-slate-600 text-lg mb-4"><em>From the Industry to the Classroom — Building the IT's Future, Today and Together!</em></p>
+    <p class="text-slate-600 mb-4">Every organization you will ever work for — a hospital, a game studio, a bank, a poutine restaurant — runs on a small set of system types that repeat everywhere. This hub walks through four of them: <strong class="brand-teal">Enterprise Applications</strong>, <strong class="brand-teal">E-Commerce</strong>, <strong class="brand-teal">Knowledge Management</strong>, and <strong class="brand-teal">Decision Support</strong>.</p>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+      <div class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-500">
+        <strong class="block text-teal-900">Lesson 1</strong>
+        <span class="text-sm text-teal-700">ERP · SCM · CRM — one shared database</span>
+      </div>
+      <div class="p-4 bg-rust-50 rounded-lg border-l-4" style="border-color:var(--rust); background:#fbe9e0;">
+        <strong class="block" style="color:var(--rust);">Lesson 2</strong>
+        <span class="text-sm text-slate-700">Digital markets &amp; near-zero marginal cost</span>
+      </div>
+      <div class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-500">
+        <strong class="block text-teal-900">Lesson 3</strong>
+        <span class="text-sm text-teal-700">Tacit vs. explicit knowledge</span>
+      </div>
+      <div class="p-4 rounded-lg border-l-4" style="border-color:var(--rust); background:#fbe9e0;">
+        <strong class="block" style="color:var(--rust);">Lesson 4</strong>
+        <span class="text-sm text-slate-700">Structured → semi → unstructured decisions</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-xl font-semibold text-slate-800 mb-4">📚 Key Terms &amp; Abbreviations</h2>
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left">
+      <thead class="text-slate-500 uppercase text-xs border-b"><tr><th class="py-2 pr-4">Term</th><th class="py-2">Meaning</th></tr></thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr><td class="py-2 pr-4 font-bold">ERP</td><td class="py-2">Enterprise Resource Planning — integrated modules on one shared database</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">SCM</td><td class="py-2">Supply Chain Management — information sharing across the supplier-to-customer chain</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">CRM</td><td class="py-2">Customer Relationship Management — one complete view of every customer</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">CLTV</td><td class="py-2">Customer Lifetime Value — total profit expected from one customer relationship</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">B2B / B2C / C2C</td><td class="py-2">Business-to-Business / Business-to-Consumer / Consumer-to-Consumer selling</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">PIPEDA</td><td class="py-2">Canada's federal privacy law for personal information collected by businesses</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">DIKW</td><td class="py-2">Data → Information → Knowledge → Wisdom hierarchy</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">KM</td><td class="py-2">Knowledge Management — acquire → store → share → apply</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">TPS / MIS / DSS / ESS</td><td class="py-2">Transaction Processing / Management Info / Decision-Support / Executive Support Systems</td></tr>
+        <tr><td class="py-2 pr-4 font-bold">GIGO</td><td class="py-2">Garbage In, Garbage Out — output quality can never exceed input quality</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 1: ENTERPRISE APPLICATIONS -->
+<section id="l1-view" class="tab-content space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Lesson 1 — Achieving Operational Excellence &amp; Customer Intimacy</h2>
+    <p class="text-slate-600 mb-6">Two goals: <strong>operational excellence</strong> (faster, cheaper, fewer errors) and <strong>customer intimacy</strong> (knowing customers individually). Both are information problems, solved by <span class="brand-teal font-bold">enterprise applications</span> built around <span class="brand-teal font-bold">one shared database</span>.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+      <div>
+        <h3 class="text-xl font-semibold text-slate-800 mb-3">Silos vs. ERP</h3>
+        <ul class="space-y-3">
+          <li class="p-4 bg-slate-100 rounded-lg border-l-4 border-slate-500"><strong class="block text-slate-900">Information Silo</strong><span class="text-slate-700 text-sm">Each department keeps a private copy of data. The copies drift apart — nobody can prove which number is true.</span></li>
+          <li class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-500 shadow-md"><strong class="block text-teal-900">ERP (Enterprise Resource Planning)</strong><span class="text-teal-700 text-sm">One integrated system, one shared central database. A sale updates inventory, revenue and loyalty points instantly — a single source of truth.</span></li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center justify-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2">Monthly Re-Typing Incidents</h3>
+        <div class="chart-container"><canvas id="erpChart"></canvas></div>
+        <p class="text-xs text-center text-slate-400 mt-2">Illustrative comparison: Silo vs. ERP data-entry errors per month.</p>
+      </div>
+    </div>
+
+    <div class="bg-teal-50 border border-teal-100 rounded-lg p-5 mb-8">
+      <h3 class="font-bold text-teal-900 mb-2">🌍 Real-life example — "Poutine Palace" grows up</h3>
+      <p class="text-teal-800 text-sm">Léa's five-location chain suffered stock-outs and a "stranger" customer experience under silos. After installing a small cloud ERP + CRM module, one sale updates stock, revenue and Amira's loyalty points everywhere at once — operational excellence and customer intimacy from the same design decision: <strong>one shared database</strong>.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="p-4 border border-slate-200 rounded-lg">
+        <h4 class="font-bold text-slate-800 mb-2">🔗 SCM — beyond your own walls</h4>
+        <p class="text-sm text-slate-600">The <strong>bullwhip effect</strong>: small demand changes amplify into large order swings up the supply chain when data isn't shared. SCM systems move companies from a <strong>push</strong> model (forecast-driven) to a <strong>pull</strong> model (sale-driven).</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-lg">
+        <h4 class="font-bold text-slate-800 mb-2">🤝 CRM — the customer-intimacy machine</h4>
+        <p class="text-sm text-slate-600">Gathers every customer interaction into one view. Tracks <strong>churn rate</strong> (% of customers lost) and <strong>CLTV</strong> (expected lifetime profit per customer).</p>
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 bg-rust-50 rounded-lg border-l-4" style="border-color:var(--rust); background:#fbe9e0;">
+      <strong style="color:var(--rust);">⚠️ The honest cost:</strong>
+      <span class="text-sm text-slate-700">Enterprise applications are expensive, force companies to change work habits, and create vendor <em>switching costs</em>. Installing the software is the easy half — changing how people work is the hard half.</span>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 2: E-COMMERCE -->
+<section id="l2-view" class="tab-content space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Lesson 2 — E-Commerce: Digital Markets, Digital Goods</h2>
+    <p class="text-slate-600 mb-6">A digital market is not "a store, but online." It has properties no physical store can have: <strong>ubiquity, global reach, universal standards, information richness, personalization, and interactivity.</strong></p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="p-4 border border-slate-200 rounded-lg">
+        <h4 class="font-bold text-slate-800 mb-2">Who sells to whom</h4>
+        <table class="w-full text-sm"><tbody class="divide-y divide-slate-100">
+          <tr><td class="py-1 font-bold">B2C</td><td class="py-1 text-slate-600">Business → Consumer (Amazon)</td></tr>
+          <tr><td class="py-1 font-bold">B2B</td><td class="py-1 text-slate-600">Business → Business (flour wholesaler)</td></tr>
+          <tr><td class="py-1 font-bold">C2C</td><td class="py-1 text-slate-600">Consumer → Consumer (marketplace app)</td></tr>
+          <tr><td class="py-1 font-bold">m-commerce</td><td class="py-1 text-slate-600">Any of the above, on a phone</td></tr>
+        </tbody></table>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-lg">
+        <h4 class="font-bold text-slate-800 mb-2">Revenue models</h4>
+        <div class="chart-container" style="height:220px;"><canvas id="revenueChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="bg-rust-50 rounded-lg p-5 mb-8" style="background:#fbe9e0;">
+      <h3 class="font-bold mb-2" style="color:var(--rust);">🌍 Real-life example — Naomi's study guide</h3>
+      <p class="text-sm text-slate-700">Printing costs Naomi $9.50 per copy delivered (real money, every copy, forever). The same content as a PDF costs about $0.05 per copy — <strong>near-zero marginal cost</strong>. Try the simulator below.</p>
+    </div>
+
+    <!-- Interactive Mini-Store (self-contained lab, reproduced from the lecture code) -->
+    <div class="border border-slate-200 rounded-xl p-6 bg-slate-50">
+      <h3 class="text-lg font-bold text-slate-800 mb-1">💻 Interactive Lab — One Store, Two Kinds of Goods</h3>
+      <p class="text-sm text-slate-500 mb-4">Both products sell for <strong>$12.00</strong>. Only the cost of each extra copy differs. Drag the slider.</p>
+      <label class="text-sm block mb-1">Copies sold of each version: <b id="qtyLabel" style="color:var(--rust);">50</b></label>
+      <input type="range" id="qty" min="1" max="1000" value="50">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="bg-white p-4 rounded-lg border border-slate-200">
+          <h4 class="font-bold brand-teal mb-2">📦 Printed Study Guide (physical good)</h4>
+          <div class="flex justify-between text-sm py-1"><span>Cost to print ONE copy</span><span>$6.00</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Cost to ship ONE copy</span><span>$3.50</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Revenue</span><span id="pRev">—</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Total cost</span><span id="pCost">—</span></div>
+          <div class="flex justify-between text-sm font-bold py-1 border-t border-dashed mt-1" style="color:var(--rust);"><span>PROFIT</span><span id="pProfit">—</span></div>
+          <div class="bar-track mt-2"><div class="bar-fill bg-teal" id="pBar" style="width:0%;"></div></div>
+        </div>
+        <div class="bg-white p-4 rounded-lg border border-slate-200">
+          <h4 class="font-bold brand-teal mb-2">💾 PDF Study Guide (digital good)</h4>
+          <div class="flex justify-between text-sm py-1"><span>Cost to deliver ONE copy</span><span>$0.05</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Delivery area</span><span>Worldwide, instant</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Revenue</span><span id="dRev">—</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Total cost</span><span id="dCost">—</span></div>
+          <div class="flex justify-between text-sm font-bold py-1 border-t border-dashed mt-1" style="color:var(--rust);"><span>PROFIT</span><span id="dProfit">—</span></div>
+          <div class="bar-track mt-2"><div class="bar-fill bg-teal" id="dBar" style="width:0%;"></div></div>
+        </div>
+      </div>
+      <div id="takeaway" class="mt-4 p-3 rounded-lg text-white text-sm bg-teal">Move the slider to compare the two profit lines.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 3: KNOWLEDGE MANAGEMENT -->
+<section id="l3-view" class="tab-content space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Lesson 3 — Managing Knowledge</h2>
+    <p class="text-slate-600 mb-6">Vocabulary discipline first: <strong>Data</strong> (raw facts) → <strong>Information</strong> (organized, meaningful) → <strong>Knowledge</strong> (information + experience, guides action) → optionally <strong>Wisdom</strong> (DIKW hierarchy).</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="p-4 bg-slate-100 rounded-lg border-l-4 border-slate-500">
+        <strong class="block text-slate-900">Tacit Knowledge</strong>
+        <span class="text-sm text-slate-700">Lives in a person's head and hands. Learned by experience, hard to write down — <strong>walks out the door</strong> when the person leaves.</span>
+      </div>
+      <div class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-500">
+        <strong class="block text-teal-900">Explicit Knowledge</strong>
+        <span class="text-sm text-teal-700">Written down in manuals, FAQs, checklists. Stored, searched, copied, taught. Survives the departure of its author.</span>
+      </div>
+    </div>
+
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">The knowledge management value chain</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8 text-center">
+      <div class="p-4 rounded-lg bg-teal-50 border border-teal-200"><span class="text-2xl">1️⃣</span><div class="font-bold mt-1">Acquire</div><div class="text-xs text-slate-600">Write down the fix</div></div>
+      <div class="p-4 rounded-lg bg-teal-50 border border-teal-200"><span class="text-2xl">2️⃣</span><div class="font-bold mt-1">Store</div><div class="text-xs text-slate-600">One organized base</div></div>
+      <div class="p-4 rounded-lg bg-teal-50 border border-teal-200"><span class="text-2xl">3️⃣</span><div class="font-bold mt-1">Share</div><div class="text-xs text-slate-600">Searchable by all</div></div>
+      <div class="p-4 rounded-lg bg-teal-50 border border-teal-200"><span class="text-2xl">4️⃣</span><div class="font-bold mt-1">Apply</div><div class="text-xs text-slate-600">Solve the next ticket</div></div>
+    </div>
+    <p class="text-xs text-center text-slate-400 mb-8">Applying knowledge reveals gaps → feeds back into Acquire. The cycle is a circle, not a line.</p>
+
+    <div class="bg-rust-50 rounded-lg p-5 mb-6" style="background:#fbe9e0;">
+      <h3 class="font-bold mb-2" style="color:var(--rust);">🌍 Real-life example — the help desk and the retiring technician</h3>
+      <p class="text-sm text-slate-700">Marc retires after 22 years. Supervisor Priya captures his fixes as searchable articles before he leaves. When the Monday printer and the H-214 projector fail again, a first-week employee solves both in minutes — "Marc left; what Marc knew stayed."</p>
+    </div>
+
+    <div class="p-4 bg-slate-900 text-white rounded-lg text-sm">
+      <strong class="brand-teal">🤖 This course's one rule about AI:</strong> "The model drafts. The analyst decides. The analyst's name goes on the record."
+    </div>
+  </div>
+</section>
+
+<!-- LESSON 4: DECISION MAKING -->
+<section id="l4-view" class="tab-content space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Lesson 4 — Enhancing Decision Making</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-500"><strong class="block text-teal-900">Structured</strong><span class="text-sm text-teal-700">Clear, repeatable rule (30-day refund policy). Served by MIS / TPS.</span></div>
+      <div class="p-4 bg-slate-100 rounded-lg border-l-4 border-slate-500"><strong class="block text-slate-900">Semi-structured</strong><span class="text-sm text-slate-700">Part calculable, part judgment (café evening hours). Served by DSS.</span></div>
+      <div class="p-4 rounded-lg border-l-4" style="border-color:var(--rust); background:#fbe9e0;"><strong style="color:var(--rust);" class="block">Unstructured</strong><span class="text-sm text-slate-700">Novel, no formula (expand to Toronto?). Served by ESS.</span></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+      <div>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">Herbert Simon's four decision stages</h3>
+        <ol class="list-decimal list-inside text-sm text-slate-600 space-y-1">
+          <li><strong>Intelligence</strong> — discover the problem</li>
+          <li><strong>Design</strong> — model the options</li>
+          <li><strong>Choice</strong> — pick one, using the numbers</li>
+          <li><strong>Implementation</strong> — act, then check, and loop back</li>
+        </ol>
+      </div>
+      <div class="flex flex-col items-center justify-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2">Systems by Decision Type</h3>
+        <div class="chart-container" style="height:220px;"><canvas id="decisionChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Interactive What-If Dashboard (reproduced from the lecture code) -->
+    <div class="border border-slate-200 rounded-xl p-6 bg-slate-50">
+      <h3 class="text-lg font-bold text-slate-800 mb-1">💻 Interactive Lab — Should the café stay open tonight?</h3>
+      <p class="text-sm text-slate-500 mb-4">Change the assumptions on the left. The model on the right recomputes instantly — that loop <em>is</em> decision support (a mini DSS).</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+          <div><label class="text-sm">Customers per hour: <b id="vCust" style="color:var(--rust);">18</b></label><input type="range" id="cust" min="0" max="60" value="18"></div>
+          <div><label class="text-sm">Average spend per customer ($): <b id="vSpend" style="color:var(--rust);">6.50</b></label><input type="range" id="spend" min="2" max="15" step="0.25" value="6.5"></div>
+          <div><label class="text-sm">Ingredient cost per customer ($): <b id="vVar" style="color:var(--rust);">2.25</b></label><input type="range" id="varc" min="0.5" max="8" step="0.25" value="2.25"></div>
+          <div><label class="text-sm">Extra evening hours open: <b id="vHours" style="color:var(--rust);">3</b></label><input type="range" id="hours" min="1" max="5" value="3"></div>
+          <div><label class="text-sm">Staff on shift: <b id="vStaff" style="color:var(--rust);">2</b></label><input type="range" id="staff" min="1" max="4" value="2"></div>
+          <div><label class="text-sm">Wage per staff per hour ($): <b id="vWage" style="color:var(--rust);">16.50</b></label><input type="range" id="wage" min="15" max="25" step="0.25" value="16.5"></div>
+        </div>
+        <div class="bg-white p-4 rounded-lg border border-slate-200">
+          <div class="flex justify-between text-sm py-1"><span>Evening revenue</span><span id="rev">—</span></div>
+          <div class="bar-track mb-2"><div class="bar-fill bg-teal" id="revBar" style="width:0%;"></div></div>
+          <div class="flex justify-between text-sm py-1"><span>Evening total cost</span><span id="cost">—</span></div>
+          <div class="bar-track mb-2"><div class="bar-fill bg-rust" id="costBar" style="width:0%;"></div></div>
+          <div class="flex justify-between text-sm font-bold py-1"><span>Profit / loss</span><span id="profit">—</span></div>
+          <div class="flex justify-between text-sm py-1"><span>Break-even customers/hour</span><span id="be">—</span></div>
+          <div id="verdict" class="rounded-lg p-3 text-white font-bold text-sm mt-3">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 bg-slate-900 text-white rounded-lg text-sm">
+      <strong class="brand-teal">GIGO:</strong> Garbage In, Garbage Out — a beautiful dashboard fed by wrong data produces confident wrong decisions. Automated structured decisions can also inherit human bias; monitor and audit them.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub</span>
+      &copy; 2026 Schiller International University
+    </p>
+  </div>
+</footer>
+
+<script>
+// ---------- Navigation ----------
+function switchTab(tabId){
+  ['overview','l1','l2','l3','l4'].forEach(id=>{
+    document.getElementById(id+'-view').classList.remove('active');
+    const btn = document.getElementById('nav-'+id);
+    btn.classList.remove('bg-slate-800','text-white','border-teal-400');
+    btn.classList.add('text-slate-300','border-transparent');
+  });
+  document.getElementById(tabId+'-view').classList.add('active');
+  const activeBtn = document.getElementById('nav-'+tabId);
+  activeBtn.classList.add('bg-slate-800','text-white','border-teal-400');
+  activeBtn.classList.remove('text-slate-300','border-transparent');
+}
+
+// ---------- Chart 1: ERP vs Silo ----------
+new Chart(document.getElementById('erpChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Information Silo', 'ERP (shared database)'],
+    datasets: [{
+      label: 'Re-typing / mismatch incidents per month',
+      data: [42, 3],
+      backgroundColor: ['#94a3b8', '#0E7C7B'],
+      borderRadius: 6
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}} }
+});
+
+// ---------- Chart 2: Revenue models (doughnut) ----------
+new Chart(document.getElementById('revenueChart').getContext('2d'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sales', 'Subscription', 'Advertising', 'Freemium', 'Transaction fee', 'Affiliate'],
+    datasets: [{ data: [1,1,1,1,1,1], backgroundColor: ['#0E7C7B','#B5440C','#94a3b8','#22c55e','#6366f1','#eab308'] }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom', labels:{boxWidth:12,font:{size:10}}}} }
+});
+
+// ---------- Chart 3: Decision types by system ----------
+new Chart(document.getElementById('decisionChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Structured', 'Semi-structured', 'Unstructured'],
+    datasets: [{
+      label: 'Typical supporting system',
+      data: [1,1,1],
+      backgroundColor: ['#0E7C7B','#94a3b8','#B5440C'],
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false},
+      tooltip:{ callbacks:{ label:(ctx)=> ['MIS / TPS reports','DSS what-if models','ESS KPI dashboards'][ctx.dataIndex] } } },
+    scales:{ y:{ display:false } }
+  }
+});
+
+// ---------- Mini eStore (Lesson 2 lab) ----------
+(function(){
+  const PRICE = 12.00, PHYS_UNIT_COST = 9.50, DIG_UNIT_COST = 0.05;
+  const slider = document.getElementById('qty');
+  const money = n => '$' + n.toFixed(2);
+  function update(){
+    const q = parseInt(slider.value);
+    document.getElementById('qtyLabel').textContent = q;
+    const revenue = PRICE * q;
+    const physCost = PHYS_UNIT_COST * q;
+    const digCost = DIG_UNIT_COST * q;
+    const physProfit = revenue - physCost;
+    const digProfit = revenue - digCost;
+    document.getElementById('pRev').textContent = money(revenue);
+    document.getElementById('pCost').textContent = money(physCost);
+    document.getElementById('pProfit').textContent = money(physProfit);
+    document.getElementById('dRev').textContent = money(revenue);
+    document.getElementById('dCost').textContent = money(digCost);
+    document.getElementById('dProfit').textContent = money(digProfit);
+    const maxProfit = Math.max(digProfit, 1);
+    document.getElementById('pBar').style.width = Math.max(0, (physProfit/maxProfit)*100) + '%';
+    document.getElementById('dBar').style.width = Math.max(0, (digProfit/maxProfit)*100) + '%';
+    document.getElementById('takeaway').textContent =
+      "At " + q + " copies: printed profit " + money(physProfit) + " vs PDF profit " + money(digProfit) +
+      ". The gap grows with every copy, because each extra digital copy costs almost nothing to deliver.";
+  }
+  slider.addEventListener('input', update);
+  update();
+})();
+
+// ---------- What-If Café Dashboard (Lesson 4 lab) ----------
+(function(){
+  const ids = ["cust","spend","varc","hours","staff","wage"];
+  const val = id => parseFloat(document.getElementById(id).value);
+  const money = n => '$' + n.toFixed(2);
+  function update(){
+    const cust = val("cust"), spend = val("spend"), varc = val("varc");
+    const hours = val("hours"), staff = val("staff"), wage = val("wage");
+    document.getElementById("vCust").textContent = cust;
+    document.getElementById("vSpend").textContent = spend.toFixed(2);
+    document.getElementById("vVar").textContent = varc.toFixed(2);
+    document.getElementById("vHours").textContent = hours;
+    document.getElementById("vStaff").textContent = staff;
+    document.getElementById("vWage").textContent = wage.toFixed(2);
+    const revenue = cust * hours * spend;
+    const staffCost = staff * wage * hours;
+    const ingCost = cust * hours * varc;
+    const totalCost = staffCost + ingCost;
+    const profit = revenue - totalCost;
+    const margin = spend - varc;
+    const breakEven = margin > 0 ? (staff * wage) / margin : Infinity;
+    document.getElementById("rev").textContent = money(revenue);
+    document.getElementById("cost").textContent = money(totalCost);
+    document.getElementById("profit").textContent = money(profit);
+    document.getElementById("be").textContent = isFinite(breakEven) ? breakEven.toFixed(1) + " / hour" : "impossible";
+    const scale = Math.max(revenue, totalCost, 1);
+    document.getElementById("revBar").style.width = (revenue/scale)*100 + "%";
+    document.getElementById("costBar").style.width = (totalCost/scale)*100 + "%";
+    const v = document.getElementById("verdict");
+    if (profit > 0){
+      v.style.background = "#0E7C7B";
+      v.textContent = "GO ✔ Staying open earns " + money(profit) + " per evening (you need " + breakEven.toFixed(1) + " customers/hour; you assumed " + cust + ").";
+    } else {
+      v.style.background = "#B5440C";
+      v.textContent = "NO-GO ✘ Staying open loses " + money(-profit) + " per evening. You would need " + (isFinite(breakEven)?breakEven.toFixed(1):"∞") + " customers/hour to break even.";
+    }
+  }
+  ids.forEach(id => document.getElementById(id).addEventListener("input", update));
+  update();
+})();
+</script>
+</body>
+</html>

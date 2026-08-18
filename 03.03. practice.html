@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber.SoHo — Week 03 Study Hub (Flashcards &amp; Quiz)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{ font-family:'Plus Jakarta Sans', sans-serif; background-color:#FAF7F2; color:#0f172a; }
+  .tab-content{ display:none; } .tab-content.active{ display:block; animation:fadeIn .3s ease-out; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
+  .flashcard-container{ perspective:1000px; }
+  .flashcard-inner{ position:relative; width:100%; height:300px; text-align:center; transition:transform 0.6s; transform-style:preserve-3d; cursor:pointer; }
+  .flashcard-inner.flipped{ transform:rotateY(180deg); }
+  .card-front, .card-back{ position:absolute; width:100%; height:100%; -webkit-backface-visibility:hidden; backface-visibility:hidden; display:flex; align-items:center; justify-content:center; padding:2rem; border-radius:1.5rem; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); }
+  .card-back{ transform:rotateY(180deg); background-color:#e6f5f4; border:2px solid #0E7C7B; }
+  .card-front{ background-color:white; border:2px solid #e2e8f0; }
+  .chart-container{ position:relative; width:100%; max-width:400px; margin:0 auto; height:300px; }
+  .brand-teal{ color:#0E7C7B; } .bg-teal{ background-color:#0E7C7B; } .brand-rust{ color:#B5440C; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🖥️</span>
+      <h1 class="text-xl font-bold tracking-tight text-slate-800">CYBER.<span class="brand-teal">SOHO</span> — Week 03 Study Hub</h1>
+    </div>
+    <nav class="flex bg-slate-100 p-1 rounded-xl shadow-inner">
+      <button onclick="switchTab('dashboard')" class="nav-btn active px-6 py-2 rounded-lg text-sm font-semibold transition-all bg-white brand-teal shadow-sm" id="btn-dashboard">Dashboard</button>
+      <button onclick="switchTab('flashcards')" class="nav-btn px-6 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900" id="btn-flashcards">Flashcards</button>
+      <button onclick="switchTab('quiz')" class="nav-btn px-6 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900" id="btn-quiz">Quiz</button>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow max-w-5xl mx-auto px-4 py-8 w-full">
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="tab-content active space-y-8">
+  <div class="bg-teal rounded-3xl p-8 text-white shadow-xl">
+    <h2 class="text-3xl font-bold mb-4">Welcome back, Analyst.</h2>
+    <p class="max-w-2xl leading-relaxed text-teal-50">This Study Hub covers Week 03 — Key System Applications for the Digital Age: Enterprise Applications (ERP/SCM/CRM), E-Commerce, Knowledge Management, and Decision Support. Use the tabs above to memorize terms and test your understanding.</p>
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-white/10 p-4 rounded-2xl flex items-center gap-4 border border-white/20">
+        <span class="text-3xl">🗂️</span>
+        <div><div class="text-xs uppercase font-bold text-teal-100 tracking-widest">Memorization</div><div class="text-lg font-bold">24 Flashcards</div></div>
+      </div>
+      <div class="bg-white/10 p-4 rounded-2xl flex items-center gap-4 border border-white/20">
+        <span class="text-3xl">📝</span>
+        <div><div class="text-xs uppercase font-bold text-teal-100 tracking-widest">Assessment</div><div class="text-lg font-bold">10 Quiz Questions</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-2xl border border-slate-200">
+      <h3 class="font-bold text-lg mb-2">Instructions</h3>
+      <ul class="space-y-3 text-sm text-slate-600">
+        <li class="flex items-start gap-2"><span>✅</span> Use Flashcards to master ERP, SCM, CRM, e-commerce, KM, and DSS/ESS terminology.</li>
+        <li class="flex items-start gap-2"><span>✅</span> Take the Quiz — the same 10 self-check questions from the Week 03 lecture.</li>
+        <li class="flex items-start gap-2"><span>✅</span> Score 8/10 or better and you're ready for the Week 03 lab.</li>
+      </ul>
+    </div>
+    <div class="bg-slate-900 p-6 rounded-2xl text-white">
+      <h3 class="font-bold text-lg mb-2 brand-teal">Quick Pro-Tip</h3>
+      <p class="text-sm text-slate-300 leading-relaxed">Anchor every lesson to one phrase: L1 "one shared database", L2 "near-zero marginal cost", L3 "tacit walks out the door", L4 "match the system to the decision type." That's the whole exam in four phrases.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLASHCARDS -->
+<section id="flashcards" class="tab-content space-y-8">
+  <div class="text-center">
+    <h2 class="text-2xl font-bold text-slate-800">Knowledge Cards</h2>
+    <p class="text-slate-500 text-sm mt-1">Click the card to flip it, use the arrows to navigate.</p>
+  </div>
+  <div class="max-w-md mx-auto flashcard-container">
+    <div class="flashcard-inner" id="flashcard-inner" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><p id="card-front-text" class="text-xl font-bold text-slate-800"></p></div>
+      <div class="card-back"><p id="card-back-text" class="text-lg text-teal-900 leading-relaxed"></p></div>
+    </div>
+  </div>
+  <div class="flex items-center justify-center gap-6">
+    <button onclick="prevCard()" class="p-3 rounded-full bg-white border border-slate-200 hover:bg-slate-50 shadow-sm">⬅️</button>
+    <div class="text-slate-400 font-mono text-sm" id="card-counter">1 / 24</div>
+    <button onclick="nextCard()" class="p-3 rounded-full bg-white border border-slate-200 hover:bg-slate-50 shadow-sm">➡️</button>
+  </div>
+  <div class="max-w-md mx-auto h-2 bg-slate-200 rounded-full overflow-hidden">
+    <div id="card-progress" class="h-full bg-teal transition-all duration-300" style="width:4%;"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="tab-content space-y-8">
+  <div id="quiz-intro" class="text-center py-12">
+    <div class="text-5xl mb-4">🧪</div>
+    <h2 class="text-3xl font-bold text-slate-800">Ready for the Self-Check Quiz?</h2>
+    <p class="text-slate-500 mt-2 mb-8">The same 10 questions from the Week 03 lecture. Score 8/10+ to be lab-ready.</p>
+    <button onclick="startQuiz()" class="bg-teal text-white px-10 py-4 rounded-2xl font-bold shadow-lg hover:opacity-90 transition-transform">Start Quiz</button>
+  </div>
+
+  <div id="quiz-active" class="hidden max-w-2xl mx-auto space-y-6">
+    <div class="flex justify-between items-center text-sm font-bold text-slate-400">
+      <span id="quiz-progress-text">Question 1 of 10</span>
+      <span id="quiz-score-live">Score: 0</span>
+    </div>
+    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+      <div id="quiz-question" class="text-xl font-bold text-slate-800 mb-6"></div>
+      <div id="quiz-options" class="space-y-3"></div>
+      <div id="quiz-feedback" class="hidden mt-6 p-4 rounded-xl text-sm border"></div>
+    </div>
+    <div class="flex justify-between">
+      <button id="next-q-btn" onclick="nextQuestion()" class="hidden ml-auto bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800">Next Question</button>
+    </div>
+  </div>
+
+  <div id="quiz-results" class="hidden text-center space-y-8">
+    <h2 class="text-3xl font-bold text-slate-800">Assessment Complete!</h2>
+    <div class="chart-container"><canvas id="resultsChart"></canvas></div>
+    <div id="result-summary" class="text-xl font-bold"></div>
+    <button onclick="resetQuiz()" class="bg-slate-200 text-slate-800 px-8 py-3 rounded-xl font-bold hover:bg-slate-300">Try Again</button>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub</span>
+      &copy; 2026 Schiller International University
+    </p>
+  </div>
+</footer>
+
+<script>
+// ---------- DATA: Flashcards (Week 03 glossary) ----------
+const flashcards = [
+  {front:"ERP", back:"Enterprise Resource Planning — replaces separate department systems with one integrated system built on one shared central database."},
+  {front:"Information Silo", back:"Separate systems that each hold a private copy of data and do not share it — the copies drift apart over time."},
+  {front:"SCM", back:"Supply Chain Management — systems that share information ACROSS companies (suppliers → manufacturers → stores → customers) so supply matches real demand."},
+  {front:"Bullwhip Effect", back:"Small changes in real customer demand become much larger order swings further up the supply chain when data isn't shared."},
+  {front:"Push vs Pull model", back:"Push: production based on forecasts. Pull: actual customer purchases trigger production and replenishment."},
+  {front:"CRM", back:"Customer Relationship Management — one system gathering every customer interaction into a single view, for Sales, Marketing, and Support."},
+  {front:"Churn Rate", back:"The percentage of customers who stop buying from a company in a given period — lower is better."},
+  {front:"CLTV", back:"Customer Lifetime Value — an estimate of the total profit one customer will bring over the whole relationship."},
+  {front:"Switching Costs", back:"The trap of a company depending so heavily on one vendor's system that leaving that vendor becomes very hard and costly."},
+  {front:"E-Commerce", back:"Buying and selling goods/services over the internet, including the marketing and payment around the transaction."},
+  {front:"Ubiquity (digital markets)", back:"The market is available everywhere, all the time — the store is in your pocket at 3 a.m."},
+  {front:"Information Asymmetry", back:"The gap between what a seller knows and what a buyer knows — digital markets reduce this gap via price/spec comparison."},
+  {front:"Menu Cost", back:"The cost of changing your prices — named after the cost of reprinting paper restaurant menus. Nearly zero online, enabling dynamic pricing."},
+  {front:"Disintermediation", back:"Removing middle layers (wholesaler, retailer) from the selling chain when a maker sells directly to the final customer."},
+  {front:"Marginal Cost (digital good)", back:"The cost of delivering ONE MORE copy of a digital good — close to zero, unlike a physical good's real per-copy production/shipping cost."},
+  {front:"B2C / B2B / C2C", back:"Business-to-Consumer / Business-to-Business / Consumer-to-Consumer — the three main e-commerce selling relationships."},
+  {front:"PIPEDA", back:"Personal Information Protection and Electronic Documents Act — Canada's federal privacy law for businesses collecting personal information."},
+  {front:"DIKW Hierarchy", back:"Data → Information → Knowledge → Wisdom — increasing levels of context, meaning, and judgment."},
+  {front:"Tacit Knowledge", back:"Knowledge that lives in a person's head and hands, learned by experience — it walks out the door when its owner leaves."},
+  {front:"Explicit Knowledge", back:"Knowledge that has been written down in a transferable form (manuals, FAQs, checklists) — it survives the departure of its author."},
+  {front:"KM Value Chain", back:"The four-step cycle: Acquire → Store → Share → Apply. Applying knowledge reveals gaps, which restarts Acquire."},
+  {front:"GIGO", back:"Garbage In, Garbage Out — the quality of a system's output can never exceed the quality of its input data."},
+  {front:"Structured / Semi-structured / Unstructured decisions", back:"Structured = clear repeatable rule (MIS/TPS). Semi-structured = part calculable, part judgment (DSS). Unstructured = novel, no formula (ESS)."},
+  {front:"Simon's Four Decision Stages", back:"Intelligence (discover the problem) → Design (model options) → Choice (pick one) → Implementation (act and check, loop back)."}
+];
+
+// ---------- DATA: Quiz (the Week 03 self-check, with answer key) ----------
+const quizQuestions = [
+  { question:"The defining design feature of an ERP (Enterprise Resource Planning) system is:",
+    hint:"Think about what all the department modules read and write to.",
+    options:[
+      {text:"It is hosted in the cloud", isCorrect:false, rationale:"Cloud hosting is common but not the defining feature — many ERPs run on-premises."},
+      {text:"All modules share one central database", isCorrect:true, rationale:"That single shared database is the entire idea behind ERP — a single source of truth."},
+      {text:"It is free and open source", isCorrect:false, rationale:"Most well-known ERP vendors (SAP, Oracle, Microsoft) are commercial; Odoo is a rare open-source exception."},
+      {text:"It only serves the accounting department", isCorrect:false, rationale:"ERP serves the whole organization — finance, inventory, HR, manufacturing, sales."}
+    ]},
+  { question:"\"Each department keeps its own copy of the data, and the copies drift apart.\" This situation is called:",
+    hint:"It's the disease that ERP is the cure for.",
+    options:[
+      {text:"Drill-down", isCorrect:false, rationale:"Drill-down is clicking a total to see the detail underneath it — an ESS/BI feature."},
+      {text:"An information silo", isCorrect:true, rationale:"Separate systems holding private, drifting copies of data — exactly what ERP removes."},
+      {text:"A pull model", isCorrect:false, rationale:"Pull refers to production triggered by actual sales, not to data isolation."},
+      {text:"Disintermediation", isCorrect:false, rationale:"Disintermediation is removing middlemen from a sales chain, unrelated to data silos."}
+    ]},
+  { question:"Which system is built specifically to give sales, marketing and support one complete view of each customer?",
+    hint:"It stands for Customer Relationship Management.",
+    options:[
+      {text:"SCM (Supply Chain Management)", isCorrect:false, rationale:"SCM manages information across companies in a supply chain, not the single-customer view."},
+      {text:"TPS (Transaction Processing System)", isCorrect:false, rationale:"TPS records raw daily events — the source data, not the customer-view application."},
+      {text:"CRM (Customer Relationship Management)", isCorrect:true, rationale:"CRM gathers every customer interaction into a single view for Sales, Marketing, and Service."},
+      {text:"LMS (Learning Management System)", isCorrect:false, rationale:"LMS delivers and tracks educational course content, unrelated to customer relationships."}
+    ]},
+  { question:"Small changes in real customer demand becoming much larger order swings further up the supply chain is called:",
+    hint:"Named after a physical object that amplifies motion.",
+    options:[
+      {text:"The bullwhip effect", isCorrect:true, rationale:"Safety margins stack level after level, amplifying small demand changes into large swings."},
+      {text:"Dynamic pricing", isCorrect:false, rationale:"Dynamic pricing is changing prices frequently based on conditions, not demand amplification."},
+      {text:"The freemium model", isCorrect:false, rationale:"Freemium is a revenue model (free basic tier, paid premium), unrelated to supply chains."},
+      {text:"GIGO", isCorrect:false, rationale:"GIGO is about data quality limiting output quality, a decision-support concept."}
+    ]},
+  { question:"The marginal cost of a digital good — one more delivered copy — is best described as:",
+    hint:"Think about what it costs to send one more PDF file.",
+    options:[
+      {text:"Higher than a physical copy", isCorrect:false, rationale:"The opposite is true — digital delivery avoids printing and shipping costs."},
+      {text:"Equal to a physical copy", isCorrect:false, rationale:"Physical copies incur real, recurring production/shipping costs per unit; digital goods do not."},
+      {text:"Close to zero", isCorrect:true, rationale:"A few cents of server/bandwidth cost, regardless of whether it's copy #10 or #10 million."},
+      {text:"Impossible to estimate", isCorrect:false, rationale:"It's very estimable — hosting and bandwidth costs are well understood and small."}
+    ]},
+  { question:"Naomi charges $3 per month for ongoing access to her always-updated study guide. Her revenue model is:",
+    hint:"A repeating fee for ongoing access.",
+    options:[
+      {text:"Affiliate", isCorrect:false, rationale:"Affiliate revenue is a commission for delivering a buyer to someone else's product."},
+      {text:"Transaction fee", isCorrect:false, rationale:"Transaction fee revenue takes a cut of each individual transaction, not a recurring fee."},
+      {text:"Advertising", isCorrect:false, rationale:"Advertising revenue comes from showing ads to users, not from charging them directly."},
+      {text:"Subscription", isCorrect:true, rationale:"A repeating monthly fee for ongoing access is the definition of a subscription model."}
+    ]},
+  { question:"\"Selling your old textbook to another student through a marketplace app\" is which e-commerce type?",
+    hint:"Both parties in the transaction are individual people.",
+    options:[
+      {text:"B2B (Business-to-Business)", isCorrect:false, rationale:"B2B involves two companies transacting, not two individual people."},
+      {text:"C2C (Consumer-to-Consumer)", isCorrect:true, rationale:"People selling to people through a platform is exactly C2C."},
+      {text:"B2C (Business-to-Consumer)", isCorrect:false, rationale:"B2C requires a company selling to an individual, not person-to-person."},
+      {text:"m-commerce only, nothing else applies", isCorrect:false, rationale:"m-commerce just means 'done on a phone' — it can layer on top of C2C, not replace the classification."}
+    ]},
+  { question:"Marc's ability to diagnose the H-214 projector from experience, never written down, is an example of:",
+    hint:"It lives in his head and hands.",
+    options:[
+      {text:"Explicit knowledge", isCorrect:false, rationale:"Explicit knowledge is written down and transferable — the opposite of Marc's unrecorded expertise."},
+      {text:"A KPI", isCorrect:false, rationale:"A KPI is a tracked business metric, not a form of personal knowledge."},
+      {text:"Tacit knowledge", isCorrect:true, rationale:"Knowledge learned through experience, hard to write down, that leaves when the person leaves."},
+      {text:"Structured data", isCorrect:false, rationale:"Structured data refers to organized, rule-based records — not personal expertise."}
+    ]},
+  { question:"The four steps of the knowledge management value chain, in order, are:",
+    hint:"Capture it, keep it, make it findable, use it.",
+    options:[
+      {text:"Store → Apply → Acquire → Share", isCorrect:false, rationale:"This scrambles the correct order; knowledge must be acquired before it can be stored."},
+      {text:"Acquire → Store → Share → Apply", isCorrect:true, rationale:"Capture the knowledge, put it in one place, make it findable, then use it to solve real cases."},
+      {text:"Share → Acquire → Apply → Store", isCorrect:false, rationale:"You cannot share knowledge before it has been acquired."},
+      {text:"Apply → Design → Choice → Implementation", isCorrect:false, rationale:"Design, Choice, and Implementation belong to Simon's decision-making stages, not the KM value chain."}
+    ]},
+  { question:"\"Should the café stay open three more hours?\" — the money is calculable but the demand is a judgment. This decision is ____, and the classic system for it is a ____.",
+    hint:"Part of the problem can be computed; part cannot.",
+    options:[
+      {text:"structured / TPS", isCorrect:false, rationale:"A fully structured decision would need no judgment at all — this one clearly needs judgment on demand."},
+      {text:"unstructured / ESS", isCorrect:false, rationale:"Unstructured decisions have no calculable part at all — but break-even here IS calculable."},
+      {text:"semi-structured / DSS", isCorrect:true, rationale:"The break-even math is calculable, but expected demand is a judgment call — the classic DSS scenario."},
+      {text:"structured / MIS", isCorrect:false, rationale:"MIS produces routine scheduled reports for fully structured decisions, not what-if judgment calls."}
+    ]}
+];
+
+// ---------- STATE ----------
+let currentCardIndex = 0;
+let currentQuizIndex = 0;
+let quizScore = 0;
+let resultsChart = null;
+
+// ---------- NAVIGATION ----------
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.remove('bg-white','brand-teal','shadow-sm','active');
+    b.classList.add('text-slate-600');
+  });
+  const activeBtn = document.getElementById('btn-'+tabId);
+  activeBtn.classList.add('bg-white','brand-teal','shadow-sm','active');
+  activeBtn.classList.remove('text-slate-600');
+}
+
+// ---------- FLASHCARD LOGIC ----------
+function updateCard(){
+  const card = flashcards[currentCardIndex];
+  const inner = document.getElementById('flashcard-inner');
+  inner.classList.remove('flipped');
+  setTimeout(()=>{
+    document.getElementById('card-front-text').innerText = card.front;
+    document.getElementById('card-back-text').innerText = card.back;
+    document.getElementById('card-counter').innerText = (currentCardIndex+1) + " / " + flashcards.length;
+    document.getElementById('card-progress').style.width = ((currentCardIndex+1)/flashcards.length*100) + '%';
+  }, 150);
+}
+function nextCard(){ currentCardIndex = (currentCardIndex+1) % flashcards.length; updateCard(); }
+function prevCard(){ currentCardIndex = (currentCardIndex-1+flashcards.length) % flashcards.length; updateCard(); }
+
+// ---------- QUIZ LOGIC ----------
+function startQuiz(){
+  document.getElementById('quiz-intro').classList.add('hidden');
+  document.getElementById('quiz-active').classList.remove('hidden');
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = quizQuestions[currentQuizIndex];
+  document.getElementById('quiz-question').innerText = q.question;
+  document.getElementById('quiz-progress-text').innerText = "Question " + (currentQuizIndex+1) + " of " + quizQuestions.length;
+  const optionsBox = document.getElementById('quiz-options');
+  optionsBox.innerHTML = '';
+  q.options.forEach((opt, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-100 hover:border-teal-300 hover:bg-teal-50 transition-all text-slate-700 font-medium quiz-opt-btn";
+    btn.innerText = opt.text;
+    btn.onclick = ()=>selectOption(idx);
+    optionsBox.appendChild(btn);
+  });
+  document.getElementById('quiz-feedback').classList.add('hidden');
+  document.getElementById('next-q-btn').classList.add('hidden');
+}
+function selectOption(idx){
+  const q = quizQuestions[currentQuizIndex];
+  const selected = q.options[idx];
+  const feedbackBox = document.getElementById('quiz-feedback');
+  document.querySelectorAll('.quiz-opt-btn').forEach(b=>b.disabled=true);
+  feedbackBox.classList.remove('hidden','bg-emerald-50','text-emerald-800','border-emerald-200','bg-rose-50','text-rose-800','border-rose-200');
+  if (selected.isCorrect){
+    quizScore++;
+    feedbackBox.classList.add('bg-emerald-50','text-emerald-800','border-emerald-200');
+    feedbackBox.innerHTML = "<strong>Correct!</strong> " + selected.rationale;
+  } else {
+    feedbackBox.classList.add('bg-rose-50','text-rose-800','border-rose-200');
+    feedbackBox.innerHTML = "<strong>Incorrect.</strong> " + selected.rationale;
+  }
+  document.getElementById('quiz-score-live').innerText = "Score: " + quizScore;
+  document.getElementById('next-q-btn').classList.remove('hidden');
+}
+function nextQuestion(){
+  if (currentQuizIndex < quizQuestions.length - 1){
+    currentQuizIndex++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+function showResults(){
+  document.getElementById('quiz-active').classList.add('hidden');
+  document.getElementById('quiz-results').classList.remove('hidden');
+  document.getElementById('result-summary').innerText = "You scored " + quizScore + " out of " + quizQuestions.length;
+  const ctx = document.getElementById('resultsChart').getContext('2d');
+  if (resultsChart) resultsChart.destroy();
+  resultsChart = new Chart(ctx, {
+    type:'doughnut',
+    data:{ labels:['Correct','Incorrect'], datasets:[{ data:[quizScore, quizQuestions.length-quizScore], backgroundColor:['#0E7C7B','#B5440C'], borderWidth:0 }] },
+    options:{ maintainAspectRatio:false, cutout:'70%', plugins:{ legend:{ position:'bottom' } } }
+  });
+}
+function resetQuiz(){
+  quizScore = 0; currentQuizIndex = 0;
+  document.getElementById('quiz-results').classList.add('hidden');
+  document.getElementById('quiz-intro').classList.remove('hidden');
+  document.getElementById('quiz-score-live').innerText = "Score: 0";
+}
+
+// INIT
+updateCard();
+</script>
+</body>
+</html>
