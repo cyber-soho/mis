@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Hub — Flashcards &amp; Quiz | Cyber.SoHo Educational Hub</title>
+<style>
+  :root{
+    --bg:#0b0d10; --panel:#14171b; --panel2:#1c2026; --border:#2a2f37;
+    --text:#e7e9ec; --muted:#9aa3ad; --accent:#59d9c8; --accent2:#f2b134;
+    --bad:#e2665a; --good:#59d97a;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  header.hero{background:radial-gradient(circle at 20% 20%,#1c2026,#0b0d10 70%);border-bottom:1px solid var(--border);padding:40px 24px 28px;text-align:center;}
+  header.hero h1{margin:0 0 6px;font-size:1.9rem;}
+  header.hero p{margin:4px 0;color:var(--muted);}
+  nav.tabs{position:sticky;top:0;z-index:50;display:flex;gap:8px;justify-content:center;background:#0b0d10ee;backdrop-filter:blur(6px);border-bottom:1px solid var(--border);padding:14px;}
+  nav.tabs button{background:var(--panel);color:var(--text);border:1px solid var(--border);padding:10px 22px;border-radius:8px;cursor:pointer;font-size:.95rem;}
+  nav.tabs button.active{background:var(--accent);color:#0b0d10;font-weight:700;border-color:var(--accent);}
+  main{max-width:840px;margin:0 auto;padding:32px 20px 64px;}
+  section.tabpanel{display:none;}
+  section.tabpanel.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  h2.section-title{font-size:1.4rem;border-left:4px solid var(--accent);padding-left:12px;}
+
+  /* Flashcards */
+  .deck-info{text-align:center;color:var(--muted);margin-bottom:18px;}
+  .flip-card{width:100%;height:260px;perspective:1200px;margin:0 auto 18px;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;cursor:pointer;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;font-size:1.2rem;}
+  .flip-front{background:linear-gradient(155deg,var(--panel),var(--panel2));}
+  .flip-back{background:linear-gradient(155deg,#123430,#0b0d10);transform:rotateY(180deg);color:var(--accent);font-size:1rem;}
+  .card-tag{position:absolute;top:14px;left:16px;font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+  .nav-row{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:6px;}
+  .nav-row button{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:8px;cursor:pointer;font-size:1rem;}
+  .nav-row button:hover{border-color:var(--accent);}
+  .counter{font-weight:700;color:var(--accent2);}
+
+  /* Quiz */
+  .quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;color:var(--muted);}
+  .score{color:var(--accent2);font-weight:700;}
+  .q-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px;}
+  .q-text{font-size:1.1rem;margin-bottom:16px;}
+  .opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--border);color:var(--text);
+    padding:12px 16px;border-radius:8px;margin:8px 0;cursor:pointer;font-size:.95rem;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:#123f2c;border-color:var(--good);color:var(--good);}
+  .opt.incorrect{background:#3f1c1c;border-color:var(--bad);color:var(--bad);}
+  .opt[disabled]{cursor:default;}
+  .hint-box{margin-top:14px;}
+  .hint-toggle{background:none;border:1px dashed var(--accent2);color:var(--accent2);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.85rem;}
+  .hint-text{display:none;margin-top:10px;padding:10px 14px;background:var(--panel2);border-left:3px solid var(--accent2);border-radius:0 8px 8px 0;color:var(--muted);font-size:.9rem;}
+  .hint-text.show{display:block;}
+  .explain{margin-top:12px;padding:10px 14px;background:#101820;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.9rem;color:var(--muted);display:none;}
+  .explain.show{display:block;}
+  .quiz-nav{display:flex;justify-content:space-between;margin-top:10px;}
+  .quiz-nav button{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;cursor:pointer;}
+  .quiz-nav button:disabled{opacity:.4;cursor:not-allowed;}
+  .results{text-align:center;padding:40px 20px;}
+  .results h2{color:var(--accent);}
+  .results .big-score{font-size:3rem;font-weight:800;color:var(--accent2);}
+  .restart{margin-top:20px;background:var(--accent);color:#0b0d10;border:none;padding:12px 26px;border-radius:8px;font-weight:700;cursor:pointer;}
+
+  /* utility classes replicated locally for the footer (no external framework needed) */
+  .bg-stone-900{background-color:#1c1917;}
+  .text-stone-400{color:#a8a29e;}
+  .py-6{padding-top:1.5rem;padding-bottom:1.5rem;}
+  .mt-8{margin-top:2rem;}
+  .container{width:100%;max-width:1120px;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}
+  .mx-auto{margin-left:auto;margin-right:auto;}
+  .text-center{text-align:center;}
+  .text-sm{font-size:0.875rem;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Welcome back, Architect.</h1>
+  <p>This Study Hub covers Building Information Systems, Managing Projects, and Managing Global Systems.</p>
+  <p>Use the tabs to switch between memorizing terms and testing your application skills.</p>
+</header>
+
+<nav class="tabs">
+  <button data-tab="flash" class="active">🗂️ Memorization</button>
+  <button data-tab="quiz">📝 Assessment</button>
+</nav>
+
+<main>
+
+  <!-- FLASHCARDS -->
+  <section id="flash" class="tabpanel active">
+    <h2 class="section-title">Knowledge Cards</h2>
+    <p class="deck-info">Click the card to flip it. Use the arrows to navigate. <span id="deckCount">25 Flashcards</span></p>
+
+    <div class="flip-card" id="flipCard">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="card-tag">Term</span><div id="cardFront"></div></div>
+        <div class="flip-back"><span class="card-tag">Definition</span><div id="cardBack"></div></div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button id="prevCard">← Prev</button>
+      <span class="counter"><span id="cardIndex">1</span> / <span id="cardTotal">25</span></span>
+      <button id="nextCard">Next →</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="tabpanel">
+    <h2 class="section-title">Ready for the Assessment?</h2>
+    <p style="color:var(--muted);">Test your ability to pick the right approach for real-world Building/Managing/Global scenarios. Stuck? Use the hint on any question.</p>
+
+    <div class="quiz-top">
+      <span>Question <span id="qNum">1</span> of <span id="qTotal">10</span></span>
+      <span class="score">Score: <span id="scoreVal">0</span></span>
+    </div>
+
+    <div id="quizArea"></div>
+
+    <div id="resultsArea" style="display:none;" class="results">
+      <h2>Assessment Complete</h2>
+      <div class="big-score"><span id="finalScore">0</span>/10</div>
+      <p id="finalMsg"></p>
+      <button class="restart" onclick="restartQuiz()">Restart Quiz</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub &copy; 2026 Schiller International University</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ---------------- TAB SWITCHING ---------------- */
+document.querySelectorAll('nav.tabs button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('section.tabpanel').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------------- FLASHCARDS ---------------- */
+const cards = [
+  {t:"API", d:"Application Programming Interface — a defined interface letting software systems exchange requests and data."},
+  {t:"CPI (Cost Performance Index)", d:"EV ÷ AC. Below 1.00 means the project is receiving less completed value than the money spent."},
+  {t:"ERP", d:"Enterprise Resource Planning — integrated software coordinating major business processes and shared data."},
+  {t:"GDPR", d:"General Data Protection Regulation — EU law governing personal-data processing and protection."},
+  {t:"IS (Information Systems)", d:"People, processes, data, and technology used together to support organizational work and decisions."},
+  {t:"KPI", d:"Key Performance Indicator — a selected measure used to track performance against an objective."},
+  {t:"MVP", d:"Minimum Viable Product — the smallest usable release that can test important assumptions with real users."},
+  {t:"PMI", d:"Project Management Institute — a professional association publishing project-management standards."},
+  {t:"RACI", d:"Responsible, Accountable, Consulted, Informed — a role-assignment format for clarifying ownership."},
+  {t:"SDLC", d:"Systems Development Life Cycle — a structured sequence for analyzing, designing, building, testing, deploying, and maintaining a system."},
+  {t:"SPI (Schedule Performance Index)", d:"EV ÷ PV. Below 1.00 means progress is behind the value planned for the status date."},
+  {t:"UAT", d:"User Acceptance Testing — validation by intended users that the system satisfies agreed business requirements."},
+  {t:"UTC", d:"Coordinated Universal Time — the international reference used to coordinate clocks across time zones."},
+  {t:"WBS", d:"Work Breakdown Structure — a hierarchical decomposition of project scope into deliverables and work packages."},
+  {t:"Functional Requirement", d:"States what the system must DO, e.g. 'A student can reserve an available camera.'"},
+  {t:"Non-Functional Requirement", d:"States a quality or constraint, e.g. 'Search results appear within 2 seconds.'"},
+  {t:"Technical Feasibility", d:"Asks whether the organization has, can acquire, or can support the required technology and skills."},
+  {t:"Economic Feasibility", d:"Asks whether expected benefits justify the complete cost (license, training, support, infra)."},
+  {t:"Operational Feasibility", d:"Asks whether the system will actually work with real users, roles, and policies in place."},
+  {t:"Schedule Feasibility", d:"Asks whether the system can be delivered within the required time."},
+  {t:"Critical Path", d:"The longest dependency path through a project network; it sets the earliest possible project finish."},
+  {t:"Risk vs. Issue", d:"A risk is an uncertain event that COULD happen; an issue is a problem that HAS ALREADY happened."},
+  {t:"Change Control", d:"The process of analyzing impact (scope, cost, schedule, risk) before approving a requested change."},
+  {t:"Global Core", d:"System elements kept consistent worldwide: identity, master data, security baseline, core rules, interfaces."},
+  {t:"Networked System", d:"Connects shared global services/data with regional or local services — needs the strongest governance."}
+];
+let cIdx = 0;
+const flipCard = document.getElementById('flipCard');
+const cardFront = document.getElementById('cardFront');
+const cardBack = document.getElementById('cardBack');
+const cardIndex = document.getElementById('cardIndex');
+const cardTotal = document.getElementById('cardTotal');
+cardTotal.textContent = cards.length;
+
+function renderCard(){
+  flipCard.classList.remove('flipped');
+  cardFront.textContent = cards[cIdx].t;
+  cardBack.textContent = cards[cIdx].d;
+  cardIndex.textContent = cIdx + 1;
+}
+flipCard.addEventListener('click', ()=> flipCard.classList.toggle('flipped'));
+document.getElementById('nextCard').addEventListener('click', ()=>{ cIdx = (cIdx+1) % cards.length; renderCard(); });
+document.getElementById('prevCard').addEventListener('click', ()=>{ cIdx = (cIdx-1+cards.length) % cards.length; renderCard(); });
+renderCard();
+
+/* ---------------- QUIZ ---------------- */
+const quiz = [
+  {
+    q:"An equipment-booking release has 21 effort points of capacity. Requirements: 3 Must (16 pts total), 2 Should (10 pts), 1 Could (8 pts). What should you do?",
+    options:["Include everything and extend the deadline","Protect all Must requirements first, then fit the highest-value Should work that remains","Drop a Must requirement to fit a popular Could feature","Cancel the release since total demand exceeds capacity"],
+    correct:1,
+    hint:"Must requirements are non-negotiable for the release; prioritization decides what fits after they're protected.",
+    explain:"Musts are protected first (16 pts used), leaving 5 pts — enough for the highest-value remaining Should item."
+  },
+  {
+    q:"A stakeholder says the system 'must be user friendly.' Why is this a weak requirement?",
+    options:["It's too short to read aloud","It cannot be tested consistently because people interpret it differently","It is a non-functional requirement, which are never testable","It does not use a priority label"],
+    correct:1,
+    hint:"Good requirements should be testable with a defined task and expected result.",
+    explain:"Requirements must be specific enough to test, e.g. 'a first-time user can complete X without assistance.'"
+  },
+  {
+    q:"Technical feasibility = 4/5, Economic = 4/5, Operational = 5/5, Schedule = 3/5, weighted overall = 4.10/5. What's the correct conclusion?",
+    options:["Approved automatically — the average is high","The proposal appears feasible, but schedule is the weakest area and must be controlled before approval","Reject the project because not every score is a 5","Ignore the individual scores; only the average matters"],
+    correct:1,
+    hint:"A single average score can hide a critical weak area — read the individual scores, not just the total.",
+    explain:"The weakest dimension (schedule, 3/5) should still drive management action even though the average looks strong."
+  },
+  {
+    q:"Which system-building approach fits BEST when the business goal is known but the ideal workflow/UI is still unclear?",
+    options:["Traditional SDLC","Prototyping","Outsourcing with a fixed contract","Application package with heavy customization"],
+    correct:1,
+    hint:"Think about which method is designed to let users react to something concrete early.",
+    explain:"Prototyping produces an early, concrete version so users can react and clarify the workflow before a full build."
+  },
+  {
+    q:"In a 5-task project, B (3d) and C (4d) both start after A (2d) and both must finish before D (3d) starts, followed by E (2d). Why is the project 11 days, not 14?",
+    options:["Tasks are always summed regardless of order","B and C run in PARALLEL; the longest path (A-C-D-E) determines the finish","E can start before D finishes","The critical path is always the shortest path"],
+    correct:1,
+    hint:"Look for tasks that share the same predecessor and don't depend on each other.",
+    explain:"B and C run in parallel after A. Since C (4d) > B (3d), the path A-C-D-E = 2+4+3+2 = 11 days is critical."
+  },
+  {
+    q:"PV = $10,000, EV = $7,600, AC = $8,600. What do SPI and CPI tell management?",
+    options:["SPI = 1.13 (ahead), CPI = 0.88 (over budget)","SPI = 0.76 (behind schedule), CPI = 0.88 (over budget for value achieved)","SPI = 0.88 (behind schedule), CPI = 0.76 (under budget)","Both indexes are above 1.00, so the project is healthy"],
+    correct:1,
+    hint:"SPI = EV ÷ PV. CPI = EV ÷ AC. A value below 1.00 is unfavorable for both.",
+    explain:"SPI = 7,600/10,000 = 0.76 (behind schedule). CPI = 7,600/8,600 ≈ 0.88 (over budget for value delivered)."
+  },
+  {
+    q:"A sponsor requests QR-code check-in after the design phase is complete. What is the correct project-management response?",
+    options:["Reject it immediately since it wasn't in the original plan","Approve it immediately since it sounds useful","Perform impact analysis on scope, schedule, cost, and risk before deciding","Let the developers decide without involving the sponsor"],
+    correct:2,
+    hint:"Change control exists to make consequences visible, not to block or auto-approve every request.",
+    explain:"Change control requires impact analysis before the sponsor approves, rejects, or defers the change."
+  },
+  {
+    q:"A multinational business unit gives significant autonomy to country operations, adapting products and decisions locally. What system configuration typically results?",
+    options:["Centralized","Duplicated","Decentralized","Networked"],
+    correct:2,
+    hint:"Local autonomy in the business usually mirrors local autonomy in the systems that support it.",
+    explain:"Multinational strategy commonly leads to decentralized systems — strong local fit, but duplication and inconsistent data."
+  },
+  {
+    q:"Which pair correctly separates GLOBAL CORE elements from CONTROLLED LOCAL VARIATION?",
+    options:["Global: language and payment methods · Local: identity standards and master data","Global: identity standards and master data · Local: language and payment methods","Both belong in the global core for consistency","Both should always be fully localized"],
+    correct:1,
+    hint:"Ask: 'What would break if every region changed this independently?' vs. 'What would break if we standardized this?'",
+    explain:"Identity/master data/security need consistency (global core); language, tax, and payment methods often require local variation."
+  },
+  {
+    q:"A central support team covers 13:00–21:00 UTC. Singapore's workday (09:00–17:00 local, UTC+8) has ZERO overlap with that window. What is the correct management action?",
+    options:["Ignore it — email is asynchronous anyway","Add regional support coverage or a follow-the-sun handoff before full rollout","Force the Singapore team to work the central team's hours permanently","Delay the rollout indefinitely with no further action"],
+    correct:1,
+    hint:"A high readiness SCORE does not fix an operational GAP like missing support-hour overlap.",
+    explain:"Zero overlap means the current support model is inadequate — regional coverage or follow-the-sun handoff is required before full rollout."
+  }
+];
+
+let qIdx = 0, score = 0, answered = [];
+
+function renderQuiz(){
+  const area = document.getElementById('quizArea');
+  const item = quiz[qIdx];
+  document.getElementById('qNum').textContent = qIdx + 1;
+  document.getElementById('scoreVal').textContent = score;
+
+  let optsHtml = item.options.map((opt,i)=>`<button class="opt" data-i="${i}">${opt}</button>`).join('');
+
+  area.innerHTML = `
+    <div class="q-card">
+      <div class="q-text">${item.q}</div>
+      ${optsHtml}
+      <div class="hint-box">
+        <button class="hint-toggle" id="hintBtn">💡 Show Hint</button>
+        <div class="hint-text" id="hintText">${item.hint}</div>
+      </div>
+      <div class="explain" id="explainBox">${item.explain}</div>
+      <div class="quiz-nav">
+        <button id="prevQ" ${qIdx===0?'disabled':''}>← Previous</button>
+        <button id="nextQ" disabled>${qIdx===quiz.length-1?'See Results →':'Next Question →'}</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('hintBtn').addEventListener('click', ()=>{
+    document.getElementById('hintText').classList.toggle('show');
+  });
+
+  const already = answered[qIdx];
+  document.querySelectorAll('.opt').forEach(btn=>{
+    btn.addEventListener('click', ()=> selectOption(btn, item));
+    if (already !== undefined){
+      btn.disabled = true;
+      const i = parseInt(btn.dataset.i);
+      if (i === item.correct) btn.classList.add('correct');
+      if (i === already && already !== item.correct) btn.classList.add('incorrect');
+    }
+  });
+  if (already !== undefined){
+    document.getElementById('explainBox').classList.add('show');
+    document.getElementById('nextQ').disabled = false;
+  }
+
+  document.getElementById('prevQ').addEventListener('click', ()=>{ qIdx--; renderQuiz(); });
+  document.getElementById('nextQ').addEventListener('click', ()=>{
+    if (qIdx === quiz.length-1){ showResults(); } else { qIdx++; renderQuiz(); }
+  });
+}
+
+function selectOption(btn, item){
+  if (answered[qIdx] !== undefined) return;
+  const i = parseInt(btn.dataset.i);
+  answered[qIdx] = i;
+  if (i === item.correct){ score++; btn.classList.add('correct'); }
+  else {
+    btn.classList.add('incorrect');
+    document.querySelectorAll('.opt')[item.correct].classList.add('correct');
+  }
+  document.querySelectorAll('.opt').forEach(b=> b.disabled = true);
+  document.getElementById('explainBox').classList.add('show');
+  document.getElementById('nextQ').disabled = false;
+  document.getElementById('scoreVal').textContent = score;
+}
+
+function showResults(){
+  document.getElementById('quizArea').style.display = 'none';
+  document.querySelector('.quiz-top').style.display = 'none';
+  const resultsArea = document.getElementById('resultsArea');
+  resultsArea.style.display = 'block';
+  document.getElementById('finalScore').textContent = score;
+  let msg = "";
+  if (score >= 9) msg = "Outstanding — you're thinking like a systems architect.";
+  else if (score >= 7) msg = "Strong performance — review the missed concepts above.";
+  else if (score >= 5) msg = "Good start — revisit the flashcards for the weaker lessons.";
+  else msg = "Head back to the flashcards and Lesson sections before retrying.";
+  document.getElementById('finalMsg').textContent = msg;
+}
+
+function restartQuiz(){
+  qIdx = 0; score = 0; answered = [];
+  document.getElementById('quizArea').style.display = 'block';
+  document.querySelector('.quiz-top').style.display = 'flex';
+  document.getElementById('resultsArea').style.display = 'none';
+  renderQuiz();
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>

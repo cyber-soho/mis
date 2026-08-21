@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building &amp; Managing Systems | Cyber.SoHo Educational Hub</title>
+<style>
+  :root{
+    --bg:#0b0d10; --panel:#14171b; --panel2:#1c2026; --border:#2a2f37;
+    --text:#e7e9ec; --muted:#9aa3ad; --accent:#59d9c8; --accent2:#f2b134;
+    --must:#e2665a; --should:#f2b134; --could:#59d9c8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  header.hero{background:radial-gradient(circle at 20% 20%,#1c2026,#0b0d10 70%);border-bottom:1px solid var(--border);padding:48px 24px 32px;text-align:center;}
+  header.hero h1{margin:0 0 8px;font-size:2.1rem;letter-spacing:.5px;}
+  header.hero p{margin:4px 0;color:var(--muted);}
+  .badge{display:inline-block;background:var(--panel2);border:1px solid var(--border);color:var(--accent);padding:4px 12px;border-radius:999px;font-size:.8rem;margin-top:12px;}
+  nav.tabs{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:#0b0d10ee;backdrop-filter:blur(6px);border-bottom:1px solid var(--border);padding:12px;}
+  nav.tabs button{background:var(--panel);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.9rem;transition:.15s;}
+  nav.tabs button:hover{border-color:var(--accent);}
+  nav.tabs button.active{background:var(--accent);color:#0b0d10;font-weight:600;border-color:var(--accent);}
+  main{max-width:980px;margin:0 auto;padding:32px 20px 64px;}
+  section.tabpanel{display:none;animation:fade .3s ease;}
+  section.tabpanel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  h2.section-title{font-size:1.5rem;border-left:4px solid var(--accent);padding-left:12px;margin-top:0;}
+  h3{color:var(--accent2);margin-top:28px;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:16px 0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr;}}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem;}
+  th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;}
+  th{background:var(--panel2);color:var(--accent);}
+  ul,ol{padding-left:22px;}
+  li{margin:6px 0;}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:700;margin-right:6px;}
+  .must{background:var(--must);color:#fff;} .should{background:var(--should);color:#1c1300;} .could{background:var(--could);color:#04302b;}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0;}
+  .flow span{background:var(--panel2);border:1px solid var(--border);padding:8px 12px;border-radius:8px;font-size:.85rem;}
+  .flow .arrow{color:var(--muted);}
+  .quote{border-left:3px solid var(--accent2);padding:10px 16px;background:var(--panel2);border-radius:0 8px 8px 0;color:var(--muted);font-style:italic;}
+  .kpi-box{display:flex;flex-wrap:wrap;gap:12px;}
+  .kpi-box div{flex:1;min-width:140px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
+  .kpi-box strong{display:block;font-size:1.3rem;color:var(--accent);}
+  details{background:var(--panel2);border:1px solid var(--border);border-radius:8px;margin:8px 0;padding:8px 12px;}
+  details summary{cursor:pointer;font-weight:600;color:var(--accent2);}
+  .cta{text-align:center;margin:40px 0;}
+  .cta a{display:inline-block;background:var(--accent);color:#0b0d10;padding:12px 26px;border-radius:8px;font-weight:700;text-decoration:none;}
+  /* --- minimal utility classes replicated locally so the footer renders identically without any external CSS framework --- */
+  .bg-stone-900{background-color:#1c1917;}
+  .text-stone-400{color:#a8a29e;}
+  .py-6{padding-top:1.5rem;padding-bottom:1.5rem;}
+  .mt-8{margin-top:2rem;}
+  .container{width:100%;max-width:1120px;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}
+  .mx-auto{margin-left:auto;margin-right:auto;}
+  .text-center{text-align:center;}
+  .text-sm{font-size:0.875rem;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Building &amp; Managing Systems for the Digital Age</h1>
+  <p>Week 04 — Management of Information Systems (IS) Assessment</p>
+  <p>Lessons: Building Information Systems · Managing Projects · Managing Global Systems</p>
+  <span class="badge">Cyber.SoHo Educational Hub — Study Reference</span>
+</header>
+
+<nav class="tabs">
+  <button data-tab="overview" class="active">Overview</button>
+  <button data-tab="l1">Lesson 1 — Building IS</button>
+  <button data-tab="l2">Lesson 2 — Managing Projects</button>
+  <button data-tab="l3">Lesson 3 — Global Systems</button>
+  <button data-tab="vocab">Vocabulary</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="overview" class="tabpanel active">
+    <h2 class="section-title">How the Three Lessons Connect</h2>
+    <p>A technically correct system can still fail if it solves the wrong problem, arrives too late, costs more than the organization can sustain, cannot be supported, or does not fit the legal and operating conditions of the places where it will be used. Keep the whole topic organized by asking three questions in sequence:</p>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="margin-top:0;">1. Building Information Systems</h3>
+        <p>What should be built, how should it be designed, and how do we decide it is ready to use?</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">2. Managing Projects</h3>
+        <p>How do we control scope, schedule, cost, risk, quality, and responsibility while the system is delivered?</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">3. Managing Global Systems</h3>
+        <p>What changes when the same system must serve users, laws, languages, currencies, networks, and support teams across countries?</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">Final Recommendation</h3>
+        <p>Never "just pick a technology." State the business requirement, delivery approach, project controls, operating model, major risks, evidence required before release, and the conditions that could change the recommendation.</p>
+      </div>
+    </div>
+    <h3>Assessment Questions to Always Ask</h3>
+    <ul>
+      <li><strong>Building:</strong> Are we building the right system in a way that can be operated and supported?</li>
+      <li><strong>Managing:</strong> Do we have credible control over delivery, and can problems be seen early enough to act?</li>
+      <li><strong>Global:</strong> Can the system operate consistently across locations without ignoring legitimate local requirements?</li>
+    </ul>
+  </section>
+
+  <!-- LESSON 1 -->
+  <section id="l1" class="tabpanel">
+    <h2 class="section-title">Lesson 1 — Building Information Systems</h2>
+
+    <h3>What "Building a System" Actually Includes</h3>
+    <p>An information system is <strong>not only software</strong> — it includes people, procedures, data, controls, and technology organized to support work and decisions. A programmer can build a form quickly; that alone doesn't mean the organization built a <em>good</em> information system.</p>
+    <div class="flow">
+      <span>Business Need</span><span class="arrow">→</span>
+      <span>Analysis</span><span class="arrow">→</span>
+      <span>Design</span><span class="arrow">→</span>
+      <span>Build / Configure</span><span class="arrow">→</span>
+      <span>Test</span><span class="arrow">→</span>
+      <span>Convert</span><span class="arrow">→</span>
+      <span>Operate &amp; Improve</span><span class="arrow">↻</span>
+    </div>
+
+    <h3>Levels of Organizational Change</h3>
+    <ol>
+      <li><strong>Automation</strong> — the same task, done automatically.</li>
+      <li><strong>Process rationalization</strong> — simplify duplicate steps or rework.</li>
+      <li><strong>Business-process redesign</strong> — change order/ownership/structure of work.</li>
+      <li><strong>Change to the operating model</strong> — the largest change, affecting budgets, ownership, and governance.</li>
+    </ol>
+
+    <h3>Systems Analysis vs. Systems Design</h3>
+    <p><strong>Analysis</strong> defines the problem and requirements <em>before</em> committing to a solution. <strong>Design</strong> decides <em>how</em> the requirements will be satisfied. Confusing the two creates expensive rework — e.g., jumping straight to "we need a mobile app" is a design choice, when the real requirement might just be "reserve from any device."</p>
+    <div class="card">
+      <p><span class="pill must">Functional</span> "The system must prevent two active reservations for the same item and time."</p>
+      <p><span class="pill should">Non-functional</span> "Search results should appear within 2 seconds for normal load."</p>
+    </div>
+    <p>Requirements need priority: <span class="pill must">Must</span><span class="pill should">Should</span><span class="pill could">Could</span> / not planned. Ask: <em>"Would we cancel the release if this were missing?"</em> If no — it's probably not a true Must.</p>
+
+    <h3>The Four Feasibility Checks</h3>
+    <table>
+      <tr><th>Type</th><th>Key Question</th></tr>
+      <tr><td>Technical</td><td>Can we acquire/support the technology and skills required?</td></tr>
+      <tr><td>Economic</td><td>Do benefits justify the <em>complete</em> cost (license, training, support, infra)?</td></tr>
+      <tr><td>Operational</td><td>Will it actually work with real users and policies?</td></tr>
+      <tr><td>Schedule</td><td>Can it be delivered in the required time?</td></tr>
+    </table>
+    <p class="quote">A high overall feasibility score should never hide an unresolved mandatory requirement — a strong average does not equal "approved."</p>
+
+    <h3>Choosing a Building Approach</h3>
+    <table>
+      <tr><th>Approach</th><th>Best Fit</th><th>Main Risk</th></tr>
+      <tr><td>Traditional SDLC</td><td>Stable requirements, regulated, fixed interfaces</td><td>Late-discovered change is expensive</td></tr>
+      <tr><td>Prototyping</td><td>Goal known, workflow/UI unclear</td><td>Shortcuts unsafe for production</td></tr>
+      <tr><td>Agile / Iterative</td><td>Changing requirements, frequent feedback</td><td>Still needs backlog discipline &amp; "done" criteria</td></tr>
+      <tr><td>Low-code / End-user</td><td>Small local problems</td><td>Ownership &amp; uncontrolled duplication</td></tr>
+      <tr><td>Package / SaaS</td><td>Standard business process</td><td>Heavy customization breaks upgrades</td></tr>
+      <tr><td>Outsourcing</td><td>Missing internal skills/capacity</td><td>Accountability &amp; knowledge transfer are NOT transferred</td></tr>
+    </table>
+
+    <h3>Testing &amp; Conversion</h3>
+    <p><strong>Unit → Integration → System → UAT</strong> — each test should trace back to a requirement. Conversion patterns:</p>
+    <ul>
+      <li><strong>Direct changeover</strong> — fast, high risk</li>
+      <li><strong>Parallel operation</strong> — safer, more workload</li>
+      <li><strong>Pilot conversion</strong> — one group/location first</li>
+      <li><strong>Phased conversion</strong> — staged rollout</li>
+    </ul>
+
+    <details>
+      <summary>Real-life example: Campus Equipment Booking</summary>
+      <p>Release capacity = 21 effort points. Must requirements (sign-in 3, search 5, reserve 8 = 16 points) are protected first; "Could" items like the usage dashboard are deferred. Feasibility scored 4.10/5 overall — but schedule feasibility (3/5) was the weakest area, so scope had to stay controlled even though the average looked strong.</p>
+    </details>
+  </section>
+
+  <!-- LESSON 2 -->
+  <section id="l2" class="tabpanel">
+    <h2 class="section-title">Lesson 2 — Managing Projects</h2>
+
+    <h3>Scope &amp; the WBS</h3>
+    <p>Scope is <em>not</em> a feature list — it states outcome, deliverables, boundaries, assumptions, and exclusions. A <strong>Work Breakdown Structure (WBS)</strong> decomposes the result into estimable, assignable work packages — including non-programming work like training, UAT, and closeout.</p>
+
+    <h3>Critical Path Logic</h3>
+    <p>The critical path is the <strong>longest dependency path</strong> through the project network — it sets the earliest possible finish. Example:</p>
+    <table>
+      <tr><th>Task</th><th>Description</th><th>Predecessor</th><th>Duration</th></tr>
+      <tr><td>A</td><td>Confirm requirements</td><td>—</td><td>2 days</td></tr>
+      <tr><td>B</td><td>Design screens</td><td>A</td><td>3 days</td></tr>
+      <tr><td>C</td><td>Build database</td><td>A</td><td>4 days</td></tr>
+      <tr><td>D</td><td>Integrate portal</td><td>B and C</td><td>3 days</td></tr>
+      <tr><td>E</td><td>UAT</td><td>D</td><td>2 days</td></tr>
+    </table>
+    <p>Path A-C-D-E = 2+4+3+2 = <strong>11 days</strong> (critical). Path A-B-D-E = 10 days (has 1 day of float). B can slip 1 day without changing the finish date — C cannot.</p>
+
+    <h3>Earned Value Management</h3>
+    <div class="kpi-box">
+      <div><strong>PV</strong>Planned Value — budgeted value of work that <em>should</em> be done</div>
+      <div><strong>EV</strong>Earned Value — budgeted value of work <em>actually</em> done</div>
+      <div><strong>AC</strong>Actual Cost — what was <em>actually spent</em></div>
+    </div>
+    <table>
+      <tr><th>Formula</th><th>Example</th><th>Meaning</th></tr>
+      <tr><td>SV = EV − PV</td><td>7,600 − 10,000 = −2,400</td><td>Behind planned progress</td></tr>
+      <tr><td>CV = EV − AC</td><td>7,600 − 8,600 = −1,000</td><td>Spent more than value earned</td></tr>
+      <tr><td>SPI = EV ÷ PV</td><td>0.76</td><td>&lt;1.00 → behind schedule</td></tr>
+      <tr><td>CPI = EV ÷ AC</td><td>0.88</td><td>&lt;1.00 → over budget for work achieved</td></tr>
+    </table>
+    <p class="quote">These indexes tell management WHERE to investigate — not automatically WHY. Root causes still need diagnosis.</p>
+
+    <h3>Risk vs. Issue</h3>
+    <p>A <strong>risk</strong> is uncertain and hasn't happened yet; an <strong>issue</strong> has already happened. Good risk statements include <em>cause → event → effect</em>, not just a label like "database delay." Responses: <strong>avoid, reduce, transfer, accept.</strong></p>
+
+    <h3>RACI &amp; Change Control</h3>
+    <p><strong>RACI</strong> = Responsible (does the work), Accountable (owns the decision), Consulted (gives input), Informed (kept updated). A task should not have two people believing they're the final Accountable decision-maker.</p>
+    <p>Even a reasonable change request (e.g., "add QR code check-in") needs <strong>impact analysis</strong> — requirements, design, test cases, security, schedule, cost — before it's approved, rejected, or deferred.</p>
+  </section>
+
+  <!-- LESSON 3 -->
+  <section id="l3" class="tabpanel">
+    <h2 class="section-title">Lesson 3 — Managing Global Systems</h2>
+
+    <h3>Standardization vs. Local Responsiveness</h3>
+    <p>Organizations usually want both: <strong>standardization</strong> (shared processes, data, security, software) and <strong>local responsiveness</strong> (laws, language, payments, support hours). The task is deciding what to standardize vs. what to localize — never "standardize everything" or "let every region choose."</p>
+
+    <h3>Business Strategy → System Configuration</h3>
+    <table>
+      <tr><th>Strategy</th><th>Typical System</th></tr>
+      <tr><td>Domestic exporter</td><td>Centralized</td></tr>
+      <tr><td>Multinational</td><td>Decentralized (local autonomy)</td></tr>
+      <tr><td>Franchiser</td><td>Duplicated core + local extensions</td></tr>
+      <tr><td>Transnational</td><td>Networked (global core + regional services)</td></tr>
+    </table>
+
+    <h3>Four System Configurations</h3>
+    <ul>
+      <li><strong>Centralized</strong> — simplifies standards; risks central dependency</li>
+      <li><strong>Duplicated</strong> — common core copied per region; version control is the challenge</li>
+      <li><strong>Decentralized</strong> — max local autonomy; duplicate work, inconsistent data</li>
+      <li><strong>Networked</strong> — shared global core + regional services; strongest governance needed</li>
+    </ul>
+
+    <h3>Global Core vs. Controlled Local Variation</h3>
+    <div class="grid2">
+      <div class="card"><strong>Global Core</strong><p>Identity standards, master data, security baseline, core transaction rules, shared reporting, integration interfaces.</p></div>
+      <div class="card"><strong>Local Variation</strong><p>Language, currency display, local tax logic, invoice fields, payment methods, support schedules, regulatory notices.</p></div>
+    </div>
+    <p class="quote">Review question: "What would break if this were standardized?" If only "user habit" — standardize it. If "a legal requirement would be violated" — localize it.</p>
+
+    <h3>Privacy, Language, Time Zones</h3>
+    <ul>
+      <li><strong>Privacy:</strong> map data flows (logs, backups, analytics, support tools) — not just server location.</li>
+      <li><strong>Language:</strong> localization ≠ translation — formats, character sets, legal wording, accessibility all differ.</li>
+      <li><strong>Time zones:</strong> store timestamps in UTC; convert for display. "Follow-the-sun" support needs disciplined handoffs.</li>
+    </ul>
+
+    <details>
+      <summary>Real-life example: Global Tutoring Platform Rollout</summary>
+      <table>
+        <tr><th>Region</th><th>Weighted Readiness</th><th>Support Overlap (13:00–21:00 UTC window)</th></tr>
+        <tr><td>Canada-East</td><td>4.85 / 5 — Ready</td><td>Strong overlap</td></tr>
+        <tr><td>Spain</td><td>3.70 / 5 — Needs work</td><td>Limited overlap</td></tr>
+        <tr><td>Singapore</td><td>3.50 / 5 — Needs work</td><td>No overlap</td></tr>
+      </table>
+      <p>Even a high readiness score can't override a missing mandatory legal, financial, or support gate.</p>
+    </details>
+  </section>
+
+  <!-- VOCAB -->
+  <section id="vocab" class="tabpanel">
+    <h2 class="section-title">Vocabulary Quick Reference</h2>
+    <table>
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>API</td><td>Application Programming Interface — lets software systems exchange requests/data.</td></tr>
+      <tr><td>CPI</td><td>Cost Performance Index = EV ÷ AC. &lt;1.00 = over budget for value achieved.</td></tr>
+      <tr><td>ERP</td><td>Enterprise Resource Planning — integrated software coordinating major business processes.</td></tr>
+      <tr><td>GDPR</td><td>General Data Protection Regulation — EU personal-data law.</td></tr>
+      <tr><td>IS</td><td>Information Systems — people, process, data, and technology working together.</td></tr>
+      <tr><td>KPI</td><td>Key Performance Indicator — a measure tracked against an objective.</td></tr>
+      <tr><td>MVP</td><td>Minimum Viable Product — smallest usable release that tests key assumptions.</td></tr>
+      <tr><td>RACI</td><td>Responsible, Accountable, Consulted, Informed — role clarity model.</td></tr>
+      <tr><td>SDLC</td><td>Systems Development Life Cycle — structured build/deploy/maintain sequence.</td></tr>
+      <tr><td>SPI</td><td>Schedule Performance Index = EV ÷ PV. &lt;1.00 = behind schedule.</td></tr>
+      <tr><td>UAT</td><td>User Acceptance Testing — validation by real intended users.</td></tr>
+      <tr><td>UTC</td><td>Coordinated Universal Time — global reference clock.</td></tr>
+      <tr><td>WBS</td><td>Work Breakdown Structure — hierarchical decomposition of project scope.</td></tr>
+    </table>
+    <div class="cta">
+      <a href="tests.html">Go to Flashcards &amp; Quiz →</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-stone-400 py-6 mt-8">
+  <div class="container mx-auto text-center text-sm">
+    <p style="display:flex; justify-content:center; align-items:center; gap:8px; margin:0;">
+      <img src="cybersoho.png" alt="Cyber Soho" style="height:32px;">
+      <span>Educational Hub &copy; 2026 Schiller International University</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('nav.tabs button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.tabpanel').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>
